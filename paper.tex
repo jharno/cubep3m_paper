@@ -1,0 +1,85 @@
+
+
+\documentclass[useAMS,usenatbib]{mn2e}
+
+% The usenatbib command allows the use of Patrick Daly's natbib.sty for
+% cross-referencing.
+%
+% If you wish to typeset the paper in Times font (if you do not have the
+% PostScript Type 1 Computer Modern fonts you will need to do this to get
+% smoother fonts in a PDF file) then uncomment the next line
+% \usepackage{Times}
+
+%%%%% AUTHORS - PLACE YOUR OWN MACROS HERE %%%%%
+\input{abbrev}
+\input{psfig.sty}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{txfonts}
+
+\title[{\small} CUBEP3M: Closer to optimal N-body computations]{{\small} CUBEP3M: Closer to optimal N-body computations}
+\author[Joachim Harnois-D\'{e}raps, Ue-Li Pen, Hugh Merz, Ilian T. Iliev, Hy Trac]{Joachim Harnois-D\'{e}raps$^{1,2}$ 
+\thanks{E-mail: jharno@cita.utoronto.ca},  Ue-Li Pen$^{1}$ \thanks{E-mail: pen@cita.utoronto.ca} 
+Hugh Merz$^{3}$ \thanks{E-mail: xxx},  Ilian T. Iliev$^{4}$ \thanks{E-mail: xxx} and
+Hy Trac$^{5}$ \thanks{E-mail: xxx}\\
+%\footnotemark[1]\thanks{This file has been amended to
+%highlight the proper use of \LaTeXe\ code with the class file.
+%These changes are for illustrative purposes and do not reflect the
+%original paper by A. V. Raveendran.}\\
+$^{1}$Canadian Institute for Theoretical Astrophysics, University of
+Toronto, M5S 3H8, Canada\\
+$^{2}$Department of Physics, University of Toronto, M5S 1A7, Ontario,  Canada\\
+$^{3}$Department of XXX\\
+$^{4}$Department of XXX\\
+$^{5}$Department of XXX}
+
+\begin{document}
+
+%\date{Accepted 1988 December 15. Received 1988 December 14; in original form 1988 October 11}
+\date{\today}
+
+\pagerange{\pageref{firstpage}--\pageref{lastpage}} \pubyear{2011}
+
+\maketitle
+
+\label{firstpage}
+
+\begin{abstract}
+This paper presents {\small CUBEP3M}, an upgraded version of {\small PMFAST}, 
+a two-mesh gravity solver that was already among the fastest N-body codes. 
+Among the principal changes, the Poisson solver includes particle-particles interactions
+at the subgrid level and across neighboring cells. The volume decomposition is now cubical,
+and most of the calculations on the fine mesh are {\tt openmp} parallel.
+Many utilities have been added and are briefly described, including a runtime halofinder
+and particle identification tags. 
+We discuss the structure of the code, its accuracy, and  its scaling performance.
+\end{abstract}
+
+\begin{keywords}
+To specify...
+\end{keywords}
+
+\input{Introduction}
+\input{Structure}
+\input{PoissonSolver}
+\input{Accuracy} %pairwise and density force, 2-points stats.
+\input{ScalingPerformance}
+\input{Systematics}
+\input{Halos}
+%\input{MHD}
+\input{PID}
+\input{Conclusion}
+%\input{Appendix}
+\bibliographystyle{mn2e}
+\bibliography{mybib3}{}
+%\bibliographystyle{amsplain}
+
+\bsp
+
+\label{lastpage}
+
+
+\end{document}

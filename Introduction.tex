@@ -1,0 +1,44 @@
+\section{Introduction}
+
+Over the last few years, the science of cosmology has benefited from the increased computing power now available at many facilities,
+as well as from high precision data from highly performing instruments like WMAP \cite{ref:WMAP5} and SDSS \cite{ref:SDSS} just to name  few.
+After struggling with the lack of observational evidences, cosmology has now entered the realm of precision science, where the data are more and more abundant and, 
+for the most part, its uncertainty can be brought down to the percent level. It is thus of the utmost importance to develop the theory to a high degree of precision
+in order to constrain tightly the underlying free parameters of the theory. 
+
+At the moment, most observational data \cite{ref:WMAP5}\cite{ref:SN1A}\cite{ref:BAO} seem to agree on a concordance model, also called the {$\Lambda CDM$}, in which the energy budget of the universe today is dominated by a cosmological constant, negligible curvature, along with a significant amount of cold dark matter, while particles from the Standard Model only account for a few percent. In units of critical density, the above parameters are labeled $\Omega_{\Lambda}$, $\Omega_{k}$, $\Omega_{m}$ and $\Omega_{b}$.
+In this framework, the universe has started from an early inflationary phase \cite{ref:inflation} which has ended up
+creating the matter content from reheating \cite{ref:reheating} in a close to Gaussian distribution, in the sense that the two-point correlations, either in real or Fourrier space,  contain all possible statistical information. In this case, the initial power spectrum has an amplitude $\delta_{H}$ and a tilt $n_{s}$, which is consistent with being scale independent, i.e.$\alpha_{s} \equiv d n_{s}/d ln(k) =0$ \cite{ref:WMAP5}.
+This radiation-matter plasma was originally extremely hot, but cooled as a result of adiabatic expansion, and eventually reached a temperature cold enough for electrons to recombine with protons, liberating a thermal radiation observed today as the cosmic microwave background (CMB). The universe was about 400 000 years old when that happened, and from then on, gravity was no longer suppressed by radiation pressure and started to grow structure out of the post-recombination inhomogeneities. In particular, the baryonic acoustic oscillation (BAO) \cite{ref:AO} present in the primordial plasma were frozen in the matter distribution and started to follow the Hubble flow. Much later, gravity grew regions over-dense enough to produce the first stars, supernovae, black holes and galaxies, which ignited the inter galactic medium and gradually re-ionized the gas. This process happened over an extended amount of time, probably a billion year \cite{ref:Ilian} and left very few pockets of neutral hydrogen.
+
+One of the principal objectives of modern cosmology is thus to hunt down these parameters, in attempts to minimize the uncertainty around their values or break the degeneracy between constraints.
+The CMB spectrum provides a lot of constrains on the theoretical parameters of the concordance model, but many of them are degenerate, and we must use other techniques in order to break the degeneracy. 
+Weak lensing, baryonic acoustic oscillations (BAO), cluster formation and type 1A supernovae surveys
+have been targeted as the most promising methods to constrain the dark energy equation of state \cite{ref:DETF}, but each contain
+both theoretical and observational challenges.
+
+To make a long story short, weak lensing is sensitive to XXX and allows XXX.
+
+Since they can be used as standard rulers, the detection of BAO at various redshifts allows one to reconstruct the expansion history,
+with some sensitivity to the evolution of the equation of state of dark energy. The observation requires a very large amount of galaxies whose
+redshift are known to a high level of accuracy, the signal is partly erased by non-linear clustering and is furthermore sampled only through galaxies,
+whose distribution could be biased with respect to the total mass. 
+Structure formation is affected by the global expansion, which tends to slow down gravitational collapse, and it is possible to constrain
+many parameters by measuring the growth factor of clusters at different redshifts \cite{ref:growth}. However, XXX
+Finally, type 1A supernovae are though to be standard candles, whose redshift and luminosity detection also allow to measure the expansion history.
+The assumption that they are actually standard candles as been questioned by many \cite{ref:SNdoubt}, since it is not obvious that these objects are redshift independent.
+
+
+On the theoretical side, many of the methods above mentioned require a thorough understanding of the dynamics of structure formation, and
+perturbation theory only works in the so-called linear regime. Smaller scales must be probed by solving Poisson's equation deep into the non-linear regime,
+which requires the use of N-Body simulations. Many such codes have been written in the last few years, but not all of them are optimal for the same applications.
+For example, XXXXX is a tree XXX, while XXX is a hybrid XXX. ATM, GOTPM, gadget2,...
+
+PMFAST was developed in XXX \cite{ref:PMFAST} and was already highly efficient, although the resolution was limited by the absence of particle-particle interaction at sub-grid level. Also, the force was obtained by solving Poisson's equation for the the gravitational potential, which led to the force by finite difference. 
+Finally, the simulation volume was decomposed into a set of slabs, which becomes problematic when we try to parallelize the calculation.
+Each computing unit is assigned a sub-volume of the slab, which eventually reach the limit where one cannot divide the finest cell grid, in a non-adaptative mesh grid at least.
+
+is not highly scalable to a large number of 
+
+
+Moreover, Poisson's equation was solved 

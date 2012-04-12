@@ -1,0 +1,87 @@
+%  These Macros are taken from the AAS TeX macro package version 4.0.
+%  Include this file in your LaTeX source only if you are not using
+%  the AAS TeX macro package and need to resolve the macro definitions
+%  in the BibTeX entries returned by the ADS abstract service.
+%
+%  If you plan not to use this file to resolve the journal macros
+%  rather than the whole AAS TeX macro package, you should save the
+%  file as ``aas_macros.sty'' and then include it in your paper by
+%  using a construct such as:
+%\documentstyle[11pt,aas_macros]{article}
+%
+%  For more information on the AASTeX macro package, please see the URL
+%http://www.aas.org/publications/aastex.html
+%  For more information about ADS abstract server, please see the URL
+%http://adswww.harvard.edu/ads_abstracts.html
+%
+
+% Abbreviations for journals.  The object here is to provide authors
+% with convenient shorthands for the most ``popular'' (often-cited)
+% journals; the author can use these markup tags without being concerned
+% about the exact form of the journal abbreviation, or its formatting.
+% It is up to the keeper of the macros to make sure the macros expand
+% to the proper text.  If macro package writers agree to all use the
+% same TeX command name, authors only have to remember one thing, and
+% the style file will take care of editorial preferences.  This also
+% applies when a single journal decides to revamp its abbreviating
+% scheme, as happened with the ApJ (Abt 1991).
+
+\let\jnlstyle=\rm
+\def\refjnl#1{{\jnlstyle#1}}
+
+\def\aj{\refjnl{AJ}}                   % Astronomical Journal
+\def\araa{\refjnl{ARA\&A}}             % Annual Review of Astron and Astrophys
+\def\apj{\refjnl{ApJ}}                 % Astrophysical Journal
+\def\apjl{\refjnl{ApJ}}                % Astrophysical Journal, Letters
+\def\apjs{\refjnl{ApJS}}               % Astrophysical Journal, Supplement
+\def\ao{\refjnl{Appl.~Opt.}}           % Applied Optics
+\def\apss{\refjnl{Ap\&SS}}             % Astrophysics and Space Science
+\def\aap{\refjnl{A\&A}}                % Astronomy and Astrophysics
+\def\aapr{\refjnl{A\&A~Rev.}}          % Astronomy and Astrophysics Reviews
+\def\aaps{\refjnl{A\&AS}}              % Astronomy and Astrophysics, Supplement
+\def\azh{\refjnl{AZh}}                 % Astronomicheskii Zhurnal
+\def\baas{\refjnl{BAAS}}               % Bulletin of the AAS
+\def\jrasc{\refjnl{JRASC}}             % Journal of the RAS of Canada
+\def\memras{\refjnl{MmRAS}}            % Memoirs of the RAS
+\def\mnras{\refjnl{MNRAS}}             % Monthly Notices of the RAS
+\def\pra{\refjnl{Phys.~Rev.~A}}        % Physical Review A: General Physics
+\def\prb{\refjnl{Phys.~Rev.~B}}        % Physical Review B: Solid State
+\def\prc{\refjnl{Phys.~Rev.~C}}        % Physical Review C
+\def\prd{\refjnl{Phys.~Rev.~D}}        % Physical Review D
+\def\pre{\refjnl{Phys.~Rev.~E}}        % Physical Review E
+\def\prl{\refjnl{Phys.~Rev.~Lett.}}    % Physical Review Letters
+\def\pasp{\refjnl{PASP}}               % Publications of the ASP
+\def\pasj{\refjnl{PASJ}}               % Publications of the ASJ
+\def\qjras{\refjnl{QJRAS}}             % Quarterly Journal of the RAS
+\def\skytel{\refjnl{S\&T}}             % Sky and Telescope
+\def\solphys{\refjnl{Sol.~Phys.}}      % Solar Physics
+\def\sovast{\refjnl{Soviet~Ast.}}      % Soviet Astronomy
+\def\ssr{\refjnl{Space~Sci.~Rev.}}     % Space Science Reviews
+\def\zap{\refjnl{ZAp}}                 % Zeitschrift fuer Astrophysik
+\def\nat{\refjnl{Nature}}              % Nature
+\def\iaucirc{\refjnl{IAU~Circ.}}       % IAU Cirulars
+\def\aplett{\refjnl{Astrophys.~Lett.}} % Astrophysics Letters
+\def\apspr{\refjnl{Astrophys.~Space~Phys.~Res.}}
+                % Astrophysics Space Physics Research
+\def\bain{\refjnl{Bull.~Astron.~Inst.~Netherlands}} 
+                % Bulletin Astronomical Institute of the Netherlands
+\def\fcp{\refjnl{Fund.~Cosmic~Phys.}}  % Fundamental Cosmic Physics
+\def\gca{\refjnl{Geochim.~Cosmochim.~Acta}}   % Geochimica Cosmochimica Acta
+\def\grl{\refjnl{Geophys.~Res.~Lett.}} % Geophysics Research Letters
+\def\jcp{\refjnl{J.~Chem.~Phys.}}      % Journal of Chemical Physics
+\def\jgr{\refjnl{J.~Geophys.~Res.}}    % Journal of Geophysics Research
+\def\jqsrt{\refjnl{J.~Quant.~Spec.~Radiat.~Transf.}}
+                % Journal of Quantitiative Spectroscopy and Radiative Transfer
+\def\memsai{\refjnl{Mem.~Soc.~Astron.~Italiana}}
+                % Mem. Societa Astronomica Italiana
+\def\nphysa{\refjnl{Nucl.~Phys.~A}}   % Nuclear Physics A
+\def\physrep{\refjnl{Phys.~Rep.}}   % Physics Reports
+\def\physscr{\refjnl{Phys.~Scr}}   % Physica Scripta
+\def\planss{\refjnl{Planet.~Space~Sci.}}   % Planetary Space Science
+\def\procspie{\refjnl{Proc.~SPIE}}   % Proceedings of the SPIE
+
+\let\astap=\aap
+\let\apjlett=\apjl
+\let\apjsupp=\apjs
+\let\applopt=\ao
+
