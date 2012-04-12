@@ -1,0 +1,4 @@
+#This repository serves to create collectively the paper that describes the 
+#methodology of cubep3m.
+#
+#COMPILE.csh will compile the latex files and create a .ps, .dvi and .pdf document.
