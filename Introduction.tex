@@ -1,44 +1,59 @@
 \section{Introduction}
 
-Over the last few years, the science of cosmology has benefited from the increased computing power now available at many facilities,
-as well as from high precision data from highly performing instruments like WMAP \cite{ref:WMAP5} and SDSS \cite{ref:SDSS} just to name  few.
-After struggling with the lack of observational evidences, cosmology has now entered the realm of precision science, where the data are more and more abundant and, 
-for the most part, its uncertainty can be brought down to the percent level. It is thus of the utmost importance to develop the theory to a high degree of precision
-in order to constrain tightly the underlying free parameters of the theory. 
+Many physical and astrophysical systems are subject to non-linear dynamics
+and rely on N-body simulations to describe the evolution of bodies. 
+One of the main field of application is the modelling of large scale structures, 
+which are driven by the sole force of gravity. Recent observations of the cosmic microwave background
+\citep{WMAP5-7} of galaxy clustering \citep{2df, SDSS, WiggleZ, BOSS} of weak gravitational lensing \citep{CFHTLS, SDSS}
+and of supernovae redshift-distance relations all point towards a standard model of cosmology, in which dark energy
+and collisionless dark matter occupy more than 95 per cent of the total energy density of the universe.
+In such a paradigm, pure N-body code are perfectly suited to describe the dynamics, as long as we
+understands where and how the baryonic fluid feeds back on the dark matter structure.
+The next generation of measurements aim at constraining the cosmological parameters at the per cent level, 
+and the theoretical understanding of the non-linear dynamics that govern structure formation heavily relies 
+on numerical simulations. 
 
-At the moment, most observational data \cite{ref:WMAP5}\cite{ref:SN1A}\cite{ref:BAO} seem to agree on a concordance model, also called the {$\Lambda CDM$}, in which the energy budget of the universe today is dominated by a cosmological constant, negligible curvature, along with a significant amount of cold dark matter, while particles from the Standard Model only account for a few percent. In units of critical density, the above parameters are labeled $\Omega_{\Lambda}$, $\Omega_{k}$, $\Omega_{m}$ and $\Omega_{b}$.
-In this framework, the universe has started from an early inflationary phase \cite{ref:inflation} which has ended up
-creating the matter content from reheating \cite{ref:reheating} in a close to Gaussian distribution, in the sense that the two-point correlations, either in real or Fourrier space,  contain all possible statistical information. In this case, the initial power spectrum has an amplitude $\delta_{H}$ and a tilt $n_{s}$, which is consistent with being scale independent, i.e.$\alpha_{s} \equiv d n_{s}/d ln(k) =0$ \cite{ref:WMAP5}.
-This radiation-matter plasma was originally extremely hot, but cooled as a result of adiabatic expansion, and eventually reached a temperature cold enough for electrons to recombine with protons, liberating a thermal radiation observed today as the cosmic microwave background (CMB). The universe was about 400 000 years old when that happened, and from then on, gravity was no longer suppressed by radiation pressure and started to grow structure out of the post-recombination inhomogeneities. In particular, the baryonic acoustic oscillation (BAO) \cite{ref:AO} present in the primordial plasma were frozen in the matter distribution and started to follow the Hubble flow. Much later, gravity grew regions over-dense enough to produce the first stars, supernovae, black holes and galaxies, which ignited the inter galactic medium and gradually re-ionized the gas. This process happened over an extended amount of time, probably a billion year \cite{ref:Ilian} and left very few pockets of neutral hydrogen.
+For instance, a measurement of the baryonic acoustic oscillation (BAO) dilation scale can provide
+tight constraints on the dark energy equation of scale \citep{Seo2003,2005}.
+The most optimal estimates of the uncertainty requires the knowledge of the 
+matter power spectrum covariance matrix, which is only accurate when measured from a large sample 
+of N-body simulations \citep{RH2005, japan2,japan3, Ngan}.
+For the same reasons, the most accurate estimates of weak gravitational lensing signal is obtained
+by propagating photons in past light cones that are extracted from simulated density fields \citep{HarnoisLudo, Takahashi }.
+{\bf (Ilian, could you say something about reionization here?)}
 
-One of the principal objectives of modern cosmology is thus to hunt down these parameters, in attempts to minimize the uncertainty around their values or break the degeneracy between constraints.
-The CMB spectrum provides a lot of constrains on the theoretical parameters of the concordance model, but many of them are degenerate, and we must use other techniques in order to break the degeneracy. 
-Weak lensing, baryonic acoustic oscillations (BAO), cluster formation and type 1A supernovae surveys
-have been targeted as the most promising methods to constrain the dark energy equation of state \cite{ref:DETF}, but each contain
-both theoretical and observational challenges.
-
-To make a long story short, weak lensing is sensitive to XXX and allows XXX.
-
-Since they can be used as standard rulers, the detection of BAO at various redshifts allows one to reconstruct the expansion history,
-with some sensitivity to the evolution of the equation of state of dark energy. The observation requires a very large amount of galaxies whose
-redshift are known to a high level of accuracy, the signal is partly erased by non-linear clustering and is furthermore sampled only through galaxies,
-whose distribution could be biased with respect to the total mass. 
-Structure formation is affected by the global expansion, which tends to slow down gravitational collapse, and it is possible to constrain
-many parameters by measuring the growth factor of clusters at different redshifts \cite{ref:growth}. However, XXX
-Finally, type 1A supernovae are though to be standard candles, whose redshift and luminosity detection also allow to measure the expansion history.
-The assumption that they are actually standard candles as been questioned by many \cite{ref:SNdoubt}, since it is not obvious that these objects are redshift independent.
-
-
-On the theoretical side, many of the methods above mentioned require a thorough understanding of the dynamics of structure formation, and
-perturbation theory only works in the so-called linear regime. Smaller scales must be probed by solving Poisson's equation deep into the non-linear regime,
-which requires the use of N-Body simulations. Many such codes have been written in the last few years, but not all of them are optimal for the same applications.
-For example, XXXXX is a tree XXX, while XXX is a hybrid XXX. ATM, GOTPM, gadget2,...
-
-PMFAST was developed in XXX \cite{ref:PMFAST} (we refer to this paper as MPT hereafter) and was already highly efficient, although the resolution was limited by the absence of particle-particle interaction at sub-grid level. Also, the force was obtained by solving Poisson's equation for the the gravitational potential, which led to the force by finite difference. 
-Finally, the simulation volume was decomposed into a set of slabs, which becomes problematic when we try to parallelize the calculation.
-Each computing unit is assigned a sub-volume of the slab, which eventually reach the limit where one cannot divide the finest cell grid, in a non-adaptative mesh grid at least.
-
-is not highly scalable to a large number of 
+The basic problem that is addressed with N-body codes is a time evolution of an ensemble of $N$ particles
+that is subject to gravitational attraction. The brute force calculation requires $O(N^{2})$ operation, a cost that 
+exceeds the memory and speed of current machines for large problems.
+Solving the problem  on a mesh \citep{Hockney} reduces to $O(N\mbox{log}N)$ the number of operations,
+as it is possible to solve for the particle-mesh (PM) interaction with fast Fourier transforms techniques, 
+typically using high performance libraries such as {\small FFTW} \citep{FFTW}.
 
 
-Moreover, Poisson's equation was solved 
+With the advent of large computing facilities, parallel coding has now become common practice, 
+and N-body codes have evolved both in performance and complexity. 
+Many codes have opted for a tree algorithm \citep{Gadjet, Gadjet2, TPM, GOTPM}, in which 
+the local resolution increases with the density of the matter field. 
+These have the advantage to balance the load across the computing units, which enable the calculation of high density regions. 
+The drawback is a significant loss in speed, which can be only partly recovered by turning off the tree algorithm. 
+Unlike Hydra \citep{couchman1991} and the PM code by \cite{FerrelBertschinger1995},
+ these are not designed to perform large scale PM calculations. 
+
+{\small PMFAST} (\cite{PMFAST}, MPT hereafter) is one of the first code that is designed such as to optimize the PM algorithm,
+both in terms of speed and memory usage. It uses a two-level mesh algorithm based on the gravity solver of \cite{TracPen2003},
+The long range gravitational force is computed on a  grid four times coarser, such as to minimize the communication time
+and to fit in system's memory. The short range is computed locally on a finer mesh, which can be as tight as the memory allows.
+This enable the code to evolve very large cosmological systems both rapidly and accurately, on relatively modest clusters.
+
+
+
+
+{\bf (Describe briefly   Hydra, PM code by japanese, and others...)}
+
+
+
+
+
+
+
+
