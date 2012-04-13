@@ -47,7 +47,8 @@ in which many declared variables are assigned default values,
 the redshift checkpoints are read, the {\small FFTW} plans are created, and the {\small MPI} communicators are defined.
 The phase-space array  is obtained from the output of the initial condition generator,
 and the force kernels on both grids are also constructed from the specific geometry of the simulation.
-For clarity, these operations are collected under the subroutine call {\tt initialize} in Fig. \ref{fig:structure}, 
+These kernels are slightly modified in the code configuration where the exact Newtonian force is extended outside a fine grid cell.
+For clarity, all these operations are collected under the subroutine call {\tt initialize} in Fig. \ref{fig:structure}, 
 although they are actually distinct calls in the code.
 
 Each iteration of the main loop starts with the {\tt timestep} subroutine, 
@@ -55,7 +56,7 @@ which proceed to a determination of the redshift jump by comparing the step size
 force components and from the cosmic expansion.
 The latter is found by Taylor expanding  Friedmann's equation up to the third order in the scale factor.
 Poisson's equation is then solved  in the {\tt particle\_mesh} subroutine,
-which updates the positions and velocities of the dark matter particles with a leapfrog scheme \citep{Hockney}.
+which updates the positions and velocities of the dark matter particles with a leapfrog scheme \citep{Hockney} {\bf (more on leapfrog?)}.
 If the current redshift corresponds to one of the checkpoints, the code advances all particles to their final location
 and write them to file.
 
@@ -84,8 +85,8 @@ end program cubep3m
 
 The {\tt particle\_mesh} subroutine is conceptually identical to that of {\small PMFAST}, with the exception  that {\small CUBEP3M}
 decomposes the volume into cubes (as opposed to slabs). The loop over tiles is thus performed in three dimension.
-A schematic representation of the subroutine is shown in Fig. \ref{fig:particle_mesh}, 
-and we save the detailed description of the force calculation  in section \ref{sec:Poisson}.
+A schematic representation of the subroutine is shown in Fig. \ref{fig:particle_mesh}.
+We save the detailed description of the force calculation  in section \ref{sec:Poisson}.
 
 \begin{figure}
 \begin{verbatim}
@@ -103,6 +104,11 @@ subroutine particle_mesh
       call link_list_pp
       call force_pp
       call update_velocity_pp
+      if(extended_pp = .true.)
+         call link_list_pp_extended
+         call force_pp_extended
+         call update_velocity_pp_extended       
+      endif
    end do
    !$omp end parallel do
    call rho_c_ngp
@@ -116,6 +122,4 @@ end subroutine particle_mesh
 \caption{Overall structure of the two-level mesh algorithm.}
 \label{fig:particle_mesh}
 \end{figure}
-
-force calculation, 
 

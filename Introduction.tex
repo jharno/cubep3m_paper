@@ -34,7 +34,7 @@ perturbation theory only works in the so-called linear regime. Smaller scales mu
 which requires the use of N-Body simulations. Many such codes have been written in the last few years, but not all of them are optimal for the same applications.
 For example, XXXXX is a tree XXX, while XXX is a hybrid XXX. ATM, GOTPM, gadget2,...
 
-PMFAST was developed in XXX \cite{ref:PMFAST} and was already highly efficient, although the resolution was limited by the absence of particle-particle interaction at sub-grid level. Also, the force was obtained by solving Poisson's equation for the the gravitational potential, which led to the force by finite difference. 
+PMFAST was developed in XXX \cite{ref:PMFAST} (we refer to this paper as MPT hereafter) and was already highly efficient, although the resolution was limited by the absence of particle-particle interaction at sub-grid level. Also, the force was obtained by solving Poisson's equation for the the gravitational potential, which led to the force by finite difference. 
 Finally, the simulation volume was decomposed into a set of slabs, which becomes problematic when we try to parallelize the calculation.
 Each computing unit is assigned a sub-volume of the slab, which eventually reach the limit where one cannot divide the finest cell grid, in a non-adaptative mesh grid at least.
 
