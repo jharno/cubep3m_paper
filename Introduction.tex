@@ -17,10 +17,11 @@ For instance, a measurement of the baryonic acoustic oscillation (BAO) dilation 
 tight constraints on the dark energy equation of scale \citep{Seo2003,2005}.
 The most optimal estimates of the uncertainty requires the knowledge of the 
 matter power spectrum covariance matrix, which is only accurate when measured from a large sample 
-of N-body simulations \citep{RH2005, japan2,japan3, Ngan}.
+of N-body simulations \citep{RH2005, japan2,japan3}.
 For the same reasons, the most accurate estimates of weak gravitational lensing signal is obtained
-by propagating photons in past light cones that are extracted from simulated density fields \citep{HarnoisLudo, Takahashi }.
-{\bf (Ilian, could you say something about reionization here?)}
+by propagating photons in past light cones that are extracted from simulated density fields \citep{White, Jain, Takahashi}.
+{\bf (Ilian, could you say something about reionization here? Just general references as to why one needs N-body codes to perform 
+accurate predictions/forecasts, etc.)}
 
 The basic problem that is addressed with N-body codes is a time evolution of an ensemble of $N$ particles
 that is subject to gravitational attraction. The brute force calculation requires $O(N^{2})$ operation, a cost that 
@@ -39,21 +40,39 @@ The drawback is a significant loss in speed, which can be only partly recovered 
 Unlike Hydra \citep{couchman1991} and the PM code by \cite{FerrelBertschinger1995},
  these are not designed to perform large scale PM calculations. 
 
-{\small PMFAST} (\cite{PMFAST}, MPT hereafter) is one of the first code that is designed such as to optimize the PM algorithm,
-both in terms of speed and memory usage. It uses a two-level mesh algorithm based on the gravity solver of \cite{TracPen2003},
-The long range gravitational force is computed on a  grid four times coarser, such as to minimize the communication time
-and to fit in system's memory. The short range is computed locally on a finer mesh, which can be as tight as the memory allows.
-This enable the code to evolve very large cosmological systems both rapidly and accurately, on relatively modest clusters.
-
-
-
-
 {\bf (Describe briefly   Hydra, PM code by japanese, and others...)}
 
 
+{\small PMFAST} (\cite{PMFAST}, MPT hereafter) is one of the first code that is designed such as to optimize the PM algorithm,
+both in terms of speed and memory usage. It uses a two-level mesh algorithm based on the gravity solver of \cite{TracPen2003},
+The long range gravitational force is computed on a  grid four times coarser, such as to minimize the communication time
+and to fit in system's memory. The short range is computed locally on a finer mesh, and only the local sub-volume needs 
+to be stored at a given time, allowing for parallel computation.
+This this setup enable the code to evolve very large cosmological systems both rapidly and accurately, on relatively modest clusters.
+One of the main advantage of {\small PMFAST} over other PM codes is that the number of large arrays is minimized,
+and the global {\small MPI} communications are cut down to the minimum: for passing particle at the beginning of each time step,
+and  for computing the long range FFTs.
+As described in MPT, access to particles is accelerated with the use of linked lists, deletion of `ghost' particles
+in buffer zones is done at the same time as particles are passed to adjacent nodes,
+and the global FFTs are performed with a slab decomposition of the volumes via a special file transfer interface, 
+designed specifically to preserve a high processor load.
 
+Since its first published version, {\small PMFAST} has evolved in many aspects. 
+The first major improvement was to transform the volume decomposition in multi-node configurations 
+from slabs to cubes. One of the problem with slabs is that they do not scale well to large runs: 
+as the number of cells per dimension increases, the thickness of each slab shrinks rapidly,
+until it reaches the hard limit of a single cell layer.  With this enhancement came a new name, {\small CUBEPM},
+which soon after incorporated particle-particle (pp) interactions at the sub-grid level, and the code was renamed
+{\small CUBEP3M}. It now includes a significant number of new features since MPT : the pp force
+can be extended to an arbitrary range, the size of the redshift jump can be constrained for improved accuracy during the first time steps,
+a runtime halofinder has been implemented, the expansion has also been generalized to include a redshift dependent equation of state of dark energy, there is a system of unique particle identification which can be switched on or off, and the initial condition generator has been generalized as to include non-Gaussian features
+{\bf (anything else?)}.
+{\small CUBEP3M} has already been involved in a number of scientific applications over the last few years,
+spanning the field of weak lensing \citep{Sanaz_Lu, Lu_dore, Dore_Lu, Harnois_Vafaei, LuCMBLensing},  BAO
+ \citep{HarnoisPen, Ngan,Zhang, Yu, HarnoisYu in prep.}, re-ionization \citep{Ilian...}, {\bf (anymore cubep3m papers to cite?)}  
 
-
+This paper aims at presenting and quantifying these new features that make {\small CUBEP3M} one of the most competitive public N-body code.
+It is structured as follow: XXXX 
 
 
 
