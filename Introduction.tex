@@ -45,9 +45,9 @@ Unlike Hydra \citep{couchman1991} and the PM code by \cite{FerrelBertschinger199
 
 {\small PMFAST} (\cite{PMFAST}, MPT hereafter) is one of the first code that is designed such as to optimize the PM algorithm,
 both in terms of speed and memory usage. It uses a two-level mesh algorithm based on the gravity solver of \cite{TracPen2003},
-The long range gravitational force is computed on a  grid four times coarser, such as to minimize the communication time
+The long range gravitational force is computed on a  grid four times coarser, such as to minimize the {\small MPI} communication time
 and to fit in system's memory. The short range is computed locally on a finer mesh, and only the local sub-volume needs 
-to be stored at a given time, allowing for parallel computation.
+to be stored at a given time, allowing for {\small OPENMP}parallel computation.
 This this setup enable the code to evolve very large cosmological systems both rapidly and accurately, on relatively modest clusters.
 One of the main advantage of {\small PMFAST} over other PM codes is that the number of large arrays is minimized,
 and the global {\small MPI} communications are cut down to the minimum: for passing particle at the beginning of each time step,
@@ -67,12 +67,13 @@ which soon after incorporated particle-particle (pp) interactions at the sub-gri
 can be extended to an arbitrary range, the size of the redshift jump can be constrained for improved accuracy during the first time steps,
 a runtime halofinder has been implemented, the expansion has also been generalized to include a redshift dependent equation of state of dark energy, there is a system of unique particle identification which can be switched on or off, and the initial condition generator has been generalized as to include non-Gaussian features
 {\bf (anything else?)}.
-{\small CUBEP3M} has already been involved in a number of scientific applications over the last few years,
-spanning the field of weak lensing \citep{Sanaz_Lu, Lu_dore, Dore_Lu, Harnois_Vafaei, LuCMBLensing},  BAO
- \citep{HarnoisPen, Ngan,Zhang, Yu, HarnoisYu in prep.}, re-ionization \citep{Ilian...}, {\bf (anymore cubep3m papers to cite?)}  
 
 This paper aims at presenting and quantifying these new features that make {\small CUBEP3M} one of the most competitive public N-body code.
-It is structured as follow: XXXX 
+It has already been involved in a number of scientific applications over the last few years,
+spanning the field of weak lensing \citep{Sanaz_Lu, Lu_dore, Dore_Lu, Harnois_Vafaei, LuCMBLensing},  BAO
+ \citep{HarnoisPen, Ngan,Zhang, Yu, HarnoisYu in prep.}, re-ionization \citep{Ilian...}, {\bf (anymore cubep3m papers to cite?)},  
+and it seems relevant for the community to have access to a paper that describes the methodology, the accuracy and the performance of this public code 
+The paper is structured as follow: XXXX 
 
 
 

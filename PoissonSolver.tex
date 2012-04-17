@@ -2,25 +2,16 @@
 \label{sec:Poisson}
 
 
-This section describes how Poisson's equation is solved at each time step of the main loop. 
-Many parts of the algorithm are identical to {\small PMFAST}, hence we refer extensively 
-to section 2 of MPT.
-
-The reason that motivates the double mesh configuration is to allow the force of gravity to be broken down into 
-a long and a short range components. This two-mesh decomposition was first seen in Hydra \citep{hydra}, 
-and is now used by many codes, including {\small PMFAST}, {\bf (TracPen2003)} and {\bf (Other codes?)}.
-The long range force requires knowledge of the complete simulated volume, 
-but can be computed on a coarser grid without degrading significantly the precision of the calculation.
-Using a grid 64 times coarser limits the global communication time, plus contribute only to a fraction of the total memory requirement.
-The short range force is computed on the finer mesh and is local in the sense that it only knows about the matter in the immediate surroundings.
-It can thus be computed simultaneously on many computing units with {\small OPENMP} parallel loops, each {\small CPU} solving for a different sub-volume,
-as long as the arrays are constructed such as to support parallel reading and writing\footnote{In practice, this is done by adding an additional dimension
-to the relevant arrays, such that each {\small CPU} accesses a unique memory location.}. 
-The particle-particle (pp) interactions are also local operations, and are computed inside the same {\small OPENMP} loops. 
+This section reviews how Poisson's equation is solved on a double-mesh configuration. 
+Many parts of the algorithm are identical to {\small PMFAST}, hence we refer the reader 
+to section 2 of MPT for more details. In cubep3m, the mass default assignment scheme are
+a `cloud-in-cell' (cic) interpolation for the coarse grid,  and a `nearest-grid-point' interpolation 
+for the fine grid \citep{Hockney}. Particle-particle interactions are not interpolated, but a sharp cutoff kills the force
+for pairs closer to a tenth of a grid cell. 
 
 The force of gravity on a mesh can be computed either with a gravitational potential  kernel $\omega_{\phi} ({\bf x})$
   or a force  kernel $\omega_{F} ({\bf x})$.
-It is a curl-free field, which allows us to relate the potential $\phi({\bf x})$to the source term via Poisson's equation: 
+Gravity fields are curl-free, which allows us to relate the potential $\phi({\bf x})$ to the source term via Poisson's equation: 
 \begin{eqnarray}
 \nabla^{2}\phi({\bf x}) = 4 \pi G \rho({\bf x})
 \label{eq:poisson}
@@ -49,10 +40,11 @@ and the force kernel is given by
 {\bf  \omega}_{F}({\bf x}) \equiv - {\bf \nabla}\omega_{\phi}({\bf x}) = - \frac{mG \hat{\bf r}}{r^{2}}
 \end{eqnarray}
 
-Following MPT, we split  the force kernel into two components, for the short and long range respectively, and 
-match the overlapping regions with a polynomial. Namely, we have:
+Following the spherically symmetric matching technique of MPT (section 2.1), 
+we split  the force kernel into two components, for the short and long range respectively, and 
+match the overlapping region with a polynomial. Namely, we have:
 \begin{eqnarray}
-{\bf \omega}_{s}(r) = \begin{cases} {\bf \omega}_{F}(r) -  {\bf \beta}(r) &\mbox{if  } \mbox{$r$ $\le$ $r_{c}$ } \\
+{\bf \omega}_{s}({\bf r}) = \begin{cases} {\bf \omega}_{F}(r) -  {\bf \beta}(r) &\mbox{if  } \mbox{$r$ $\le$ $r_{c}$ } \\
 0 & \mbox{otherwise} 
 \end{cases}
 \end{eqnarray}
@@ -68,9 +60,16 @@ The vector $ {\bf \beta}(r)$ is related to the fourth order polynomial that is u
   \begin{eqnarray}
    {\bf \beta}(r) = \bigg[ -\frac{7 r}{4 r_{c}^{3}} + \frac{3 r^{3}}{4 r^{5}}\bigg] \hat{\bf r}
   \end{eqnarray}
-The long range force is subject to a correction that fixes {\bf (what exactly?)}.
 
-Window, kernel matching...
+Because these calculations are performed on two grids of different resolution, a sampling window function must be convoluted 
+both with the density and the kernel (see [Eq. 7-8] of MPT).
+When matching the two  force kernels, it was realized that close to the cutoff region, the long range force is always on the low side, whereas 
+the short range force is scattered across the theoretical $1/r^2$ value. These behaviours are purely features of the CIC and NGP interpolation scheme 
+respectively. We identified a small range surrounding the cutoff length, in which we empirically adjust both kernels such as to improve 
+the match. Namely, for $14 \le r \le 16$, ${\bf \omega}_{s}({\bf r}) \rightarrow {\bf \omega}_{s}({\bf r})*0.985$,
+and for  $12 \le r \le 16$, ${\bf \omega}_{l}({\bf r}) \rightarrow {\bf \omega}_{l}({\bf r})*1.2$.
+The two fudge factors were found by performing force measurements on two particles randomly placed in the volume.
+ 
+In addition, the long range force is subject to a correction that fixes {\bf (what exactly fixes the LRCKCORR flag?)}.
 
- equation to match them, fudge factor,
-corrected kernel, pp and extended pp.
+{\bf (Anything else here?)}

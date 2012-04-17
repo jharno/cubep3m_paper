@@ -1,65 +1,79 @@
 
-\section{Presentation of the Code}
-\label{sec:presentation}
+\section{Review of the Code Structure}
+\label{sec:structure}
 
 
+An optimal large scale N-body code must address many challenges: minimize the memory footprint to allow larger dynamical range,
+minimize the passing of information across computing nodes, reduce and accelerate the memory accesses to the large scale arrays, 
+make efficient use of high performance libraries to speed up standard calculations like Fourier transforms, just to name a few.
+In the realm of parallel programming, high efficiency  can be assessed when a high load is balanced across all processors
+most of the time. In this section, we present the general strategies adopted to address these challenges\footnote{ 
+Many originate directly from MPT and were preserved in {\small CUBEP3M};
+those will be briefly mentioned, and we shall refer the reader to the original PMFAST paper for greater details.}.
+We start with a walkthrough the code flow, and briefly discuss some specific sections that depart from standard N-body codes,
+while referring the reader to future sections for detailed discussions on selected topics.
 
-An optimal N-body code is able to make efficient use of the available memory in order to maximize the size of the problem to solve,
-and at the same time it must be fast for calculations to converge. In addition, communication time must be cut down to the strict minimum, 
-and the load across all the available computing units must be as balanced as possible. 
-In this section, we present the strategy adopted to address these challenges, and quickly walk through the code flow.
-We refer the reader to future sections for detailed discussions on specific topics.
-In its standard configuration, {\small CUBEP3M} is a {\small FORTRAN90} N-body code that solves Poisson's equation on a two-level mesh, 
-with sub-cell accuracy thanks to particle-particle interactions. The force of gravity from dark matter particles is decomposed into a sum of three distinct contribution,
-which are constructed such as to optimize both speed and memory. The code has many extensions that departs from this basic scheme, and
-we shall come back to these later. 
 
-\subsection{Memory foot-print and communication strategy}
-\label{subsec:memory}
-When designing a simulation geometry, one has to verify that the configuration fits in the system's memory.
-The bulk of the memory foot-print is concentrated in a handful of large arrays that mostly concern the fine grid:
-the coarse grid requires $4^3$ times less memory per node, hence has a minor contribution. 
-In addition, many of these arrays are intermediate steps, hence it is possible to recycle the memory space required by the fine 
-in the calculation of the coarse grid.  
-Here are the largest  arrays used by the code:
-\begin{enumerate}
-\item{{\tt xv}, a phase-space array which stores the position and velocity of each particle} 
-\item{{\tt ll}, a linked-list array that accelerate the access to particles in a local domain}
-\item{{\tt rho\_f} and {\tt cmplx\_rho\_f}, a pair of three-dimensional array that stores 
-the complete matter density for a given node in real and Fourier space respectively}
-\item{{\tt force\_f}, an array that stores the force of gravity along the three Cartesian directions}
-\item{{\tt kern\_f}, an array that stores the fine grid force kernel in the three directions}
-\end{enumerate}
-
+As mentioned in the Introduction section, {\small CUBEP3M} is a {\small FORTRAN90} 
+N-body code that solves Poisson's equation on a two-level mesh, 
+with sub-cell accuracy thanks to particle-particle interactions. 
+The code has extensions that departs from this basic scheme, and
+we shall come back to these later, but for the moment, we adopt the 
+standard configuration. 
 The long range component of the gravity force is solved on the coarse grid, 
 and is global in the sense that the calculations require knowledge about the full simulated volume.
-Information is shared across multiple nodes with {\small MPI} communications. 
-The short range force and the particle-particle interactions  are computed locally on a single processor,  
-hence a node that has multiple cores can compute in parallel a series of such local contributions, or {\it tiles}, with the {\small OPENMP} technology.
-The information exchange between cores that are part of the same motherboard is generally much faster than that across nodes,
-hence it is generally a good practice to maximize the number of {\small OPENMP} threads and minimize the number of {\small MPI} processes.
+The short range force and the particle-particle interactions are computed in parallel on local volumes\footnote{To make this possible, the fine grid arrays are constructed such as to support parallel reading and writing. In practice, this is done by adding an additional dimension to the relevant arrays, such that each {\small CPU} accesses a unique memory location.} or {\it tiles},
+and for maximal efficiency, the number of tiles per node should be at least equal to the number of available processors.
+Given the available freedom in the parallel configuration, it is generally good practice to maximize the number of {\small OPENMP} threads and minimize the number of {\small MPI} processes, as the information exchange between cores that are part of the same motherboard is generally much faster.
+As mentioned in MPT, the computation of the short range force requires each tile to store the fine grid density in a buffer surface around the physical volume it is assigned. The thickness of this surface must be larger than the cutoff length, and we find that a 24 cells deep buffer
+is a good compromise between memory usage and accuracy {\bf (Hugh, is that correct?)}
+ 
 
-\subsection{Code overview}
-\label{subsec:overview}
+%\subsection{Memory foot-print and communication strategy}
+%\label{subsec:memory}
 
-The code flow is presented in Fig. \ref{fig:structure}.
+Because the coarse grid arrays require $4^3$ times less memory per node, 
+the bulk of the foot-print is concentrated in a handful of fine grid arrays.
+In addition, some of these are required for intermediate steps of the calculations only, 
+hence it is possible to hide some of the coarse grid arrays\footnote{ This memory recycling is done with `equivalence' statements in {\small F90}}.   
+We present here the largest arrays used by the code:
+\begin{enumerate}
+\item{{\tt xv} stores the position and velocity of each particle} 
+\item{{\tt ll} stores the linked-list that accelerate the access to particles in a local domain}
+\item{{\tt rho\_f} and {\tt cmplx\_rho\_f} store 
+the local fine grid density  in real and Fourier space respectively}
+\item{{\tt force\_f} stores the force of gravity (short range only) along the three Cartesian directions}
+\item{{\tt kern\_f} stores the fine grid force kernel in the three directions}
+\end{enumerate}
+
+%\subsection{Code overview}
+%\label{subsec:overview}
+
+The code flow is presented in Fig. \ref{fig:structure} and \ref{fig:particle_mesh}.
 Before entering the main loop, the code starts with an initialization stage, 
 in which many declared variables are assigned default values,
 the redshift checkpoints are read, the {\small FFTW} plans are created, and the {\small MPI} communicators are defined.
-The phase-space array  is obtained from the output of the initial condition generator,
-and the force kernels on both grids are also constructed from the specific geometry of the simulation.
-These kernels are slightly modified in the code configuration where the exact Newtonian force is extended outside a fine grid cell.
+The phase-space array  is obtained from the output of the initial conditions generator,
+and the force kernels on both grids are constructed from the specific geometry of the simulation.
 For clarity, all these operations are collected under the subroutine call {\tt initialize} in Fig. \ref{fig:structure}, 
 although they are actually distinct calls in the code.
 
 Each iteration of the main loop starts with the {\tt timestep} subroutine, 
-which proceed to a determination of the redshift jump by comparing the step size constraints from each
-force components and from the cosmic expansion.
-The latter is found by Taylor expanding  Friedmann's equation up to the third order in the scale factor.
-Poisson's equation is then solved  in the {\tt particle\_mesh} subroutine,
-which updates the positions and velocities of the dark matter particles with a leapfrog scheme \citep{Hockney} {\bf (more on leapfrog?)}.
-If the current redshift corresponds to one of the checkpoints, the code advances all particles to their final location
-and write them to file.
+which proceeds to a determination of the redshift jump by comparing the step size constraints from each
+force components and from the scale factor.
+The cosmic expansion is found by Taylor expanding Friedmann's equation up to the third order in the scale factor,
+and can accommodate constant or running equation of state of dark energy.
+The force of gravity is then solved  in the {\tt particle\_mesh} subroutine,
+which first updates the positions and velocities of the dark matter particles, exchange with neighbouring nodes those that have exited to volume,
+creates a new linked list, then solve Poisson's equation.  This subroutine is conceptually identical to that of {\small PMFAST}, 
+with the exception  that {\small CUBEP3M} decomposes the volume into cubes (as opposed to slabs). 
+The loop over tiles and the particle exchange are thus performed in three dimensions.
+{\bf (Should I mention leapfrog here or anywhere else?)}
+When the short range and pp forces have been calculated on all tiles, the code exits the parallel {\small OPENMP} loop
+and proceeds to the long range. This section of the code is also parallelized in many occasions, but, unfortunately, the current {\small MPI-FFTW}
+do not allow multi-threading. There is thus an inevitable loss of efficiency during each global Fourier transforms, during which
+only the head processor is active. Other libraries such as {\small P3DFFT} or  Intel {\small MKL-$\alpha$} currently permit this extra level of parallelization,
+and it is our plan to migrate to one of these in the near future.
 
 \begin{figure}
 \begin{verbatim}
@@ -81,34 +95,28 @@ end program cubep3m
 \label{fig:structure}
 \end{figure}
 
-\subsection{Two-level algorithm}
-\label{subsec:particle_mesh}
-
-The {\tt particle\_mesh} subroutine is conceptually identical to that of {\small PMFAST}, with the exception  that {\small CUBEP3M}
-decomposes the volume into cubes (as opposed to slabs). The loop over tiles is thus performed in three dimension.
-A schematic representation of the subroutine is shown in Fig. \ref{fig:particle_mesh}.
-We save the detailed description of the force calculation  in section \ref{sec:Poisson}.
-
 \begin{figure}
 \begin{verbatim}
 subroutine particle_mesh
    call update_position
-   call particle_pass
    call link_list
+   call particle_pass
    !$omp parallel do
    do tile = 1, tiles_node
       call rho_f_ngp
       call cmplx_rho_f
       call kernel_multiply_f
       call force_f
-      call update_velocity_f      
-      call link_list_pp
-      call force_pp
-      call update_velocity_pp
-      if(extended_pp = .true.)
-         call link_list_pp_extended
-         call force_pp_extended
-         call update_velocity_pp_extended       
+      call update_velocity_f
+      if(pp = .true.) then       
+         call link_list_pp
+         call force_pp
+         call update_velocity_pp
+         if(extended_pp = .true.) then
+            call link_list_pp_extended
+            call force_pp_extended
+            call update_velocity_pp_extended       
+         endif
       endif
    end do
    !$omp end parallel do
@@ -120,7 +128,15 @@ subroutine particle_mesh
    delete_buffers
 end subroutine particle_mesh
 \end{verbatim}
-\caption{Overall structure of the two-level mesh algorithm.}
+\caption{Overall structure of the two-level mesh algorithm. We have included the section that concerns the extended pp force calculation to show that it follows the same basic logic. We mention here that the three linked list arrays are distinct entities, and their structure differ slightly.  }
 \label{fig:particle_mesh}
 \end{figure}
 
+
+If the current redshift corresponds to one of the checkpoints, the code advances all particles to their final location
+and writes them to file. Similarly, the code can compute two-dimensional projections of the density field, halo catalogues (see section \ref{sec:halo} for details), and can compute the power spectrum on the coarse grid at run time {\bf (is this correct?)}. 
+The code exits the loop when it has reached the final redshift, it then wraps up the {\small FFTW} plans 
+and clears the {\small MPI} communicators. We have collected those operations under the subroutine {\tt finalize} for concision.
+
+
+{\bf (Anything else to say in this section?)}
