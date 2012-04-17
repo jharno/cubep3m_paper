@@ -6,7 +6,7 @@ This section reviews how Poisson's equation is solved on a double-mesh configura
 Many parts of the algorithm are identical to {\small PMFAST}, hence we refer the reader 
 to section 2 of MPT for more details. In cubep3m, the mass default assignment scheme are
 a `cloud-in-cell' (cic) interpolation for the coarse grid,  and a `nearest-grid-point' interpolation 
-for the fine grid \citep{Hockney}. Particle-particle interactions are not interpolated, but a sharp cutoff kills the force
+for the fine grid \citep{1981csup.book.....H}. Particle-particle interactions are not interpolated, but a sharp cutoff kills the force
 for pairs closer to a tenth of a grid cell. 
 
 The force of gravity on a mesh can be computed either with a gravitational potential  kernel $\omega_{\phi} ({\bf x})$

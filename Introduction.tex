@@ -4,7 +4,7 @@ Many physical and astrophysical systems are subject to non-linear dynamics
 and rely on N-body simulations to describe the evolution of bodies. 
 One of the main field of application is the modelling of large scale structures, 
 which are driven by the sole force of gravity. Recent observations of the cosmic microwave background
-\citep{WMAP5-7} of galaxy clustering \citep{2df, SDSS, WiggleZ, BOSS} of weak gravitational lensing \citep{CFHTLS, SDSS}
+\citep{WMAP5-7} of galaxy clustering \citep{2000AJ....120.1579Y, 2003astro.ph..6581C, 2009arXiv0902.4680S, 2010MNRAS.401.1429D} of weak gravitational lensing \citep{CFHTLS, SDSS}
 and of supernovae redshift-distance relations all point towards a standard model of cosmology, in which dark energy
 and collisionless dark matter occupy more than 95 per cent of the total energy density of the universe.
 In such a paradigm, pure N-body code are perfectly suited to describe the dynamics, as long as we
@@ -17,18 +17,18 @@ For instance, a measurement of the baryonic acoustic oscillation (BAO) dilation 
 tight constraints on the dark energy equation of scale \citep{Seo2003,2005}.
 The most optimal estimates of the uncertainty requires the knowledge of the 
 matter power spectrum covariance matrix, which is only accurate when measured from a large sample 
-of N-body simulations \citep{RH2005, japan2,japan3}.
+of N-body simulations \citep{2005MNRAS.360L..82R, 2009ApJ...700..479T, 2011ApJ...726....7T}.
 For the same reasons, the most accurate estimates of weak gravitational lensing signal is obtained
-by propagating photons in past light cones that are extracted from simulated density fields \citep{White, Jain, Takahashi}.
+by propagating photons in past light cones that are extracted from simulated density fields \citep{2003ApJ...592..699V, 2009ApJ...701..945S, 2009A&A...499...31H}.
 {\bf (Ilian, could you say something about reionization here? Just general references as to why one needs N-body codes to perform 
 accurate predictions/forecasts, etc.)}
 
 The basic problem that is addressed with N-body codes is a time evolution of an ensemble of $N$ particles
 that is subject to gravitational attraction. The brute force calculation requires $O(N^{2})$ operation, a cost that 
 exceeds the memory and speed of current machines for large problems.
-Solving the problem  on a mesh \citep{Hockney} reduces to $O(N\mbox{log}N)$ the number of operations,
+Solving the problem  on a mesh \citep{1981csup.book.....H} reduces to $O(N\mbox{log}N)$ the number of operations,
 as it is possible to solve for the particle-mesh (PM) interaction with fast Fourier transforms techniques, 
-typically using high performance libraries such as {\small FFTW} \citep{FFTW}.
+typically using high performance libraries such as {\small FFTW} \citep{FFTW3}.
 
 
 With the advent of large computing facilities, parallel coding has now become common practice, 
@@ -43,7 +43,7 @@ Unlike Hydra \citep{couchman1991} and the PM code by \cite{FerrelBertschinger199
 {\bf (Describe briefly   Hydra, PM code by japanese, and others...)}
 
 
-{\small PMFAST} (\cite{PMFAST}, MPT hereafter) is one of the first code that is designed such as to optimize the PM algorithm,
+{\small PMFAST} (\cite{2005NewA...10..393M}, MPT hereafter) is one of the first code that is designed such as to optimize the PM algorithm,
 both in terms of speed and memory usage. It uses a two-level mesh algorithm based on the gravity solver of \cite{TracPen2003},
 The long range gravitational force is computed on a  grid four times coarser, such as to minimize the {\small MPI} communication time
 and to fit in system's memory. The short range is computed locally on a finer mesh, and only the local sub-volume needs 
@@ -70,8 +70,8 @@ a runtime halofinder has been implemented, the expansion has also been generaliz
 
 This paper aims at presenting and quantifying these new features that make {\small CUBEP3M} one of the most competitive public N-body code.
 It has already been involved in a number of scientific applications over the last few years,
-spanning the field of weak lensing \citep{Sanaz_Lu, Lu_dore, Dore_Lu, Harnois_Vafaei, LuCMBLensing},  BAO
- \citep{HarnoisPen, Ngan,Zhang, Yu, HarnoisYu in prep.}, re-ionization \citep{Ilian...}, {\bf (anymore cubep3m papers to cite?)},  
+spanning the field of weak lensing \citep{Vafaei10, 2008MNRAS.388.1819L,  2009arXiv0905.0501D, 2010PhRvD..81l3015L, 2010arXiv1012.0444Y, Harnois_Vafaei},  BAO
+ \citep{2010arXiv1008.3506Z,  2011arXiv1106.5548N, 2011arXiv1109.5746H, HarnoisYuReco}, re-ionization \citep{Ilian...}, {\bf (anymore cubep3m papers to cite?)},  
 and it seems relevant for the community to have access to a paper that describes the methodology, the accuracy and the performance of this public code 
 The paper is structured as follow: XXXX 
 

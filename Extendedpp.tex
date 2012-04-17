@@ -1,5 +1,34 @@
 \subsection{Extended range of the pp force}
 \label{subsec:extendedpp}
 
+One of the main source of error in the calculation of the force occurs when on the smallest scales of the fine grid.
+The approximation by which particles in a neighbouring mesh grid can be placed at the centre of the cell
+is less accurate, which cause a maximal scatter around the exact $1/r^2$ law.
+A solution to minimize this error consists in extending the pp force calculation outside a single cell,
+which inevitably reintroduces a $N^2$ number of operations. Our goal is to add the flexibility to have a code
+that runs slower, but produces results with a higher precision. 
 
-{\bf (JD, here will be one of your contribution!)}
+To allow this feature, we  have to choose how far outside a cell we want the exact pp force.  
+Since the force kernels on both meshes are organized in terms of grids, the simplest way to implement this 
+feature is to shut down the mesh kernels in a region of specified size, and allow the pp force to extend therein.
+Concretely, these regions are constructed as cubic layers of fine mesh grids around a central cell; 
+the freedom we have is to choose the number of such layers.
+ 
+ To speed up the access to all particles within the domain of computation, we construct a thread safe linked list
+ to be constructed and accessed in parallel by each core of the system, but this time with a head-of-chain that points to the first particle in the current fine mesh cell. We then loop over all fine grids, accessing the particles contained therein and inside each fine grid cells for which we killed the mesh kernels,
+ we compute the separation and the force between each pairs and update their velocities simultaneously with Newton's third law. 
+ To avoid double counting, we loop only over the fine mesh neighbours that produce non-redundant contributions. Namely, for a central cell located at 
+ $(x_1, y_1, z_1)$, we only consider the neighbours $(x_2, y_2, z_2)$ that satisfy the following conditions:
+ \begin{itemize}
+ \item{$z_2 \ge z_1$ always}
+ \item{if $z_2 = z_1$, then $y_2 \ge y_1$, otherwise we also allow $y_2 < y_1$} 
+ \item{if $z_2 = z_1$ and $y_2 = y_1$, then we enforce $x_2 > x_1$}
+ \end{itemize}
+ The case where all three coordinates are equal is already calculated in the standard configuration of the code.
+ 
+ To quantify the accuracy improvement versus computing time requirements, we performed the following test.
+ We generate a set of initial conditions at a starting redshift of $z = XXX$, with a box size equal to $ XXX h^{-1}\mbox{Mpc}$,
+ and with $XXX^{3}$ particles. We evolve the particles to $z=0$ with different ranges for the pp calculation, and compare 
+ the resulting power spectra. For the results to be meaningful, we also need to use the same random seed for the random number generator,
+ such that the only difference between different runs is the range of the pp force.
+{\bf (JD, insert here your P(k) plot and a description of what you observe, in terms of accuracy improvement and real time cpu usage...)}

@@ -50,7 +50,7 @@ $^{5}$Department of XXX}
 This paper presents {\small CUBEP3M}, an upgraded version of {\small PMFAST}, 
 a two-mesh gravity solver that was already among the fastest N-body codes. 
 Among the principal changes, the Poisson solver includes particle-particles interactions
-at the subgrid level and across neighboring cells. The volume decomposition is now cubical,
+at the sub-grid level and across neighbouring cells. The volume decomposition is now cubical,
 and most of the calculations on the fine mesh are {\tt openmp} parallel.
 Many utilities have been added and are briefly described, including a runtime halofinder
 and particle identification tags. 
@@ -64,7 +64,6 @@ To specify...
 \input{Introduction}
 \input{Structure}
 \input{PoissonSolver}
-\input{Accuracy} %pairwise and density force, 2-points stats.
 \input{ScalingPerformance}
 \input{Systematics}
 \input{Halos}
