@@ -20,7 +20,7 @@
 \usepackage{amsfonts}
 \usepackage{txfonts}
 
-\title[{\small} CUBEP3M: High Performance P3M N-body code]{{\small} CUBEP3M: High Performance P3M N-body code}
+\title[{\small} CUBEP3M: High Performance P$^{3}$M N-body code]{{\small} CUBEP3M: High Performance P$^{3}$M N-body code}
 \author[Joachim Harnois-D\'{e}raps, Ue-Li Pen, Hugh Merz, Ilian T. Iliev]{Joachim Harnois-D\'{e}raps$^{1,2}$ 
 \thanks{E-mail: jharno@cita.utoronto.ca},  Ue-Li Pen$^{1}$ \thanks{E-mail: pen@cita.utoronto.ca}, 
 Hugh Merz$^{3}$ \thanks{E-mail: merz@sharcnet.ca} and  Ilian T. Iliev$^{4}$ \thanks{E-mail: i.t.iliev@sussex.ac.uk}\\
@@ -50,15 +50,17 @@ $^{5}$Department of XXX}
 This paper presents {\small CUBEP3M}, an upgraded version of {\small PMFAST}, 
 a two-mesh gravity solver that was already among the fastest N-body codes. 
 Among the principal changes, the Poisson solver includes particle-particles interactions
-at the sub-grid level and across neighbouring cells. The volume decomposition is now cubical,
-and most of the calculations on the fine mesh are {\tt openmp} parallel.
-Many utilities have been added and are briefly described, including a runtime halofinder
-and particle identification tags. 
-We discuss the structure of the code, its accuracy, and  its scaling performance.
+at the sub-grid level and across neighbouring cells, plus each level of the volume decomposition is now cubical.
+Force kernel have been improved for enhanced matching of the two mesh contributions near the cutoff length.
+We discuss the structure of the code, its accuracy, and its scaling performance.
+In addition, many utilities have been added, including a runtime halofinder,
+particle identification tags and non-Gaussian initial conditions generator, and we briefly describe their implementation strategy
+and accuracy, when applicable . 
+
 \end{abstract}
 
 \begin{keywords}
-To specify...
+N-body simulations --- Large scale structure of Universe --- Dark matter
 \end{keywords}
 
 \input{Introduction}

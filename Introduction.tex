@@ -33,18 +33,17 @@ typically using high performance libraries such as {\small FFTW} \citep{FFTW3}.
 
 With the advent of large computing facilities, parallel coding has now become common practice, 
 and N-body codes have evolved both in performance and complexity. 
-Many codes have opted for a tree algorithm \citep{Gadjet, Gadjet2, TPM, GOTPM}, in which 
-the local resolution increases with the density of the matter field. 
+Many codes have opted for a tree algorithm, including Gadjet \citep{Gadjet, Gadjet2}, PMT \citep{1995ApJS...98..355X}, GOTPM \citep{2004NewA....9..111D}, and Hydra \citep{Hydra}, in which the local resolution increases with the density of the matter field. 
 These have the advantage to balance the load across the computing units, which enable the calculation of high density regions. 
 The drawback is a significant loss in speed, which can be only partly recovered by turning off the tree algorithm. 
-Unlike Hydra \citep{couchman1991} and the PM code by \cite{FerrelBertschinger1995},
+The same reasoning applies to the mesh-refine code of  \cite{1991ApJ...368L..23C} and the PM code by \cite{FerrelBertschinger1995}.
  these are not designed to perform large scale PM calculations. 
 
-{\bf (Describe briefly   Hydra, PM code by japanese, and others...)}
+{\bf ( PM code by japanese? Others codes I should mention? That of Hy Trac?)}
 
 
 {\small PMFAST} (\cite{2005NewA...10..393M}, MPT hereafter) is one of the first code that is designed such as to optimize the PM algorithm,
-both in terms of speed and memory usage. It uses a two-level mesh algorithm based on the gravity solver of \cite{TracPen2003},
+both in terms of speed and memory usage. It uses a two-level mesh algorithm based on the gravity solver of \cite{2003AAS...203.9703T},
 The long range gravitational force is computed on a  grid four times coarser, such as to minimize the {\small MPI} communication time
 and to fit in system's memory. The short range is computed locally on a finer mesh, and only the local sub-volume needs 
 to be stored at a given time, allowing for {\small OPENMP}parallel computation.

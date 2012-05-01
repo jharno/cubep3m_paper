@@ -27,8 +27,56 @@ the freedom we have is to choose the number of such layers.
  The case where all three coordinates are equal is already calculated in the standard configuration of the code.
  
  To quantify the accuracy improvement versus computing time requirements, we performed the following test.
- We generate a set of initial conditions at a starting redshift of $z = XXX$, with a box size equal to $ XXX h^{-1}\mbox{Mpc}$,
- and with $XXX^{3}$ particles. We evolve the particles to $z=0$ with different ranges for the pp calculation, and compare 
+ We generate a set of initial conditions at a starting redshift of $z = 100$, with a box size equal to $ 200 h^{-1}\mbox{Mpc}$,
+ and with $128^{3}$ particles. We evolve the particles to $z=0$ with different ranges for the pp calculation, and compare 
  the resulting power spectra. For the results to be meaningful, we also need to use the same random seed for the random number generator,
  such that the only difference between different runs is the range of the pp force.
-{\bf (JD, insert here your P(k) plot and a description of what you observe, in terms of accuracy improvement and real time cpu usage...)}
+ Fig. \ref{fig:power} shows the dimensionless power spectrum of the different runs, where we see a significant gains in resolution
+ when extending  PM to P$^{3}$M first, and when adding successive layers of fine cell mesh where the pp force is extended.
+We have not plotted the results for higher numbers of layers, as the improvement becomes milder there: the fine grid calculations
+are more accurate as the distance increases. For this reason, it seems that a range of a few layers, between 3 and 6, suffices 
+to reduce most of the undesired NGP scatter.
+
+Extending the pp calculation comes at a price, since the number of operation scales as  $N^{2}$ in the sub-domain. 
+This cost is best capture by the increase of real time required by a fixed number of dedicated  {\small CPU}s 
+to evolved the particles to the final redshift. Table \ref{table:cpu_pp_ext} presents this usage.
+
+\begin{figure}
+  \begin{center}
+  \epsfig{file=graphs/pp_ext.eps,width=0.49\textwidth,height=0.49\textwidth}
+  \caption{ Dimensionless power spectrum for varying range of the exact pp force, compared to  {\small CAMB} \citep{Lewis:1999bs}.}
+    \label{fig:power}
+  \end{center}
+\end{figure}
+
+
+\begin{table}
+\begin{center}
+\caption{Scaling in {\small CPU} resources as a function of the range of the pp interaction.
+$N_{layers}$ refers to the number of fine mesh layers around a given cell, inside of which the force calculation
+is purely given by the pp contribution. }
+\begin{tabular}{|l|c|c|}
+\hline 
+             Type         & time (h)   \\
+                  \hline
+PM                         & 1.77 \\
+P$^{3}$M             & 2.09 \\
+\hline
+ $N_{layers}=1$ & 8.74 \\
+ $N_{layers}=2$ & 11.47\\
+ $N_{layers}=3$ & 14.30 \\
+ $N_{layers}=4$ & 18.87\\
+ $N_{layers}=5$ & 22.52\\
+ $N_{layers}=6$ & 29.62\\
+ $N_{layers}=7$ & 34.82\\
+ $N_{layers}=8$ & 47.00\\
+ 
+
+\hline \hline
+\end{tabular}
+\label{table:cpu_pp_ext}
+\end{center}
+\end{table}
+
+Another way to quantify the improvement of the calculation is to look at the halo mass function for these different runs.
+{\bf (To do...)}
