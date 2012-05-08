@@ -3,25 +3,37 @@
 Many physical and astrophysical systems are subject to non-linear dynamics
 and rely on N-body simulations to describe the evolution of bodies. 
 One of the main field of application is the modelling of large scale structures, 
-which are driven by the sole force of gravity. Recent observations of the cosmic microwave background
-\citep{WMAP5-7} of galaxy clustering \citep{2000AJ....120.1579Y, 2003astro.ph..6581C, 2009arXiv0902.4680S, 2010MNRAS.401.1429D} of weak gravitational lensing \citep{CFHTLS, SDSS}
-and of supernovae redshift-distance relations all point towards a standard model of cosmology, in which dark energy
-and collisionless dark matter occupy more than 95 per cent of the total energy density of the universe.
-In such a paradigm, pure N-body code are perfectly suited to describe the dynamics, as long as we
-understands where and how the baryonic fluid feeds back on the dark matter structure.
-The next generation of measurements aim at constraining the cosmological parameters at the per cent level, 
-and the theoretical understanding of the non-linear dynamics that govern structure formation heavily relies 
-on numerical simulations. 
+which are driven by the sole force of gravity. Recent observations of the 
+cosmic microwave background \citep{WMAP5-7}, of galaxy clustering 
+\citep{2000AJ....120.1579Y, 2003astro.ph..6581C, 2009arXiv0902.4680S, 
+2010MNRAS.401.1429D} of weak gravitational lensing \citep{CFHTLS, SDSS}
+and of supernovae redshift-distance relations all point towards a standard 
+model of cosmology, in which dark energy and collisionless dark matter occupy 
+more than 95 per cent of the total energy density of the universe. In such a 
+paradigm, pure N-body code are perfectly suited to describe the dynamics, as 
+long as baryonic physics is not very important, or at least we understand how 
+the baryonic fluid feeds back on the dark matter structure. The next generation 
+of measurements aim at constraining the cosmological parameters at the per cent 
+level, and the theoretical understanding of the non-linear dynamics that govern 
+structure formation heavily relies on numerical simulations. 
 
-For instance, a measurement of the baryonic acoustic oscillation (BAO) dilation scale can provide
-tight constraints on the dark energy equation of scale \citep{Seo2003,2005}.
-The most optimal estimates of the uncertainty requires the knowledge of the 
-matter power spectrum covariance matrix, which is only accurate when measured from a large sample 
-of N-body simulations \citep{2005MNRAS.360L..82R, 2009ApJ...700..479T, 2011ApJ...726....7T}.
-For the same reasons, the most accurate estimates of weak gravitational lensing signal is obtained
-by propagating photons in past light cones that are extracted from simulated density fields \citep{2003ApJ...592..699V, 2009ApJ...701..945S, 2009A&A...499...31H}.
-{\bf (Ilian, could you say something about reionization here? Just general references as to why one needs N-body codes to perform 
-accurate predictions/forecasts, etc.)}
+For instance, a measurement of the baryonic acoustic oscillation (BAO) dilation 
+scale can provide tight constraints on the dark energy equation of scale 
+\citep{Seo2003,2005}. The most optimal estimates of the uncertainty requires the 
+knowledge of the matter power spectrum covariance matrix, which is only accurate 
+when measured from a large sample of N-body simulations \citep{2005MNRAS.360L..82R, 
+2009ApJ...700..479T, 2011ApJ...726....7T}. For the same reasons, the most accurate 
+estimates of weak gravitational lensing signal is obtained by propagating photons 
+in past light cones that are extracted from simulated density fields 
+\citep{2003ApJ...592..699V, 2009ApJ...701..945S, 2009A&A...499...31H}.
+Another area where large-scale N-body simulations have in recent years been 
+instrumental are in simulations of early cosmic structures and reionization 
+\citep[e.g.][]{2006MNRAS.369.1625I,2007ApJ...654...12Z,2007ApJ...671....1T,
+2011arXiv1107.4772I}. The reionization process is primarily driven by low-mass 
+galaxies, which for both observational and theoretical reasons, need to be resolved 
+in fairly large volumes, which demands simulations with a very large dynamic range.   
+%{\bf (Ilian, could you say something about reionization here? Just general references as to why one needs N-body codes to perform 
+%accurate predictions/forecasts, etc.)}
 
 The basic problem that is addressed with N-body codes is a time evolution of an ensemble of $N$ particles
 that is subject to gravitational attraction. The brute force calculation requires $O(N^{2})$ operation, a cost that 
@@ -31,9 +43,9 @@ as it is possible to solve for the particle-mesh (PM) interaction with fast Four
 typically using high performance libraries such as {\small FFTW} \citep{FFTW3}.
 
 
-With the advent of large computing facilities, parallel coding has now become common practice, 
-and N-body codes have evolved both in performance and complexity. 
-Many codes have opted for a tree algorithm, including Gadjet \citep{Gadjet, Gadjet2}, PMT \citep{1995ApJS...98..355X}, GOTPM \citep{2004NewA....9..111D}, and Hydra \citep{Hydra}, in which the local resolution increases with the density of the matter field. 
+With the advent of large computing facilities, parallel coding has now become 
+common practice, and N-body codes have evolved both in performance and complexity. 
+Many codes have opted for a tree algorithm, including Gadget \citep{Gadjet, Gadjet2}, PMT \citep{1995ApJS...98..355X}, GOTPM \citep{2004NewA....9..111D}, and Hydra \citep{Hydra}, in which the local resolution increases with the density of the matter field. 
 These have the advantage to balance the load across the computing units, which enable the calculation of high density regions. 
 The drawback is a significant loss in speed, which can be only partly recovered by turning off the tree algorithm. 
 The same reasoning applies to the mesh-refine code of  \cite{1991ApJ...368L..23C} and the PM code by \cite{FerrelBertschinger1995}.
@@ -70,7 +82,10 @@ a runtime halofinder has been implemented, the expansion has also been generaliz
 This paper aims at presenting and quantifying these new features that make {\small CUBEP3M} one of the most competitive public N-body code.
 It has already been involved in a number of scientific applications over the last few years,
 spanning the field of weak lensing \citep{Vafaei10, 2008MNRAS.388.1819L,  2009arXiv0905.0501D, 2010PhRvD..81l3015L, 2010arXiv1012.0444Y, Harnois_Vafaei},  BAO
- \citep{2010arXiv1008.3506Z,  2011arXiv1106.5548N, 2011arXiv1109.5746H, HarnoisYuReco}, re-ionization \citep{Ilian...}, {\bf (anymore cubep3m papers to cite?)},  
+ \citep{2010arXiv1008.3506Z,  2011arXiv1106.5548N, 2011arXiv1109.5746H, HarnoisYuReco}, 
+formation of early cosmic structures \citep{2008arXiv0806.2887I,2010arXiv1005.2502I},
+observations of dark stars \citep{2010MNRAS.407L..74Z,2012MNRAS.tmp.2794I} and
+reionization \citep{2011arXiv1107.4772I,Fernandez:2011ab,2011MNRAS.413.1353F,2012MNRAS.422..926M,Datta:2011hv,2012arXiv1203.0517F}, {\bf (anymore cubep3m papers to cite?)},  
 and it seems relevant for the community to have access to a paper that describes the methodology, the accuracy and the performance of this public code 
 The paper is structured as follow: XXXX 
 
