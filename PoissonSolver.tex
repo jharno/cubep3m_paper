@@ -64,12 +64,16 @@ The vector $ {\bf \beta}(r)$ is related to the fourth order polynomial that is u
 Because these calculations are performed on two grids of different resolution, a sampling window function must be convoluted 
 both with the density and the kernel (see [Eq. 7-8] of MPT).
 When matching the two  force kernels, it was realized that close to the cutoff region, the long range force is always on the low side, whereas 
-the short range force is scattered across the theoretical $1/r^2$ value. These behaviours are purely features of the CIC and NGP interpolation scheme 
+the short range force is scattered across the theoretical $1/r^2$ value. These behaviors are purely features of the CIC and NGP interpolation scheme 
 respectively. We identified a small range surrounding the cutoff length, in which we empirically adjust both kernels such as to improve 
 the match. Namely, for $14 \le r \le 16$, ${\bf \omega}_{s}({\bf r}) \rightarrow {\bf \omega}_{s}({\bf r})*0.985$,
 and for  $12 \le r \le 16$, ${\bf \omega}_{l}({\bf r}) \rightarrow {\bf \omega}_{l}({\bf r})*1.2$.
 The two fudge factors were found by performing force measurements on two particles randomly placed in the volume.
- 
-In addition, the long range force is subject to a correction that fixes {\bf (what exactly fixes the LRCKCORR flag?)}.
+
+Finally, a choice must be done concerning the longest range of the force. Gravity can be either a) an accurate $1/r^2$ force, as far as the volume allows, 
+or b) modified to correctly match the periodicity of the boundary conditions. By default, the code is configured along to the second choice,
+which accurately models the growth of structure at very large scales. However, detailed studies of gravitational collapse would benefit 
+from the first settings.
+
 
 {\bf (Anything else here?)}

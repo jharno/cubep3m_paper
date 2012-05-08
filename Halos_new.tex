@@ -1,0 +1,58 @@
+\section{Runtime Halo Finder}
+\label{sec:halo}
+
+%Spherical overdensities, search algorithm, 
+%provided halo information, halo bias, comparison to PS and ST.
+%{\bf (Ilian, You can lead the way here...)}
+
+We have implemented a halo finding procedure, which we have developed 
+based on the spherical overdensity (SO) approach \citep{1994MNRAS.271..676L}.
+In the interest of speed and efficiency the halo catalogues are constructed 
+on-the-fly at a pre-determined list of redshifts. The halo finding is 
+massively-parallel and threaded based on the CubeP$^3$M data structures 
+discussed earlier. The code first builds the 
+fine-mesh density for each sub-domain using CIC or NGP interpolation. It then 
+proceeds to search for and record all local density maxima above certain
+threshold (typically set to 100 above mean density) within the local 
+sub-domain's physical volume (excluding the sub-domain buffer zones). It then 
+uses parabolic interpolation on the density field to determine more precisely
+the location of the maximum within the densest cell, and records the peak 
+position and value. The halo center determined this way agrees closely with 
+the center-of-mass of the halo particles discussed below.  
+
+Once the list of peak positions is generated, they are sorted from the highest 
+to the lowest density value. Then each of the halo candidates is inspected 
+independently, starting with the highest peak. The grid mass is accumulated 
+in spherical shells of fine grid cells surrounding the maximum, until the 
+mean density within the halo drops below a pre-defined overdensity cutoff 
+(usually set to 178 in units of the mean, in accordance to the top-hat 
+collapse model). As we accumulate mass we remove it from the mesh, so that no 
+mass element is double-counted. This method is thus inappropriate for finding 
+sub-halos as within this framework those are naturally incorporated in their 
+host halos. Because the halos are found on a grid of finite-size cells, it is 
+possible, especially for the low-mass halos, to overshoot the target overdensity.
+When this occurs we use an analytical halo density profile to correct the 
+halo mass and radius to the values corresponding to the target overdensity. 
+This analytical density profile is given by Truncated Isothermal Sphere (TIS) 
+profile \citep{1999MNRAS.307..203S,2001MNRAS.325..468I} for overdensities below 
+$\sim130$, and $1/r^2$ for lower overdensities. The TIS density profile has a
+similar outer slope (the relevant one here) to the Navarro, Frenk and White 
+\citep[NFW][]{1997ApJ...490..493N} profile, but extends to lower overdensities
+and matches well the virialization shock position given by the Bertschinger 
+self-similar collapse solution \citep{1985ApJS...58...39B}.
+
+Once the correct halo mass, radius and position are determined, we find all 
+particles which are within the halo radius. Their positions and velocities are
+used to calculate the halo center-of-mass, bulk velocity, internal velocity 
+dispersion and the three angular momentum components, all of which are then 
+included in the final halo catalogues. We also calculate the total mass of
+all particles within the halo radius, also listed in the halo data. This mass
+is very close, but  typically slightly lower, than the halo mass calculated 
+based on the gridded density field. The particle center-of-mass corresponds 
+very well to the halo centre found based on the gridded mass distribution. 
+
+{\bf II: do we need to say anything about having the option to use other
+halo finders like AHF and FOF?}
+
+{\bf Show some examples and comparisions to analytical fits and other halo 
+finders.}
