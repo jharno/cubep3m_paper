@@ -72,7 +72,7 @@ The loop over tiles and the particle exchange are thus performed in three dimens
 When the short range and pp forces have been calculated on all tiles, the code exits the parallel {\small OPENMP} loop
 and proceeds to the long range. This section of the code is also parallelized in many occasions, but, unfortunately, the current {\small MPI-FFTW}
 do not allow multi-threading. There is thus an inevitable loss of efficiency during each global Fourier transforms, during which
-only the head processor is active. Other libraries such as {\small P3DFFT} or  Intel {\small MKL-$\alpha$} currently permit this extra level of parallelization,
+only the head processor is active. Other libraries such as {\small P3DFFT} \citep{p3dfft} or  Intel {\small MKL-$\alpha$} \citep{fft_mkl} currently permit this extra level of parallelization,
 and it is our plan to migrate to one of these in the near future.
 
 \begin{figure}
@@ -134,9 +134,11 @@ end subroutine particle_mesh
 
 
 If the current redshift corresponds to one of the checkpoints, the code advances all particles to their final location
-and writes them to file. Similarly, the code can compute two-dimensional projections of the density field, halo catalogues (see section \ref{sec:halo} for details), and can compute the power spectrum on the coarse grid at run time {\bf (is this correct?)}. 
+and writes them to file. Similarly, the code can compute two-dimensional projections of the density field, halo catalogues (see section \ref{sec:halo} for details), and can compute the power spectrum on the coarse grid at run time. 
 The code exits the loop when it has reached the final redshift, it then wraps up the {\small FFTW} plans 
 and clears the {\small MPI} communicators. We have collected those operations under the subroutine {\tt finalize} for concision.
 
 
-{\bf (Anything else to say in this section? Units by \citep{2004NewA....9..443T}?)}
+
+
+{\bf (Anything else to say in this section?)}

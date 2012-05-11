@@ -9,16 +9,16 @@ We have implemented a halo finding procedure, which we have developed
 based on the spherical overdensity (SO) approach \citep{1994MNRAS.271..676L}.
 In the interest of speed and efficiency the halo catalogues are constructed 
 on-the-fly at a pre-determined list of redshifts. The halo finding is 
-massively-parallel and threaded based on the CubeP$^3$M data structures 
-discussed earlier. The code first builds the 
+massively-parallel and threaded based on the main {\small CUBEP3M} data structures 
+discussed in section \ref{sec:structure}. The code first builds the 
 fine-mesh density for each sub-domain using CIC or NGP interpolation. It then 
 proceeds to search for and record all local density maxima above certain
 threshold (typically set to 100 above mean density) within the local 
 sub-domain's physical volume (excluding the sub-domain buffer zones). It then 
 uses parabolic interpolation on the density field to determine more precisely
 the location of the maximum within the densest cell, and records the peak 
-position and value. The halo center determined this way agrees closely with 
-the center-of-mass of the halo particles discussed below.  
+position and value. The halo centre determined this way agrees closely with 
+the centre-of-mass of the halo particles discussed below.  
 
 Once the list of peak positions is generated, they are sorted from the highest 
 to the lowest density value. Then each of the halo candidates is inspected 
@@ -43,12 +43,12 @@ self-similar collapse solution \citep{1985ApJS...58...39B}.
 
 Once the correct halo mass, radius and position are determined, we find all 
 particles which are within the halo radius. Their positions and velocities are
-used to calculate the halo center-of-mass, bulk velocity, internal velocity 
+used to calculate the halo centre-of-mass, bulk velocity, internal velocity 
 dispersion and the three angular momentum components, all of which are then 
 included in the final halo catalogues. We also calculate the total mass of
 all particles within the halo radius, also listed in the halo data. This mass
 is very close, but  typically slightly lower, than the halo mass calculated 
-based on the gridded density field. The particle center-of-mass corresponds 
+based on the gridded density field. The particle centre-of-mass corresponds 
 very well to the halo centre found based on the gridded mass distribution. 
 
 %Compared to Tinker
@@ -63,7 +63,7 @@ very well to the halo centre found based on the gridded mass distribution.
   \end{center}
   \caption{Simulated halo multiplicity function, 
     $\frac{M^2}{\bar{\rho}}\frac{dn}{dM}$ based on a
-    CubeP$^3$M simulation with $3.2\,h^{-1}Gpc$ box and $4000^3$ 
+    simulation with $3.2\,h^{-1} \mbox{Gpc}$ box and $4000^3$ 
     particles (red, solid). For reference we also show a widely-used 
     precise fit by \citet{2008ApJ...688..709T} (blue, dashed). 
     \label{mf}}
@@ -71,18 +71,17 @@ very well to the halo centre found based on the gridded mass distribution.
 
 A sample halo mass function produced based on our inlined SO halo finder 
 at redshift $z=0$ from a simulation with $3.2\,h^{-1}Gpc$ box and $4000^3$
-particles is shown in Figure~\ref{mf}. We compare our result to the 
+particles is shown in Fig. \ref{mf}. We compare our result to the 
 precise fit presented recently by \citet{2008ApJ...688..709T}. Unlike most
-other widely-used fits like the one by Sheth and Tormen 
-\citep{2002MNRAS.329...61S}, which are based on friends-of-friends (FOF)
-halo finders, the \citet{2008ApJ...688..709T} fit is based on a Spherical 
-Overdensity-determined halo masses, which are systematically different 
+other widely-used fits like the one by \citet{2002MNRAS.329...61S}, which are based on friends-of-friends (FOF)
+halo finders, the \citet{2008ApJ...688..709T} fit is based on the
+SO search algorithm, whose masses are systematically different 
 from the FOF masses \citep[e.g.][]{2007MNRAS.374....2R,2008ApJ...688..709T}, 
 making this fit a better base for comparison here. Results show excellent
-agreement, within $\sim10\%$ for all halos with masses corresponding to
+agreement, within $\sim10$ per cent for all halos with masses corresponding to
 1000 particles or more. Lower-mass halos are somewhat under-counted compared
-to the \citet{2008ApJ...688..709T} fit, by $\sim20\%$ for 400 particles and 
-by $\sim40\%$ for 50 particles. This is due to the grid-based nature of our
+to the \citet{2008ApJ...688..709T} fit, by $\sim20$ per cent for 400 particles and 
+by $\sim40$ per cent for 50 particles. This is due to the grid-based nature of our
 SO halo finder, which misses some of the low-mass halos. Using more sophisticated
 halo finders (available through post-processing due to their heavier memory
 footprint) recovers the expected mass function.
@@ -91,5 +90,20 @@ footprint) recovers the expected mass function.
 
 {\bf II: do we need to say anything more about having the option to use other
 halo finders like AHF and FOF?}
+
+A second test of the accuracy of the halo finder algorithm is to extract the halo power spectrum $P_{h}(k)$ and compare the halo bias
+with theoretical predictions. The halo bias is defined as $b(k) = \sqrt{P(k)/P_{h}(k)}$ and is shown in Fig. \ref{fig:halo}.
+
+\begin{figure}%[ht]
+%  \vskip -0.5cm 
+  \begin{center}
+    \includegraphics[width=3.2in]{graphs/bias.eps}
+  \end{center}
+  \caption{Halo bias, measured at $z=0$ from a $4000^3$ particles simulations with a side length of $3.2 h^{-1}$Gpc.
+  Bottom to top curves correspond to haloes of different masses, from light to massive. The four bins are decades
+  of halo masses; the first contains haloes made of 20-200 particles, the second of 200-2,000 and so on.
+    \label{fig:halo}}
+\end{figure}
+
 
 %{\bf Show some examples and comparisions to analytical fits and other halo finders.}

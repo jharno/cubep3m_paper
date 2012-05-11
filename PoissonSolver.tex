@@ -4,10 +4,17 @@
 
 This section reviews how Poisson's equation is solved on a double-mesh configuration. 
 Many parts of the algorithm are identical to {\small PMFAST}, hence we refer the reader 
-to section 2 of MPT for more details. In cubep3m, the mass default assignment scheme are
+to section 2 of MPT for more details. In {\small CUBEP3M}, the mass default assignment scheme are
 a `cloud-in-cell' (cic) interpolation for the coarse grid,  and a `nearest-grid-point' interpolation 
 for the fine grid \citep{1981csup.book.....H}. Particle-particle interactions are not interpolated, but a sharp cutoff kills the force
 for pairs closer to a tenth of a grid cell. 
+
+The code units inherit from \citep{2004NewA....9..443T}, which we summarized here for completeness.
+In simulation units, the mean comoving mass density is set to unity, the length of a fine grid cell is set to one,
+and the Newton gravitational  constant $G$ is set to $1/(6 \pi a)$, where $a$ is the scale factor.
+With these three choices, one can transform any physical units into simulation units and vice versa.
+
+
 
 The force of gravity on a mesh can be computed either with a gravitational potential  kernel $\omega_{\phi} ({\bf x})$
   or a force  kernel $\omega_{F} ({\bf x})$.
@@ -31,34 +38,34 @@ Although this approach is fast, it involves a finite differentiation which enhan
 We therefore opt for a force kernel, which is more accurate but has the inconvenient to require four extra Fourier transforms.
 In this case, we must solve the convolution in three dimensions:
 \begin{eqnarray}
- F({\bf x}) = - m {\bf \nabla} \phi({\bf x})   = \int \rho({\bf x'}) {\bf  \omega}_{F}({\bf x'} - {\bf x}) d{\bf x'}                                      
+ F({\bf x}) = - m {\bf \nabla} \phi({\bf x})   = \int \rho({\bf x'}) \mbox{\boldmath $\omega$}_{F}({\bf x'} - {\bf x}) d{\bf x'}                                      
 \label{eq:poisson_solution_force}
 \end{eqnarray}
 The differentiation does not affect the density since it only acts on un-prime variables,
 and the force kernel is given by 
 \begin{eqnarray}
-{\bf  \omega}_{F}({\bf x}) \equiv - {\bf \nabla}\omega_{\phi}({\bf x}) = - \frac{mG \hat{\bf r}}{r^{2}}
+\mbox{\boldmath $\omega$}_{F}({\bf x}) \equiv - {\bf \nabla}\omega_{\phi}({\bf x}) = - \frac{mG \hat{\bf r}}{r^{2}}
 \end{eqnarray}
 
 Following the spherically symmetric matching technique of MPT (section 2.1), 
 we split  the force kernel into two components, for the short and long range respectively, and 
 match the overlapping region with a polynomial. Namely, we have:
 \begin{eqnarray}
-{\bf \omega}_{s}({\bf r}) = \begin{cases} {\bf \omega}_{F}(r) -  {\bf \beta}(r) &\mbox{if  } \mbox{$r$ $\le$ $r_{c}$ } \\
+\mbox{\boldmath $\omega$}_{s}(r) = \begin{cases} \mbox{\boldmath $\omega$}_{F}(r) -  \mbox{\boldmath $\beta$}(r) &\mbox{if  } \mbox{$r$ $\le$ $r_{c}$ } \\
 0 & \mbox{otherwise} 
 \end{cases}
 \end{eqnarray}
 and
 \begin{eqnarray}
-{\bf \omega}_{l}(r) = \begin{cases} {\bf \beta}(r) &\mbox{if  } \mbox{$r$ $\le$ $r_{c}$ } \\
- {\bf\omega}_{F}(r)  &\mbox{otherwise} 
+\mbox{\boldmath $\omega$}_{l}(r) = \begin{cases} \mbox{\boldmath $\beta$}(r) &\mbox{if  } \mbox{$r$ $\le$ $r_{c}$ } \\
+ \mbox{\boldmath $\omega$}_{F}(r)  &\mbox{otherwise} 
 \end{cases}
 \end{eqnarray}
-The vector $ {\bf \beta}(r)$ is related to the fourth order polynomial that is used in the potential case by
- $ {\bf \beta} = - {\bf \nabla} \alpha(r)$. The coefficients are found by matching the boundary conditions at $r_{c}$ up to the second derivative,
+The vector $\mbox{\boldmath $\beta$}(r)$ is related to the fourth order polynomial that is used in the potential case by
+ $ \mbox{\boldmath $\beta$} = - {\bf \nabla} \alpha(r)$. The coefficients are found by matching the boundary conditions at $r_{c}$ up to the second derivative,
  and we get
   \begin{eqnarray}
-   {\bf \beta}(r) = \bigg[ -\frac{7 r}{4 r_{c}^{3}} + \frac{3 r^{3}}{4 r^{5}}\bigg] \hat{\bf r}
+   \mbox{\boldmath $\beta$}(r) = \bigg[ -\frac{7 r}{4 r_{c}^{3}} + \frac{3 r^{3}}{4 r^{5}}\bigg] \hat{\bf r}
   \end{eqnarray}
 
 Because these calculations are performed on two grids of different resolution, a sampling window function must be convoluted 
@@ -66,14 +73,13 @@ both with the density and the kernel (see [Eq. 7-8] of MPT).
 When matching the two  force kernels, it was realized that close to the cutoff region, the long range force is always on the low side, whereas 
 the short range force is scattered across the theoretical $1/r^2$ value. These behaviors are purely features of the CIC and NGP interpolation scheme 
 respectively. We identified a small range surrounding the cutoff length, in which we empirically adjust both kernels such as to improve 
-the match. Namely, for $14 \le r \le 16$, ${\bf \omega}_{s}({\bf r}) \rightarrow {\bf \omega}_{s}({\bf r})*0.985$,
-and for  $12 \le r \le 16$, ${\bf \omega}_{l}({\bf r}) \rightarrow {\bf \omega}_{l}({\bf r})*1.2$.
+the match. Namely, for $14 \le r \le 16$, $\mbox{\boldmath $\omega$}_{s}({r}) \rightarrow \mbox{\boldmath $\omega$}_{s}({ r})*0.985$,
+and for  $12 \le r \le 16$, $\mbox{\boldmath $\omega$}_{l}({r}) \rightarrow \mbox{\boldmath $\omega$}_{l}({ r})*1.2$.
 The two fudge factors were found by performing force measurements on two particles randomly placed in the volume.
 
 Finally, a choice must be done concerning the longest range of the force. Gravity can be either a) an accurate $1/r^2$ force, as far as the volume allows, 
 or b) modified to correctly match the periodicity of the boundary conditions. By default, the code is configured along to the second choice,
 which accurately models the growth of structure at very large scales. However, detailed studies of gravitational collapse would benefit 
-from the first settings.
+from the first settings. {\bf (Hugh, are the above two paragraphs correct?)}
 
-
-{\bf (Anything else here?)}
+{\bf Least square kernel?}

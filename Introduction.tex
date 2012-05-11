@@ -58,8 +58,8 @@ The same reasoning applies to the mesh-refine code of  \cite{1991ApJ...368L..23C
 both in terms of speed and memory usage. It uses a two-level mesh algorithm based on the gravity solver of \cite{2003AAS...203.9703T},
 The long range gravitational force is computed on a  grid four times coarser, such as to minimize the {\small MPI} communication time
 and to fit in system's memory. The short range is computed locally on a finer mesh, and only the local sub-volume needs 
-to be stored at a given time, allowing for {\small OPENMP}parallel computation.
-This this setup enable the code to evolve very large cosmological systems both rapidly and accurately, on relatively modest clusters.
+to be stored at a given time, allowing for {\small OPENMP} parallel computation.
+This this setup enable the code to evolve large cosmological systems both rapidly and accurately, on relatively modest clusters.
 One of the main advantage of {\small PMFAST} over other PM codes is that the number of large arrays is minimized,
 and the global {\small MPI} communications are cut down to the minimum: for passing particle at the beginning of each time step,
 and  for computing the long range FFTs.
@@ -72,12 +72,11 @@ Since its first published version, {\small PMFAST} has evolved in many aspects.
 The first major improvement was to transform the volume decomposition in multi-node configurations 
 from slabs to cubes. One of the problem with slabs is that they do not scale well to large runs: 
 as the number of cells per dimension increases, the thickness of each slab shrinks rapidly,
-until it reaches the hard limit of a single cell layer.  With this enhancement came a new name, {\small CUBEPM},
-which soon after incorporated particle-particle (pp) interactions at the sub-grid level, and the code was renamed
-{\small CUBEP3M}. It now includes a significant number of new features since MPT : the pp force
+until it reaches the hard limit of a single cell layer.  With this enhancement, the code name was changed to {\small CUBEPM},
+which soon after incorporated particle-particle (pp) interactions at the sub-grid level. 
+The code was finally renamed {\small CUBEP3M}, and now includes a significant number of new features: the pp force
 can be extended to an arbitrary range, the size of the redshift jump can be constrained for improved accuracy during the first time steps,
-a runtime halofinder has been implemented, the expansion has also been generalized to include a redshift dependent equation of state of dark energy, there is a system of unique particle identification which can be switched on or off, and the initial condition generator has been generalized as to include non-Gaussian features
-{\bf (anything else?)}.
+a runtime halo finder has been implemented, the expansion has also been generalized to include a redshift dependent equation of state of dark energy, there is a system of unique particle identification which can be switched on or off, and the initial condition generator has been generalized as to include non-Gaussian features {\bf (anything else since PMFAST?)}.
 
 This paper aims at presenting and quantifying these new features that make {\small CUBEP3M} one of the most competitive public N-body code.
 It has already been involved in a number of scientific applications over the last few years,
@@ -85,8 +84,16 @@ spanning the field of weak lensing \citep{Vafaei10, 2008MNRAS.388.1819L,  2009ar
  \citep{2010arXiv1008.3506Z,  2011arXiv1106.5548N, 2011arXiv1109.5746H, HarnoisYuReco}, 
 formation of early cosmic structures \citep{2008arXiv0806.2887I,2010arXiv1005.2502I},
 observations of dark stars \citep{2010MNRAS.407L..74Z,2012MNRAS.tmp.2794I} and
-reionization \citep{2011arXiv1107.4772I,Fernandez:2011ab,2011MNRAS.413.1353F,2012MNRAS.422..926M,Datta:2011hv,2012arXiv1203.0517F}, {\bf (anymore cubep3m papers to cite?)},  
-and it seems relevant for the community to have access to a paper that describes the methodology, the accuracy and the performance of this public code 
+reionization \citep{2011arXiv1107.4772I,Fernandez:2011ab,2011MNRAS.413.1353F,2012MNRAS.422..926M,Datta:2011hv,2012arXiv1203.0517F},  
+and it seems relevant for the community to have access to a paper that describes the methodology, the accuracy and the performance of this public code. 
+
+Since {\small CUBEP3M} is not a new code, the accuracy and systematic tests were performed by different groups, on different machines,
+and with different configurations. It is not an ideal situation in which to quantify the performance, and each test must be viewed as a
+separate measurement that quantifies a specific aspect of the code. 
+We have tried to keep to a minimum the number of such different runs, and although the detailed numbers might vary across different runs, 
+the general trends are common to all of them.
+
+
 The paper is structured as follow: XXXX 
 
 

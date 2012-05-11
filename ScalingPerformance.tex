@@ -1,8 +1,5 @@
 \section{Scaling Performances}
 
-Real time versus size, bottle neck, description of the largest runs, etc.
-{\bf (Hugh, do you have anything you would like to share 
-concerning the largest runs you did on Blue Gene? )} 
 
 \begin{figure*}%[ht]
 %  \vskip -0.5cm 
@@ -11,7 +8,7 @@ concerning the largest runs you did on Blue Gene? )}
     \includegraphics[width=3.2in]{graphs/scaling_cubep3m_new.eps}
 %  \vskip -1.2cm 
 %  \vskip -0.5cm 
-  \caption{Scaling of {\small CUBEP$^3$M} on Curie fat nodes (left) and 
+  \caption{Scaling of {\small CUBEP3M} on Curie fat nodes (left) and 
     on Ranger TACC facility for very large number of cores (right). Plotted is the code speedup 
     ($N_{\rm particles}^3/t_{\rm wallclock}$) against core count, normalized by the smallest run 
     in each case. Dashed line indicates the ideal weak 
@@ -25,13 +22,13 @@ concerning the largest runs you did on Blue Gene? )}
 \begin{table*}%[ht]
   \vskip -0.5cm 
   \begin{center}
-\caption{Scaling of {\small CUBEP$^3$M} on Curie. Speedup is 
+\caption{Scaling of {\small CUBEP3M} on Curie. Speedup is 
 scaled to the smallest run.}
 \label{summary_scaling_table}
 \begin{tabular}{@{}|llllll|}
 \hline
 number of cores & speedup & ideal speedup & absolute timing (min) & 
-$N_{\rm particles}$& box size (Mpc$/h$)
+$N_{\rm particles}$& box size ($h^{-1}$Mpc)
 \\[2mm]\hline
 %\hline
 32  &  1.00 & - &3.2 & $256^3$ & 256\\
@@ -40,13 +37,13 @@ $N_{\rm particles}$& box size (Mpc$/h$)
 2048  & 61.87 & 64 &26.48 & $2048^3$ & 2048 \\
 \hline
 \end{tabular}
-\caption{Scaling of the CubeP$^3$M code for large number of cores 
+\caption{Scaling of  {\small CUBEP3M} for large number of cores 
 (on Ranger). Speedup is scaled to the smallest run.}
 \label{summary_scaling_table2}
 \begin{tabular}{@{}|llllll|}
 \hline
 number of cores & speedup & ideal speedup & absolute timing (min) & 
-$N_{\rm particles}$& box size (Mpc$/h$)
+$N_{\rm particles}$& box size ($h^{-1}$Mpc)
 \\[2mm]\hline
 %\hline
 864    & 1.00  & -    &258   & $1728^3$  & 6.3\\
@@ -99,7 +96,7 @@ all simulations were performed using the same particle mass
 (softening length 50 $h^{-1}$kpc). The box sizes used range from 256 $h^{-1}$Mpc
 to 2048 $h^{-1}$Mpc, and the number of particles from $256^3$ to $2048^3$.
 Simulations were run on 32 up to 2048 computing cores starting from 
-redshift $z=100$, and eveolving until $z=0$. Our results show excellent scaling, within 
+redshift $z=100$, and evolving until $z=0$. Our results show excellent scaling, within 
 $\sim3\%$ of the ideal one, for up to 2048 cores. 
 
 We have also ran {\small CUBEP$^3$M} on a much larger number of cores, 
@@ -149,7 +146,11 @@ do very large problems efficiently, utilizing the next generation
 Petascale systems. 
 
 Finally, we note that several special fixes had to be developed by TACC 
-and JUROPA staff in order for our largest runs work properly and to be 
+and JUROPA staff in order for our largest runs to work properly and to be 
 able to use the software libraries we required (MPICH and FFTW), as those 
 latter exhibited serious problems when applied to runs of such 
 unprecedented size. 
+
+Real time versus size, bottle neck, description of the largest runs, etc.
+{\bf (Hugh, do you have anything you would like to share 
+concerning the largest runs you did on Blue Gene? )} 

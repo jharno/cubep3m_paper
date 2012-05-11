@@ -1,6 +1,22 @@
 \section{Conclusion}
 
+This paper describes {\small CUBEP3M}, a P$^3$M N-body public code that is massively parallel, memory local, 
+and that scales well to 20,000 cores, thus raising the limits of the cosmological problem size one can handle.
+We summarize the code structure, the two-mesh Poisson solver algorithm, we present scaling and systematic tests
+that have been performed. We also describe a few utilities and extensions that come with the public release, 
+including a run time halo finder, an extended pp force calculation and a non-Gaussian initial condition generator.
+
 The code is publicly available on github.com under {\tt cubep3m}, and extra documentation about the structure, 
 compiling and running strategy is can be found at {\tt www.wiki.cita.utoronto.ca/mediawiki/index.php/CubePM}.
 
 \section*{Acknowledgements}
+
+TI was supported by The Southeast Physics
+Network (SEPNet) and the Science and Technology Facilities Council
+grants ST/F002858/1 and ST/I000976/1. The authors acknowledge the
+TeraGrid and the Texas Advanced Computing Center (TACC) at The
+University of Texas at Austin (URL: http://www.tacc.utexas.edu) for
+providing HPC and visualization resources that have contributed to the
+research results reported within this paper and Partnership for Advanced
+Computing in Europe (PRACE) grant 2010PA0442 to ITI used for the code
+scaling studies. 

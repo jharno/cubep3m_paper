@@ -1,7 +1,7 @@
 \section{Accuracy}
 \label{sec:accuracy}
  
-One of the most accurate way to assess the simulation's accuracy at evolving particles
+One of the most reliable way to assess the simulation's accuracy at evolving particles
 is to measure the density power spectrum at late time, and compare to non-linear prediction. 
 For an over-density field $\delta({\bf \it x})$, the power spectrum is extracted from the two point function in Fourier space as:
 \begin{eqnarray}
@@ -17,9 +17,9 @@ in the initial conditions.
 
 \begin{figure*}%[ht]
   \begin{center}
-    \includegraphics[width=3.2in]{graphs/power_highres.eps}
+    \includegraphics[width=5.2in]{graphs/power_highres.eps}
   \caption{Dark matter power spectrum, measured at $z=0$ in a volume $3.2 h^{-1}\mbox{Gpc}$ per side,
-  from $4000^3$ particles. The simulation ran on 4000 cores on RANGER.
+  from $4000^3$ particles. The simulation ran on 4000 cores on Ranger.
     \label{fig:power_highres}}
 \end{center}
 \end{figure*}
@@ -31,17 +31,6 @@ mention the work on covariance matrix by Ngan, Harnoisetal.)
 \section{Systematics}
 \label{sec:systematics}
 
-To discuss : 
-
-2) choice of initial redshift, which can lead to large truncation error if too early, but poor inaccurate Zel'dovich if too late 
-{\bf JD, here you could discuss the ra\_max tempering...} 
-
-3) limits of resolution caused by softening length,
-
-4) Poisson shot noise if too few particles or unrelaxed systems, 
-
-5) finite box size effects (with beat coupling?)
- 
 
 The biggest problem with the pp force calculation is that it 
 is anisotropic and depends on the location of the fine mesh with respect 
@@ -56,7 +45,7 @@ we randomly shift the particle distribution relative to the mesh by a small
 amount -- up to 2 fine grid cells in magnitude -- in each
 dimension and at each time step.  This adds negligible computational
 overhead as it can be applied during the particle position update
-and suppresses the mesh behavior over multiple time steps.
+and suppresses the mesh behaviour over multiple time steps.
 It is possible to shift back the particles at the end of each time steps,
 which prevents a random drift of the whole population.
 This is convenient if one needs to correlate the initial and final positions of the particles.
@@ -64,3 +53,64 @@ This is convenient if one needs to correlate the initial and final positions of 
 We ensure that, on average, this solution balances out the mesh feature,
 by tuning the NGP force kernel such as to provide  force as unbalanced as possible at grid cell distances.
 This adjustment is performed from the pairwise force test described in section \ref{sec:accuracy}.
+We note that this is one of the driving argument to extend the pp force outside the fine mesh cell,
+since the scattering of the NGP force about the actual $1/r^{2}$ law drops rapidly as the distance increases.
+As discussed in section \ref{subsec:extendedpp}, this gain in accuracy comes at a price,
+a choice that  must be carefully balanced.
+
+At early stages of the simulation, the density fields is rather homogenous, causing the force of gravity to be
+rather weak everywhere. In that case, the size of the redshift jumps is controlled by a limit in the cosmological expansion.
+If the expansion jump is too large, the size of the residual errors can become significant, and one can observe, for instance,
+a growth of structure that does not match the predictions of  linear theory even at the largest scales.
+One therefore needs to choose a maximum step size. This is controlled by $r_{max}$, which is the fractional step size,
+$\mbox{d}a/(a + \mbox{d}a)$ and is set to 0.05 by default.  It is possible to reduce this number and improve significantly 
+the accuracy of the code, at the cost of increasing the total number of time steps. Fig. \ref{fig:ra_max}
+shows how $r_{max}$ affects the code. It is a comparison of late time power spectra of density fields that originate from the same initial conditions, 
+and used the same random seeds to control the fine mesh shift (mentioned above). We observe that XXXXX.
+The {\small CPU} resources required to run these simulations increase rapidly as $r_{max}$ decreases, as seen in Table \ref{table:ra_max}. 
+
+a good compromise seems to be XXXXX.
+
+\begin{figure}%[ht]
+  \begin{center}
+    %\includegraphics[width=3.2in]{graphs/power_highres.eps}
+  \caption{Dark matter power spectrum, measured at $z=0$ in a volume $XXX h^{-1}\mbox{Mpc}$ per side,
+  from $256^3$ particles and a starting redshift of $z=200$. The different curves show different values of $r_{max}$. 
+  The resources required to run these simulations increase rapidly as $r_{max}$ decreases.    \label{fig:ra_max}}
+\end{center}
+\end{figure}
+
+\begin{table}
+\begin{center}
+\caption{Scaling in {\small CPU} resources as a function of the value of $r_{max}$. The tests were performed 
+on the CITA Sunnyvale cluster, and general trends could vary slightly on other machines.}
+\begin{tabular}{|l|c|c|}
+\hline 
+$r_{max}$         & time (h)   \\                 
+\hline
+ $0.1$ & 8.74 \\
+ $0.05$ & 11.47\\
+ $0.01$ & 14.30 \\
+ $0.005$ & 18.87\\
+ $0.002$ & 22.52\\
+ $0.001$ & 29.62\\
+\hline
+\end{tabular}
+\label{table:ra_max}
+\end{center}
+\end{table}
+
+
+To discuss : 
+
+2) choice of initial redshift, which can lead to large truncation error if too early, but poor inaccurate Zel'dovich if too late 
+{\bf JD, here you could discuss the ra\_max tempering...} 
+
+3) limits of resolution caused by softening length,
+
+4) Poisson shot noise if too few particles or unrelaxed systems, 
+
+5) finite box size effects (with beat coupling?)
+ 
+
+
