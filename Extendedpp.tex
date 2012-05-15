@@ -25,6 +25,35 @@ the freedom we have is to choose the number of such layers.
  \item{if $z_2 = z_1$ and $y_2 = y_1$, then we enforce $x_2 > x_1$}
  \end{itemize}
  The case where all three coordinates are equal is already calculated in the standard configuration of the code.
+ To assess the improvement of the force calculation, we present in Fig \ref{fig:den_force_ppext6} a force versus distance
+ plot, analogous to Fig. \ref{fig:den_force_ppext0}, but the pp force has been extended to six layers of fine cells. 
+ We observe that the scatter about the theoretical curve has reduced significantly, and is still well balanced around the theoretical predictions.
+ The same applies to the fractional error on the radial and tangential components of the force, as seen in Fig. \ref{fig:den_force_fracErr_ppext6},
+ which are now at least 5 time smaller than in the default p$^{3}$m algorithm.
+ 
+ \begin{figure}%[ht]
+  \begin{center}
+    \includegraphics[width=3.2in]{graphs/densityForce_ppext=6.eps}
+  \caption{Gravity force in of the p$^3$m algorithm, compared with the exact $1/r^{2}$ law,
+  with the pp force extended to six fine mesh layers.
+  Particles in the same cell follow the exact curve, then we observe a large scatter at 
+  distance of the order of the fine grid, caused by the NGP interpolation scheme. 
+    \label{fig:den_force_ppext6}}
+\end{center}
+\end{figure}
+
+
+ 
+\begin{figure}%[ht]
+  \begin{center}
+    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_ppext=6.eps}
+  \caption{Fractional error on the force in of the p$^3$m algorithm, in the radial (top) and tangential(bottom) directions,
+  with the pp force extended to six fine mesh layers.
+    \label{fig:den_force_fracErr_ppext6}}
+\end{center}
+\end{figure}
+
+ 
  
  To quantify the accuracy improvement versus computing time requirements, we performed the following test.
  We generate a set of initial conditions at a starting redshift of $z = 100$, with a box size equal to $ 200 h^{-1}\mbox{Mpc}$,

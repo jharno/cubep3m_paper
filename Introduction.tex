@@ -4,11 +4,11 @@ Many physical and astrophysical systems are subject to non-linear dynamics
 and rely on N-body simulations to describe the evolution of bodies. 
 One of the main field of application is the modelling of large scale structures, 
 which are driven by the sole force of gravity. Recent observations of the 
-cosmic microwave background \citep{WMAP5-7}, of galaxy clustering 
+cosmic microwave background \citep{2009ApJS..180..330K,2011ApJS..192...18K}, of galaxy clustering 
 \citep{2000AJ....120.1579Y, 2003astro.ph..6581C, 2009arXiv0902.4680S, 
-2010MNRAS.401.1429D} of weak gravitational lensing \citep{CFHTLS, SDSS}
+2010MNRAS.401.1429D} of weak gravitational lensing \citep{2012AAS...21913001H, 2009ApJ...703.2232S}
 and of supernovae redshift-distance relations all point towards a standard 
-model of cosmology, in which dark energy and collisionless dark matter occupy 
+model of cosmology, in which dark energy and collision-less dark matter occupy 
 more than 95 per cent of the total energy density of the universe. In such a 
 paradigm, pure N-body code are perfectly suited to describe the dynamics, as 
 long as baryonic physics is not very important, or at least we understand how 
@@ -19,7 +19,8 @@ structure formation heavily relies on numerical simulations.
 
 For instance, a measurement of the baryonic acoustic oscillation (BAO) dilation 
 scale can provide tight constraints on the dark energy equation of scale 
-\citep{Seo2003,2005}. The most optimal estimates of the uncertainty requires the 
+\citep{Eisenstein:2005su,2006PhRvD..74l3507T, 2007MNRAS.381.1053P,2009arXiv0902.4680S}. 
+The most optimal estimates of the uncertainty requires the 
 knowledge of the matter power spectrum covariance matrix, which is only accurate 
 when measured from a large sample of N-body simulations \citep{2005MNRAS.360L..82R, 
 2009ApJ...700..479T, 2011ApJ...726....7T}. For the same reasons, the most accurate 
@@ -45,13 +46,13 @@ typically using high performance libraries such as {\small FFTW} \citep{FFTW3}.
 
 With the advent of large computing facilities, parallel coding has now become 
 common practice, and N-body codes have evolved both in performance and complexity. 
-Many codes have opted for a tree algorithm, including Gadget \citep{Gadjet, Gadjet2}, PMT \citep{1995ApJS...98..355X}, GOTPM \citep{2004NewA....9..111D}, and Hydra \citep{Hydra}, in which the local resolution increases with the density of the matter field. 
+Many codes have opted for a tree algorithm, including {\small GADGET} \citep{2001NewA....6...79S, 2005MNRAS.364.1105S}, PMT \citep{1995ApJS...98..355X}, GOTPM \citep{2004NewA....9..111D}, and Hydra \citep{1995ApJ...452..797C}, in which the local resolution increases with the density of the matter field. 
 These have the advantage to balance the load across the computing units, which enable the calculation of high density regions. 
 The drawback is a significant loss in speed, which can be only partly recovered by turning off the tree algorithm. 
-The same reasoning applies to the mesh-refine code of  \cite{1991ApJ...368L..23C} and the PM code by \cite{FerrelBertschinger1995}.
+The same reasoning applies to the mesh-refine code of  \cite{1991ApJ...368L..23C} and the PM code by \cite{1995astro.ph..3042F}.
  these are not designed to perform large scale PM calculations. 
 
-{\bf ( PM code by japanese? Others codes I should mention? That of Hy Trac?)}
+{\bf ( PM code by japanese? Others codes I should mention?)}
 
 
 {\small PMFAST} (\cite{2005NewA...10..393M}, MPT hereafter) is one of the first code that is designed such as to optimize the PM algorithm,
@@ -80,8 +81,8 @@ a runtime halo finder has been implemented, the expansion has also been generali
 
 This paper aims at presenting and quantifying these new features that make {\small CUBEP3M} one of the most competitive public N-body code.
 It has already been involved in a number of scientific applications over the last few years,
-spanning the field of weak lensing \citep{Vafaei10, 2008MNRAS.388.1819L,  2009arXiv0905.0501D, 2010PhRvD..81l3015L, 2010arXiv1012.0444Y, Harnois_Vafaei},  BAO
- \citep{2010arXiv1008.3506Z,  2011arXiv1106.5548N, 2011arXiv1109.5746H, HarnoisYuReco}, 
+spanning the field of weak lensing \citep{Vafaei10, 2008MNRAS.388.1819L,  2009arXiv0905.0501D, 2010PhRvD..81l3015L, 2010arXiv1012.0444Y, 2012arXiv1202.2332H},  BAO
+ (\cite{2010arXiv1008.3506Z,  2011arXiv1106.5548N, 2011arXiv1109.5746H}; Harnois-D\'{eraps} et al 2012 (in preparation)), 
 formation of early cosmic structures \citep{2008arXiv0806.2887I,2010arXiv1005.2502I},
 observations of dark stars \citep{2010MNRAS.407L..74Z,2012MNRAS.tmp.2794I} and
 reionization \citep{2011arXiv1107.4772I,Fernandez:2011ab,2011MNRAS.413.1353F,2012MNRAS.422..926M,Datta:2011hv,2012arXiv1203.0517F},  

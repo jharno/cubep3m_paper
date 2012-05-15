@@ -72,8 +72,8 @@ The loop over tiles and the particle exchange are thus performed in three dimens
 When the short range and pp forces have been calculated on all tiles, the code exits the parallel {\small OPENMP} loop
 and proceeds to the long range. This section of the code is also parallelized in many occasions, but, unfortunately, the current {\small MPI-FFTW}
 do not allow multi-threading. There is thus an inevitable loss of efficiency during each global Fourier transforms, during which
-only the head processor is active. Other libraries such as {\small P3DFFT} \citep{p3dfft} or  Intel {\small MKL-$\alpha$} \citep{fft_mkl} currently permit this extra level of parallelization,
-and it is our plan to migrate to one of these in the near future.
+only the head processor is active\footnote{Other libraries such as {\small P3DFFT}({\tt http://code.google.com/p/p3dfft/}) currently permit
+ an extra level of parallelization, and it is our plan to migrate to one of these in the near future.}.
 
 \begin{figure}
 \begin{verbatim}

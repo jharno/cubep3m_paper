@@ -2,10 +2,11 @@
 \label{PID}
 
 A system of particle identification can be turned on, which basically allows to track each particle's trajectory
-between checkpoints. Such a tool is useful to a number of applications, from reconstruction of halo merging history to {\bf (what else?)}
+between checkpoints. Such a tool is useful for a number of applications, from reconstruction of halo merging history to tracking individual particle
+trajectories.
 The particle tag system has been implemented as an array of double integers, {\tt PID}, 
 and assigns a unique integer to each particle during the initialization stage. The location of the tag on the {\tt PID} array 
 matches the location of the corresponding particle on the {\tt xv} array, hence it acts as if the latter array had an extra dimension.
-The location change only when particles exist the local volume, in which case the tag is sent along with the particle in the {\tt pass\_particle} subroutine.
-Deleted particles results in deleted flags, and the {\tt PID} array gets written to file at each particle checkpoint.
-{\bf (Anything else to say here?)}
+The location change only when particles exist the local volume, in which case the tag is sent along adjacent nodes 
+with the particle in the {\tt pass\_particle} subroutine, and deleted particles result in deleted flags.
+Similarly to the phase space array, the {\tt PID} array gets written to file at each particle checkpoint.

@@ -11,7 +11,7 @@ The original code that provides Gaussian initial conditions for {\small CUBEP3M}
 is extended to include non-Gaussian features of the ``local'' form,
 $\Phi({\bf x})=\phi({\bf x})+f_{\rm NL} \phi({\bf x})^2 + g_{\rm NL} 
 \phi({\bf x})^3$, where $\phi({\bf x})$ is the Gaussian contribution
-to the Bardeen potential $\Phi({\bf x})$ (see \cite{Bartolo_2004} for a review). 
+to the Bardeen potential $\Phi({\bf x})$ (see \cite{2004PhR...402..103B} for a review). 
 We adopted the CMB convention,
 in which $\Phi$ is calculated immediately after the matter-
 radiation equality (and not at redshift $z=0$ as in the large scale
@@ -29,4 +29,16 @@ It has also been used to quantify the impact of local non-Gaussian initial
 conditions on the halo power spectrum \citep{2009MNRAS.396...85D,
 2010PhRvD..81b3006D} and bispectrum \citep{2010MNRAS.406.1014S},
  as well as the matter bispectrum \citep{2011arXiv1111.6966S}.
+Fig. \ref{fig:init} shows the power spectrum of two realizations with the same initial power spectrum, 
+one of which was started of with non-Gaussian initial conditions.
+We see that the power spectra agree at the sub-per cent level, as expected {\bf (?????)}
+
+\begin{figure}%[ht]
+  \begin{center}
+    \includegraphics[width=3.2in]{graphs/dm_power_z0_fNL0_50.eps}
+  \caption{ Dark matter power spectrum, measured at $z=0$ in a volume $3.2 h^{-1}\mbox{Gpc}$ per side,
+  from $4000^3$ particles. The two curves represent two realizations of the same initial power spectrum, one of which used Gaussian statistics (blue) and the other the non-Gaussian initial condition generator. The to curves differ at the sub-per cent level, as seen in the top panel.   
+    \label{fig:init}}
+\end{center}
+\end{figure}
 
