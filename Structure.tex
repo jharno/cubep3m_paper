@@ -24,9 +24,16 @@ The long range component of the gravity force is solved on the coarse grid,
 and is global in the sense that the calculations require knowledge about the full simulated volume.
 The short range force and the particle-particle interactions are computed in parallel on local volumes\footnote{To make this possible, the fine grid arrays are constructed such as to support parallel reading and writing. In practice, this is done by adding an additional dimension to the relevant arrays, such that each {\small CPU} accesses a unique memory location.} or {\it tiles},
 and for maximal efficiency, the number of tiles per node should be at least equal to the number of available processors.
-Given the available freedom in the parallel configuration, it is generally good practice to maximize the number of {\small OPENMP} threads and minimize the number of {\small MPI} processes, as the information exchange between cores that are part of the same motherboard is generally much faster.
+
+Given the available freedom in the parallel configuration, it is generally good practice to maximize the number of {\small OPENMP} threads and minimize the number of {\small MPI} processes in relatively small runs, as the information exchange between cores that are part of the same motherboard is generally much faster.
+As one scales to larger problems, however, the formation of dense objects can cause memory problems in such configurations, and increasing 
+the number of {\small MPI} processes helps to ensure memory locality.
+
+
 As mentioned in MPT, the computation of the short range force requires each tile to store the fine grid density in a buffer surface around the physical volume it is assigned. The thickness of this surface must be larger than the cutoff length, and we find that a 24 cells deep buffer
-is a good compromise between memory usage and accuracy {\bf (Hugh, is that correct?)}
+is a good compromise between memory usage and accuracy {\bf (Hugh, is that correct?)}.
+Only when it comes to finding haloes at run time can this buffer create a problem, because a halo located close to the boundary
+can have a radius larger than the buffer zone. 
  
 
 %\subsection{Memory foot-print and communication strategy}
@@ -39,7 +46,7 @@ hence it is possible to hide some of the coarse grid arrays\footnote{ This memor
 We present here the largest arrays used by the code:
 \begin{enumerate}
 \item{{\tt xv} stores the position and velocity of each particle} 
-\item{{\tt ll} stores the linked-list that accelerate the access to particles in a local domain}
+\item{{\tt ll} stores the linked-list that accelerate the access to particles in each coarse grid cell}
 \item{{\tt rho\_f} and {\tt cmplx\_rho\_f} store 
 the local fine grid density  in real and Fourier space respectively}
 \item{{\tt force\_f} stores the force of gravity (short range only) along the three Cartesian directions}

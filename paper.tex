@@ -23,7 +23,7 @@
 \title[{\small}  High Performance P$^{3}$M N-body code: CUBEP3M]{{\small} High Performance P$^{3}$M N-body code: CUBEP3M: }
 \author[Joachim Harnois-D\'{e}raps, Ue-Li Pen, Ilian T. Iliev, Hugh Merz, JD Emberson, Vincent Desjacques]{Joachim Harnois-D\'{e}raps$^{1,2}$ 
 \thanks{E-mail: jharno@cita.utoronto.ca},  Ue-Li Pen$^{1}$ \thanks{E-mail: pen@cita.utoronto.ca}, 
-Ilian T. Iliev$^{3}$ \thanks{E-mail: i.t.iliev@sussex.ac.uk}, Hugh Merz$^{4}$ \thanks{E-mail: merz@sharcnet.ca}, 
+Ilian T. Iliev$^{3}$ \thanks{E-mail: i.t.iliev@sussex.ac.uk}, Hugh Merz$^{4}$ \thanks{E-mail: merz@sharcnet.ca}, \newauthor
 JD Emberson$^{1,5}$ \thanks{E-mail: emberson@astro.utoronto.ca} and Vincent Desjacques$^{6,7}$ \thanks{E-mail:vincent.desjacques@unige.ch}\\
 %\footnotemark[1]\thanks{This file has been amended to
 %highlight the proper use of \LaTeXe\ code with the class file.
@@ -50,10 +50,11 @@ $^{7}$Universit\'{e} de Gen\`{e}ve and Center for Astroparticle Physics, 24 Quai
 \label{firstpage}
 
 \begin{abstract}
-This paper presents {\small CUBEP3M}, an upgraded version of {\small PMFAST}, 
-a two-mesh gravity solver that was already among the fastest N-body codes. 
+This paper presents {\small CUBEP3M}, an upgraded version of {\small PMFAST} that
+solves gravity on a two-level mesh and that is among the fastest publicly available N-body codes. 
 Among the principal changes, the Poisson solver includes particle-particles interactions
-at the sub-grid level and across neighbouring cells, plus each level of the volume decomposition is now cubical.
+at the sub-grid level and across neighbouring cells, plus each level of the volume decomposition is now cubical,
+which allows for massive parallelization of the code.
 Force kernel have been improved for enhanced matching of the two mesh contributions near the cutoff length.
 We discuss the structure of the code, its accuracy, and its scaling performance.
 In addition, many utilities have been added, including a runtime halofinder,

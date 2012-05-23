@@ -10,3 +10,7 @@ matches the location of the corresponding particle on the {\tt xv} array, hence 
 The location change only when particles exist the local volume, in which case the tag is sent along adjacent nodes 
 with the particle in the {\tt pass\_particle} subroutine, and deleted particles result in deleted flags.
 Similarly to the phase space array, the {\tt PID} array gets written to file at each particle checkpoint.
+Since the array takes a significant amount of memory, we opted to store the tags in a seperate object
+-- as opposed to adding  an extra dimension to the existing {\tt xv} array, such that it can be turned off 
+when memory becomes an issue.
+ 

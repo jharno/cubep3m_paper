@@ -82,11 +82,14 @@ a runtime halo finder has been implemented, the expansion has also been generali
 This paper aims at presenting and quantifying these new features that make {\small CUBEP3M} one of the most competitive public N-body code.
 It has already been involved in a number of scientific applications over the last few years,
 spanning the field of weak lensing \citep{Vafaei10, 2008MNRAS.388.1819L,  2009arXiv0905.0501D, 2010PhRvD..81l3015L, 2010arXiv1012.0444Y, 2012arXiv1202.2332H},  BAO
- (\cite{2010arXiv1008.3506Z,  2011arXiv1106.5548N, 2011arXiv1109.5746H}; Harnois-D\'{eraps} et al 2012 (in preparation)), 
+ (\cite{2010arXiv1008.3506Z,  2011arXiv1106.5548N, 2011arXiv1109.5746H}; Harnois-D\'{eraps} et al 2012 ({\bf update with last paper!})), 
 formation of early cosmic structures \citep{2008arXiv0806.2887I,2010arXiv1005.2502I},
 observations of dark stars \citep{2010MNRAS.407L..74Z,2012MNRAS.tmp.2794I} and
 reionization \citep{2011arXiv1107.4772I,Fernandez:2011ab,2011MNRAS.413.1353F,2012MNRAS.422..926M,Datta:2011hv,2012arXiv1203.0517F},  
-and it seems relevant for the community to have access to a paper that describes the methodology, the accuracy and the performance of this public code. 
+and it is thus important for the community to have access to a paper that describes the methodology, the accuracy and the performance of this public code. 
+
+%\subsection{Simulation suites}
+%\label{subsec:suites}
 
 Since {\small CUBEP3M} is not a new code, the accuracy and systematic tests were performed by different groups, on different machines,
 and with different configurations. It is not an ideal situation in which to quantify the performance, and each test must be viewed as a
@@ -94,8 +97,30 @@ separate measurement that quantifies a specific aspect of the code.
 We have tried to keep to a minimum the number of such different runs, and although the detailed numbers might vary across different runs, 
 the general trends are common to all of them.
 
+Tests on constraints of the redshift step size were performed 
+on the Sunnyvale beowulf cluster at the Canadian Institute for Theoretical Astrophysics (CITA).
+Each node contains 2 quad core Intel(R) Xeon(R) E5310 @ 1.60GHz processors, 4GB of RAM,  a 40 GB disk and 2 gigE network interfaces. 
+We generate a set of Gaussian initial conditions at a starting redshift of $z = 100$, 
+with a box size equal to $200 h^{-1}\mbox{Mpc}$, we placed
+$128^{3}$  particles on a grid with $2^{3}$ more cells, and let them evolve until $z=0$.
+Tests on improvements of the force calculations were performed on the same machine, but with 8 times more particles and node, 
+and with a box size of $500 h^{-1}\mbox{Mpc}$.
+Hereafter we refer to these simulation modes as the CITA128 and CITA256 configurations respectively.
 
-The paper is structured as follow: XXXX 
+We then test the dynamical range of the simulation, the non-Gaussian initial conditions generator and the run time halo finder algorithm 
+with a third simulation configuration, which we denote the  RANGER4000, that also evolves $4000^{3}$ particles 
+from $z=100$ to $z=0$ but with a box side of $3.2 h^{-1}\mbox{Gpc}$.
+ Much larger runs were produced at various high performance computing centers
+ around the world; their description and a comparison of their performance are also described in this paper. 
+ 
+
+The paper is structured as follow: section \ref{sec:structure} reviews the structure and flow of the main code;
+section \ref{sec:Poisson} describes how Poisson equation is solved on the two-mesh system;
+we then present in section \ref{sec:scaling} the scaling of the code to very large problems;
+sections \ref{sec:accuracy} and \ref{sec:systematics} discuss the accuracy and systematic effects of the code respectively.
+ We then describe in section \ref{sec:halo} the run-time halo finder, in section \ref{sec:extensions} various extensions to 
+ to the default configuration, and conclude afterwards.
+
 
 
 

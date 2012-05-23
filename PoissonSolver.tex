@@ -6,13 +6,32 @@ This section reviews how Poisson's equation is solved on a double-mesh configura
 Many parts of the algorithm are identical to {\small PMFAST}, hence we refer the reader 
 to section 2 of MPT for more details. In {\small CUBEP3M}, the mass default assignment scheme are
 a `cloud-in-cell' (cic) interpolation for the coarse grid,  and a `nearest-grid-point' interpolation 
-for the fine grid \citep{1981csup.book.....H}. Particle-particle interactions are not interpolated, but a sharp cutoff kills the force
-for pairs closer to a tenth of a grid cell. 
+for the fine grid \citep{1981csup.book.....H}. Particle-particle interactions are not interpolated, 
+but we instead impose a sharp cutoff on the force
+for pairs that air closer than a tenth of a grid cell. 
 
-The code units inherit from \citep{2004NewA....9..443T}, which we summarized here for completeness.
-In simulation units, the mean comoving mass density is set to unity, the length of a fine grid cell is set to one,
-and the Newton gravitational  constant $G$ is set to $1/(6 \pi a)$, where $a$ is the scale factor.
-With these three choices, one can transform any physical units into simulation units and vice versa.
+The code units inherit from \citep{2004NewA....9..443T}, which we summarize here for completeness.
+In simulation units,  the comoving length of a fine grid cell is set to one,
+such that the unit length in simulation unit is 
+\begin{eqnarray}
+1\mathcal{L} = a \frac{L}{N} 
+\end{eqnarray}
+where $a$ is the scale factor, $N$ is the total number of cells along one dimension,
+and $L$ is the comoving volume in $h^{-1}\mbox{Mpc}$.
+The mean comoving mass density is also set to unity in simulation units, 
+which, in physical units, corresponds to 
+\begin{eqnarray}
+1\mathcal{D} = \rho_{m}(0) a^{-3} = \Omega_{m} \rho_{c} a^{-3} = \frac{3 \Omega_{m} H_{o}^{2}}{8 \pi G a^{3} }
+\end{eqnarray}
+$\Omega_{m}$ is the matter density, $H_{o}$ is the Hubble's constant, $\rho_{c}$ is the critical density today,
+and $G$ is Newton's constant. The mass unit is found with $\mathcal{M} = \mathcal{DL}^{3}$.
+Specifying the value of $G$ on the grid fixes the time unit, and with the choice $G_{grid}$ = 1/$(6 \pi a)$,
+we get:
+\begin{eqnarray}
+1 \mathcal{T} = \frac{2a^{2}}{3}\frac{1}{\sqrt{\Omega_{m}H_{o}^{2}}}
+\end{eqnarray}
+These choices completely determine the convertion between physical units into simulation units and vice versa.
+For instance, the velocity units are given by $1\mathcal{V} = \mathcal{L}$/$\mathcal{T}$.
 
 
 
