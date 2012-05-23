@@ -99,7 +99,7 @@ the general trends are common to all of them.
 
 Tests on constraints of the redshift step size were performed 
 on the Sunnyvale beowulf cluster at the Canadian Institute for Theoretical Astrophysics (CITA).
-Each node contains 2 quad core Intel(R) Xeon(R) E5310 @ 1.60GHz processors, 4GB of RAM,  a 40 GB disk and 2 gigE network interfaces. 
+Each node contains 2 Quad Core Intel(R) Xeon(R) E5310 1.60GHz processors, 4GB of RAM,  a 40 GB disk and 2 gigE network interfaces. 
 We generate a set of Gaussian initial conditions at a starting redshift of $z = 100$, 
 with a box size equal to $200 h^{-1}\mbox{Mpc}$, we placed
 $128^{3}$  particles on a grid with $2^{3}$ more cells, and let them evolve until $z=0$.
@@ -107,11 +107,15 @@ Tests on improvements of the force calculations were performed on the same machi
 and with a box size of $500 h^{-1}\mbox{Mpc}$.
 Hereafter we refer to these simulation modes as the CITA128 and CITA256 configurations respectively.
 
-We then test the dynamical range of the simulation, the non-Gaussian initial conditions generator and the run time halo finder algorithm 
-with a third simulation configuration, which we denote the  RANGER4000, that also evolves $4000^{3}$ particles 
-from $z=100$ to $z=0$ but with a box side of $3.2 h^{-1}\mbox{Gpc}$.
+For tests of the accuracy over a large dynamical range of the simulation, of the non-Gaussian initial conditions generator and of the run time halo finder algorithm, 
+we used a third simulation configuration that were run at the Texas Advanced Computing Centre (TACC) on Ranger, a SunBlade 
+x6420 system with AMD x86\_64 Opteron Quad Core 2.3 GHz `Barcelona' processors and Infiniband networking.
+These RANGER4000 simulations evolved $4000^{3}$ particles 
+from $z=100$ to $z=0$ with a box side of $3.2 h^{-1}\mbox{Gpc}$
+on 4000 cores.
+ 
  Much larger runs were produced at various high performance computing centers
- around the world; their description and a comparison of their performance are also described in this paper. 
+ around the world; their description and a comparison of their performance are also described in a later section of this paper. 
  
 
 The paper is structured as follow: section \ref{sec:structure} reviews the structure and flow of the main code;

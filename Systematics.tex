@@ -9,26 +9,27 @@ For an over-density field $\delta({\bf \it x})$, the power spectrum is extracted
 \label{eq:power}
 \end{eqnarray}
 where the angle bracket corresponds to an ensemble (or volume) average.
-We plot in Fig. \ref{fig:power_highres} the dimensionless power spectrum for a large run ($4000^3$ particles),
-which are evolved from a Gaussian initial distribution at $z=100$ down to $z=0$, in a box $3.2 h^{-1}\mbox{Gpc}$ per side.
-We observe that the agreement with the non-linear prediction of \cite{Lewis:1999bs} is at the per cent level over a large dynamical range.
-The drop of power at high-$k$ is caused by the finite resolution, and the fluctuations at low-$k$ is caused by the white noise imposed
+We plot in Fig. \ref{fig:power_highres} the dimensionless power spectrum in a RANGER4000 simulation and
+observe that the agreement with the non-linear prediction of \cite{Lewis:1999bs} is at the per cent level over a large dynamical range.
+The drop of power at high-$k$ is caused by the finite resolution, and the fluctuations at low-$k$ are caused by the white noise imposed
 in the initial conditions. 
 
 \begin{figure*}%[ht]
   \begin{center}
     \includegraphics[width=5.2in]{graphs/power_highres.eps}
-  \caption{Dark matter power spectrum, measured at $z=0$ in a volume $3.2 h^{-1}\mbox{Gpc}$ per side,
-  from $4000^3$ particles. The simulation ran on 4000 cores on Ranger.
+  \caption{Dark matter power spectrum, measured at $z=0$ in a RANGER4000 simulation.
     \label{fig:power_highres}}
 \end{center}
 \end{figure*}
 
-The actual force of gravity on the p$^3$m algorithm is presented in Fig. \ref{fig:den_force_ppext0}.
-This is a force versus distance plot, where the force is calculated in two steps. 
-We first compute the force on each particles of a given distribution as done at every time step.
-We then remove one particle, compute the force again on all particles, and record on a file the 
-force difference between the two calculations and the distance to the `hole'.
+The actual force of gravity in the p$^3$m algorithm,
+as felt by a single particle, is presented in Fig. \ref{fig:den_force_ppext0}.
+This shows the force versus distance -- in fine cell units -- a calculation that was performed in a CITA256 realization in two steps: 
+1- we compute the force on each particle in a given distribution, as done at every time step.
+2- we remove a selected particle, compute the force again on all particles, and record on a file the 
+force difference (before  and after the removal) as a function of the distance to the `hole'.
+
+
 
 Fig. \ref{fig:den_force_fracErr} shows the fractional error on the force along the radial and tangential directions.
 It is larger than in {\small PMFAST} at grid scales, largely due to the fact that the fine mesh force is performed with an NGP interpolation scheme -- as opposed to CIC -- which shows a larger scatter about the theoretical value. {\bf (I would like to mention why we opted for NGP. Can't we do p3m with CIC on the fine grid? )}
@@ -39,7 +40,8 @@ It is larger than in {\small PMFAST} at grid scales, largely due to the fact tha
     \includegraphics[width=3.2in]{graphs/densityForce_ppext=0.eps}
   \caption{Gravity force in of the p$^3$m algorithm, versus distance in fine mesh cell units, compared with the exact $1/r^{2}$ law.
   Particles in the same fine cell follow the exact curve, then we observe a large scatter at 
-  distance of the order of the fine grid, caused by the NGP interpolation scheme. 
+  distance of the order of the fine grid, caused by the NGP interpolation scheme
+  This calculation was obtained in a CITA256 realization. 
     \label{fig:den_force_ppext0}}
 \end{center}
 \end{figure}
@@ -91,15 +93,16 @@ rather weak everywhere. In that case, the size of the redshift jumps is controll
 If the expansion jump is too large, the size of the residual errors can become significant, and one can observe, for instance,
 a growth of structure that does not match the predictions of  linear theory even at the largest scales.
 One therefore needs to choose a maximum step size. In {\small CUBEP3M}, this is controlled by $r_{max}$, which is the fractional step size,
-$\mbox{d}a/(a + \mbox{d}a)$ and is set to 0.05 by default.  Generally, a simulation should start at a redshift high enough that
+$\mbox{d}a/(a + \mbox{d}a)$ and is set to $0.05$ by default.  Generally, a simulation should start at a redshift high enough that
 the initial dimensionless power spectrum is well under unity at all scales. This ensures that the Zel'dovich approximation
- holds at the pre cent level at least. A drop of accuracy can occur if one starts the simulation too early, where
+ holds at the per cent level at least. A drop of accuracy can occur if one starts the simulation too early, where
  truncation error will be significant at the early time steps.
 
 
 It is possible to reduce this effect, and thereby improve significantly 
 the accuracy of the code, by modifying the value of $r_{max}$, at the cost of increasing the total number of time steps.
-Fig. \ref{fig:ra_max} shows a comparison of late time power spectra of density fields that originate from the same initial conditions, and used the same random seeds to control the fine mesh shifts (mentioned above), but the value of $r_{max}$ was modified at each run. 
+Fig. \ref{fig:ra_max} shows a comparison of late time power spectra of a series of CITA256 realizations that originate from the same initial conditions, 
+and used the same random seeds to control the fine mesh shifts (mentioned above): only the value of $r_{max}$ was modified between each run. 
 We observe that the impact is mostly located in the non-linear regime, where decreasing the time step to 0.006 
 allows the simulation to recover about 30 per cent of dimensionless power at the turn over scale, in this simulation configuration.
 This gain is greatly affected by the choice of initial redshift, the resolution, and the box size, and ideally one would make
@@ -111,9 +114,9 @@ In this test case, reducing further at 0.001 shows only a mild improvement in ac
 \begin{figure}%[ht]
   \begin{center}
     \includegraphics[width=3.2in]{graphs/power_ra_max.eps}
-  \caption{Dark matter power spectrum, measured at $z=0$ in a volume $500 h^{-1}\mbox{Mpc}$ per side,
-  from $256^3$ particles and a starting redshift of $z=200$. The different curves show different values of $r_{max}$. 
-  The resources required to run these simulations increase rapidly as $r_{max}$ decreases.    \label{fig:ra_max}}
+  \caption{Dark matter power spectrum, measured at $z=0$ in a series of CITA256 realizations. 
+ The starting redshift ofwas raised to $z=200$ to enhance the systematic effect. The different curves show different values of $r_{max}$. 
+  The resources required to run these simulations increase rapidly as $r_{max}$ decreases, as seen in Table \ref{table:ra_max}.    \label{fig:ra_max}}
 \end{center}
 \end{figure}
 
