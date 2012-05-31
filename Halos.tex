@@ -35,7 +35,7 @@ When this occurs we use an analytical halo density profile to correct the
 halo mass and radius to the values corresponding to the target overdensity. 
 This analytical density profile is given by Truncated Isothermal Sphere (TIS) 
 profile \citep{1999MNRAS.307..203S,2001MNRAS.325..468I} for overdensities below 
-$\sim130$, and $1/r^2$ for lower overdensities. The TIS density profile has a
+$\sim130$, and $1/r^2$ for lower overdensities. The density profile has a
 similar outer slope (the relevant one here) to the Navarro, Frenk and White 
 \citep[NFW][]{1997ApJ...490..493N} profile, but extends to lower overdensities
 and matches well the virialization shock position given by the Bertschinger 
@@ -81,18 +81,13 @@ agreement, within $\sim10$ per cent for all halos with masses corresponding to
 1000 particles or more. Lower-mass halos are somewhat under-counted compared
 to the \citet{2008ApJ...688..709T} fit, by $\sim20$ per cent for 400 particles and 
 by $\sim40$ per cent for 50 particles. This is due to the grid-based nature of our
-SO halo finder, which misses some of the low-mass halos. Using more sophisticated
+SO halo finder, which misses some of the low-mass halos. It was shown, however, that using more sophisticated
 halo finders (available through post-processing due to their heavier memory
-footprint) recovers the expected mass function.
-
-
-
-{\bf II: do we need to say anything more about having the option to use other
-halo finders like AHF and FOF?}
+footprint) allows to recover the expected mass function.
 
 A second test of the accuracy of the halo finder algorithm is to extract the halo power spectrum $P_{h}(k)$ and compare the halo bias
 with theoretical predictions. The halo bias is defined as $b(k) = \sqrt{P(k)/P_{h}(k)}$ and is shown in Fig. \ref{fig:halo}.
-
+{\bf Expand here, describe, match with theory, etc...}
 \begin{figure}%[ht]
 %  \vskip -0.5cm 
   \begin{center}

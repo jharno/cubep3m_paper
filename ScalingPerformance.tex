@@ -12,7 +12,7 @@
     on Ranger TACC facility for very large number of cores (right). Plotted is the code speedup 
     ($N_{\rm particles}^3/t_{\rm wallclock}$) against core count, normalized by the smallest run 
     in each case. Dashed line indicates the ideal weak 
-    scaling. The data is listed in Table \ref{summary_scaling_table}.
+    scaling. The data are listed in Table \ref{summary_scaling_table}.
     \label{scaling}
 % \vskip -0.9cm 
 }
@@ -37,8 +37,7 @@ $N_{\rm particles}$& box size ($h^{-1}$Mpc)
 2048  & 61.87 & 64 &26.48 & $2048^3$ & 2048 \\
 \hline
 \end{tabular}
-\caption{Scaling of  {\small CUBEP3M} for large number of cores 
-(on Ranger). Speedup is scaled to the smallest run.}
+\caption{Scaling of  {\small CUBEP3M} on Ranger. Speedup is scaled to the smallest run.}
 \label{summary_scaling_table2}
 \begin{tabular}{@{}|llllll|}
 \hline
@@ -65,6 +64,7 @@ $N_{\rm particles}$& box size ($h^{-1}$Mpc)
 %of shared RAM. For efficiency reasons (local memory access) we 
 %typically use smaller MPI 'nodes' consisting of one Quad Core 
 %processor and 8 GB of RAM. 
+{\bf (This whole section needs to be edited for readability... Plus some things are already in the introduction.)}
 
 The parallel algorithm of {\small CUBEP3M} is designed for `weak' 
 scaling, i.e. if the number of cores and the problem size 
@@ -80,6 +80,16 @@ load balancing, thus the code is most efficient if the sub-domains
 contain roughly equal number of particles, which is true for most
 cosmological-size volumes, but not for e.g. simulations of a single
 highly-resolved galaxy. 
+
+Obviously, for maximal efficiency, the number of tiles per node should be a multiple of the number of available processors per {\small MPI} process.
+Given the available freedom in the parallel configuration, as long as the load is balanced, it is generally good practice to maximize the number of {\small OPENMP} threads and minimize the number of {\small MPI} processes. 
+The information exchange between cores that are part of the same motherboard is generally much faster,
+so we minimize the overhead; in addition, having fewer {\small MPI} processes reduces the total amount of buffer zones, a memory that can be used to increase the physical resolution. 
+As one scales probes deeper into the non-linear regime however, 
+the formation of dense objects can cause memory problems in such configurations, and increasing 
+the number of {\small MPI} processes helps to ensure memory locality,
+especially in non-uniform memory access (numa) environments.
+
 
 %Since the current Curie is using Intel Nehalem architecture, while 
 %the thin Curie nodes will use the newer Westermere Intel architecture, 
@@ -100,6 +110,17 @@ to 2048 $h^{-1}$Mpc, and the number of particles from $256^3$ to $2048^3$.
 Simulations were run on 32 up to 2048 computing cores, also starting from 
 redshift $z=100$, and evolving until $z=0$. Our results show excellent scaling, within 
 $\sim3$ per cent of the ideal one, for up to 2048 cores. 
+
+
+The intermediary version between {\small PMFAST} and  the current p$^3$m code -- {\small CUBEPM} --
+was also ported to the IBM Blue Gene/L platform, and achieved 
+weak-scaling up to 4096 processes, with {\small CUBEPM} only incurring a 10 per cent overhead 
+at runtime (compared to 8 processes) for a balanced workload.  In order to 
+accomdate the limited amount of memory available per processing core on the 
+Blue Gene/L platform machines, it was necessary to perform the (long range) MPI FFT
+with a volumetric decomposition \citep{3DFFT}.
+Slab decomposition would have required a volume too large to fit in system 
+memory given the constraints in the simulation geometry. 
 
 We have also ran {\small CUBEP3M} on a much larger number of cores, 
 from 8000 to up to 21,976, with $5488^3$-$6000^3$ (165 to 216 billion) 
@@ -154,7 +175,3 @@ able to use the software libraries required ({\small MPICH} and {\small FFTW}), 
 exhibited serious problems when applied to calculations of such 
 unprecedented size. 
 
-{\bf Bottle neck in the largest runs?}
-
-{\bf (Hugh, do you have anything you would like to share 
-concerning the largest runs you did on Blue Gene? )} 

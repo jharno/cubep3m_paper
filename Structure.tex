@@ -9,7 +9,7 @@ make efficient use of high performance libraries to speed up standard calculatio
 In the realm of parallel programming, high efficiency  can be assessed when a high load is balanced across all processors
 most of the time. In this section, we present the general strategies adopted to address these challenges\footnote{ 
 Many originate directly from MPT and were preserved in {\small CUBEP3M};
-those will be briefly mentioned, and we shall refer the reader to the original PMFAST paper for greater details.}.
+those will be briefly mentioned, and we shall refer the reader to the original {\small PMFAST} paper for greater details.}.
 We start with a walkthrough the code flow, and briefly discuss some specific sections that depart from standard N-body codes,
 while referring the reader to future sections for detailed discussions on selected topics.
 
@@ -22,19 +22,15 @@ we shall come back to these later, but for the moment, we adopt the
 standard configuration. 
 The long range component of the gravity force is solved on the coarse grid, 
 and is global in the sense that the calculations require knowledge about the full simulated volume.
-The short range force and the particle-particle interactions are computed in parallel on local volumes\footnote{To make this possible, the fine grid arrays are constructed such as to support parallel reading and writing. In practice, this is done by adding an additional dimension to the relevant arrays, such that each {\small CPU} accesses a unique memory location.} or {\it tiles},
-and for maximal efficiency, the number of tiles per node should be at least equal to the number of available processors.
+The short range force and the particle-particle interactions are computed in parallel on local volumes\footnote{To make this possible, the fine grid arrays are constructed such as to support parallel reading and writing. In practice, this is done by adding an additional dimension to the relevant arrays, such that each {\small CPU} accesses a unique memory location.} or {\it tiles}. The force matching of the two meshes is performed by introducing a cutoff in the two force kernel. The value of $r_{c}=16$ fine cells was chosen such as to balance the communication 
+overhead between processes and the accuracy of the match between the two meshes. 
 
-Given the available freedom in the parallel configuration, it is generally good practice to maximize the number of {\small OPENMP} threads and minimize the number of {\small MPI} processes in relatively small runs, as the information exchange between cores that are part of the same motherboard is generally much faster.
-As one scales to larger problems, however, the formation of dense objects can cause memory problems in such configurations, and increasing 
-the number of {\small MPI} processes helps to ensure memory locality.
+The computation of the short range force requires each tile to store the fine grid density in a buffer surface around the physical volume it is assigned. The thickness of this surface must be larger than the cutoff length (of 16 cells), and we find that a 24 cells deep buffer
+is a good compromise between memory usage and accuracy.
+When it comes to finding haloes at run time can this buffer create a problem, because a large halo located close to the boundary
+can have a radius larger than the buffer zone, in which case it would be truncated, thus falling in the wrong mass bin, producing an incorrect center of mass, etc. 
+It could then be desirable to increase the buffer zone around each tile, at the cost of a loss of memory dedicated to the actual physical volume.
 
-
-As mentioned in MPT, the computation of the short range force requires each tile to store the fine grid density in a buffer surface around the physical volume it is assigned. The thickness of this surface must be larger than the cutoff length, and we find that a 24 cells deep buffer
-is a good compromise between memory usage and accuracy {\bf (Hugh, is that correct?)}.
-Only when it comes to finding haloes at run time can this buffer create a problem, because a halo located close to the boundary
-can have a radius larger than the buffer zone. 
- 
 
 %\subsection{Memory foot-print and communication strategy}
 %\label{subsec:memory}
@@ -51,8 +47,10 @@ We present here the largest arrays used by the code:
 the local fine grid density  in real and Fourier space respectively}
 \item{{\tt force\_f} stores the force of gravity (short range only) along the three Cartesian directions}
 \item{{\tt kern\_f} stores the fine grid force kernel in the three directions}
+\item{{\tt PID} stores the unique particle identification tags.}
 \end{enumerate}
-
+The particle ID is a feature that can be switched off by removing a compilation flag, 
+and allows to optimize the code for higher resolution configurations.
 %\subsection{Code overview}
 %\label{subsec:overview}
 
@@ -79,7 +77,7 @@ The loop over tiles and the particle exchange are thus performed in three dimens
 When the short range and pp forces have been calculated on all tiles, the code exits the parallel {\small OPENMP} loop
 and proceeds to the long range. This section of the code is also parallelized in many occasions, but, unfortunately, the current {\small MPI-FFTW}
 do not allow multi-threading. There is thus an inevitable loss of efficiency during each global Fourier transforms, during which
-only the head processor is active\footnote{Other libraries such as {\small P3DFFT}({\tt http://code.google.com/p/p3dfft/}) currently permit
+only the single core {\small MPI} process is active\footnote{Other libraries such as {\small P3DFFT} ({\tt http://code.google.com/p/p3dfft/}) currently permit
  an extra level of parallelization, and it is our plan to migrate to one of these in the near future.}.
 
 \begin{figure}
@@ -135,7 +133,7 @@ subroutine particle_mesh
    delete_buffers
 end subroutine particle_mesh
 \end{verbatim}
-\caption{Overall structure of the two-level mesh algorithm. We have included the section that concerns the extended pp force calculation to show that it follows the same basic logic. We mention here that the three linked list arrays are distinct entities, and their structure differ slightly.  }
+\caption{Overall structure of the two-level mesh algorithm. We have included the section that concerns the extended pp force calculation to illustrate that it follows the same basic logic. We mention here that the three linked list arrays are distinct entities, and their structure differ slightly.  }
 \label{fig:particle_mesh}
 \end{figure}
 
@@ -145,7 +143,8 @@ and writes them to file. Similarly, the code can compute two-dimensional project
 The code exits the loop when it has reached the final redshift, it then wraps up the {\small FFTW} plans 
 and clears the {\small MPI} communicators. We have collected those operations under the subroutine {\tt finalize} for concision.
 
-
-
-
-{\bf (Anything else to say in this section?)}
+Other considerations that need to be considered is that any decomposition geometry somehow 
+limits permissible grid sizes, and that volume evenly decomposed into cubic sub-sections 
+--  such as {\small CUBEP3M} -- requires the number of MPI processes to be a perfect cube.
+Also,  since the decomposition is volumetric, as opposed to density dependent -- 
+it suffers from load imbalance when probing deep into the non-linear regime.

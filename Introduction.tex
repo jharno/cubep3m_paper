@@ -36,26 +36,25 @@ in fairly large volumes, which demands simulations with a very large dynamic ran
 %{\bf (Ilian, could you say something about reionization here? Just general references as to why one needs N-body codes to perform 
 %accurate predictions/forecasts, etc.)}
 
-The basic problem that is addressed with N-body codes is a time evolution of an ensemble of $N$ particles
-that is subject to gravitational attraction. The brute force calculation requires $O(N^{2})$ operation, a cost that 
+The basic problem that is addressed with N-body codes is the time evolution of an ensemble of $N$ particles
+that is subject to gravitational attraction. The brute force calculation requires $O(N^{2})$ operations, a cost that 
 exceeds the memory and speed of current machines for large problems.
 Solving the problem  on a mesh \citep{1981csup.book.....H} reduces to $O(N\mbox{log}N)$ the number of operations,
-as it is possible to solve for the particle-mesh (PM) interaction with fast Fourier transforms techniques, 
-typically using high performance libraries such as {\small FFTW} \citep{FFTW3}.
+as it is possible to solve for the particle-mesh (PM) interaction with fast Fourier transforms techniques with high performance libraries such as {\small FFTW} \citep{FFTW3}.
 
 
-With the advent of large computing facilities, parallel coding has now become 
+With the advent of large computing facilities, parallel computations have now become 
 common practice, and N-body codes have evolved both in performance and complexity. 
-Many codes have opted for a tree algorithm, including {\small GADGET} \citep{2001NewA....6...79S, 2005MNRAS.364.1105S}, PMT \citep{1995ApJS...98..355X}, GOTPM \citep{2004NewA....9..111D}, and Hydra \citep{1995ApJ...452..797C}, in which the local resolution increases with the density of the matter field. 
-These have the advantage to balance the load across the computing units, which enable the calculation of high density regions. 
+Many have opted for  `tree' algorithms, including {\small GADGET} \citep{2001NewA....6...79S, 2005MNRAS.364.1105S}, {\small PMT} \citep{1995ApJS...98..355X}, {\small GOTPM} \citep{2004NewA....9..111D}, and Hydra \citep{1995ApJ...452..797C}, in which the local resolution increases with the density of the matter field. 
+These often have the advantage to balance the work load across the computing units, which enable fast calculations even in high density regions. 
 The drawback is a significant loss in speed, which can be only partly recovered by turning off the tree algorithm. 
-The same reasoning applies to the mesh-refine code of  \cite{1991ApJ...368L..23C} and the PM code by \cite{1995astro.ph..3042F}.
- these are not designed to perform large scale PM calculations. 
+The same reasoning applies to mesh-refined codes  \citep{1991ApJ...368L..23C}, 
+which in the end are not designed to perform fast PM calculations on large scales. 
 
-{\bf ( PM code by japanese? Others codes I should mention?)}
+%{\bf ( PM code by japanese? Others codes I should mention?)}
 
 
-{\small PMFAST} (\cite{2005NewA...10..393M}, MPT hereafter) is one of the first code that is designed such as to optimize the PM algorithm,
+{\small PMFAST} (\cite{2005NewA...10..393M}, MPT hereafter) is one of the first code designed specifically to optimize the PM algorithm,
 both in terms of speed and memory usage. It uses a two-level mesh algorithm based on the gravity solver of \cite{2003AAS...203.9703T},
 The long range gravitational force is computed on a  grid four times coarser, such as to minimize the {\small MPI} communication time
 and to fit in system's memory. The short range is computed locally on a finer mesh, and only the local sub-volume needs 
@@ -77,12 +76,15 @@ until it reaches the hard limit of a single cell layer.  With this enhancement, 
 which soon after incorporated particle-particle (pp) interactions at the sub-grid level. 
 The code was finally renamed {\small CUBEP3M}, and now includes a significant number of new features: the pp force
 can be extended to an arbitrary range, the size of the redshift jump can be constrained for improved accuracy during the first time steps,
-a runtime halo finder has been implemented, the expansion has also been generalized to include a redshift dependent equation of state of dark energy, there is a system of unique particle identification which can be switched on or off, and the initial condition generator has been generalized as to include non-Gaussian features {\bf (anything else since PMFAST?)}.
+a runtime halo finder has been implemented, the expansion has also been generalized to include a redshift dependent equation of state of dark energy, there is a system of unique particle identification which can be switched on or off, and the initial condition generator has been generalized as to include non-Gaussian features.
+ {\small PMFAST} was also equipped with a multi time stepping option that has not been tested on {\small CUBEP3M} yet, but which is, in principle at least, still available. 
+ It also contains support for gas cosmological evolution through a TVD MHD module,
+ and a coupling interface with the radiative transfer code C2-Ray \citep{C2-Ray...}. 
 
 This paper aims at presenting and quantifying these new features that make {\small CUBEP3M} one of the most competitive public N-body code.
 It has already been involved in a number of scientific applications over the last few years,
 spanning the field of weak lensing \citep{Vafaei10, 2008MNRAS.388.1819L,  2009arXiv0905.0501D, 2010PhRvD..81l3015L, 2010arXiv1012.0444Y, 2012arXiv1202.2332H},  BAO
- (\cite{2010arXiv1008.3506Z,  2011arXiv1106.5548N, 2011arXiv1109.5746H}; Harnois-D\'{eraps} et al 2012 ({\bf update with last paper!})), 
+ \citep{2010arXiv1008.3506Z,  2011arXiv1106.5548N, 2011arXiv1109.5746H, 2012arXiv1205.4989H}, 
 formation of early cosmic structures \citep{2008arXiv0806.2887I,2010arXiv1005.2502I},
 observations of dark stars \citep{2010MNRAS.407L..74Z,2012MNRAS.tmp.2794I} and
 reionization \citep{2011arXiv1107.4772I,Fernandez:2011ab,2011MNRAS.413.1353F,2012MNRAS.422..926M,Datta:2011hv,2012arXiv1203.0517F},  

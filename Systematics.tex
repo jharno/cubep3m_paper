@@ -29,19 +29,28 @@ This shows the force versus distance -- in fine cell units -- a calculation that
 2- we remove a selected particle, compute the force again on all particles, and record on a file the 
 force difference (before  and after the removal) as a function of the distance to the `hole'.
 
+Particles in the same fine cell follow the exact $1/r^{2}$ curve. The scatter at 
+  distances of the order of the fine grid is caused by the NGP interpolation scheme:
+  Particles in adjacent fine cells can be actually very close, as seen in the upper left region of this plot,
+  but feel the mesh force at grid cell distances,
+  creating up to an order of magnitude loss in the force.
+As the separation approaches a tenth of the box size or so, the force on the coarse mesh deviates
+from Newton's law in order to preserve periodic boundary conditions. 
+This feature, however, can be turned off at compilation time.
 
 
 Fig. \ref{fig:den_force_fracErr} shows the fractional error on the force along the radial and tangential directions.
-It is larger than in {\small PMFAST} at grid scales, largely due to the fact that the fine mesh force is performed with an NGP interpolation scheme -- as opposed to CIC -- which shows a larger scatter about the theoretical value. {\bf (I would like to mention why we opted for NGP. Can't we do p3m with CIC on the fine grid? )}
+It is larger than in {\small PMFAST} at grid scales, largely due to the fact that the fine mesh force is performed with an NGP interpolation scheme -- as opposed to CIC -- which shows a larger scatter about the theoretical value. 
+As discuss in the next section, to minimize this effect, we apply a random offset to all the particles,
+such that this undesired scatter is average out over a few time steps.
+
 
 
 \begin{figure}%[ht]
   \begin{center}
     \includegraphics[width=3.2in]{graphs/densityForce_ppext=0.eps}
   \caption{Gravity force in of the p$^3$m algorithm, versus distance in fine mesh cell units, compared with the exact $1/r^{2}$ law.
-  Particles in the same fine cell follow the exact curve, then we observe a large scatter at 
-  distance of the order of the fine grid, caused by the NGP interpolation scheme
-  This calculation was obtained in a CITA256 realization. 
+    This particular calculation was obtained in a CITA256 realization. 
     \label{fig:den_force_ppext0}}
 \end{center}
 \end{figure}
@@ -60,31 +69,52 @@ It is larger than in {\small PMFAST} at grid scales, largely due to the fact tha
 
 \subsection{Mesh force at grid distances}
 
-The biggest problem with the pp force calculation is that it 
-is anisotropic and depends on the location of the fine mesh with respect 
-to the particles. An example are two particles on either side of a grid 
-cell boundary. These particles will experience the 1-grid cell separation
-NGP mesh force, but if the mesh were shifted such that they were
-within the same cell, they would experience the (larger) pp force instead. 
+The biggest problem with the straightforward pp force calculation is that the results 
+are anisotropic and depend on the location of the fine mesh with respect 
+to the particles. As an example, consider two particles on either side of a grid 
+cell boundary, experiencing their mutual gravity attraction via the (NGP) mesh force with a 1-grid cell separation.
+ If, instead, the mesh was shifted such that they were
+within the same cell, they would experience the (larger) pp force. 
 This effect is especially pronounced at the early stages of the simulation where
 the density is more homogeneous, and leads to mesh artefacts appearing
 in the density field. In order to minimize this systematic effect, 
 we randomly shift the particle distribution relative to the mesh by a small
 amount -- up to 2 fine grid cells in magnitude -- in each
 dimension and at each time step.  This adds negligible computational
-overhead as it can be applied during the particle position update
-and suppresses the mesh behaviour over multiple time steps.
+overhead as it is applied during the particle position update,
+and suppresses the mesh behaviour that otherwise grows over multiple time steps.
 It is possible to shift back the particles at the end of each time steps,
-which prevents a random drift of the whole population.
-This is convenient if one needs to correlate the initial and final positions of the particles.
+which prevents a random drift of the whole population, a necessary step 
+if one needs to correlate the initial and final positions of the particles for instance,
+or for hybrid dark matter -- MHD simulations.
  
 We ensure that, on average, this solution balances out the mesh feature,
-by tuning the NGP force kernel such as to provide  force as unbalanced as possible at grid cell distances.
-This adjustment is performed from the pairwise force test described in section \ref{sec:accuracy}.
+by tuning the force kernels such as to provide  force as evenly balanced as possible at grid cell distances
+and at the cutoff length ($r_{c}=16$ fine cells).
+These adjustments are performed from the pairwise force test described in section \ref{sec:accuracy}.
 We note that this is one of the driving argument to extend the pp force outside the fine mesh cell,
 since the scattering of the NGP force about the actual $1/r^{2}$ law drops rapidly as the distance increases.
 As discussed in section \ref{subsec:extendedpp}, this gain in accuracy comes at a price,
 a choice that  must be carefully balanced.
+
+We present in Fig. \ref{fig:disp_mesh} the dramatic impact of removing the random offset in the code.
+The power spectrum is completely wrong, caused by the large scatter in the force on the fine mesh.
+In this scatter is not averaged over, the error directly adds up at each time step. {\small PMFAST}
+did not have this problem since it used CIC interpolation on both meshes.  
+This test was performed with CITA128 simulations of very large box size,
+which should in principle agree with linear predictions up to the resolution.
+The output redshifts are very early, and the upper most curve ($z=10$) was obtained after
+about 60 timesteps.
+We see that deviations are enormous when the random offset is turned off.
+
+\begin{figure}%[ht]
+  \begin{center}
+    \includegraphics[width=3.2in]{graphs/power_w_wo_disp_mesh.eps}
+  \caption{Dark matter power spectrum, measured at $z=180$, $100$, $20$ and $10$, in a series of CITA128 realizations that are 1000 Mpc/$h$ per side. The dashed line represent the initial condition power spectrum, the dotted lines are the linear predictions, and  the open circles the standard p$^3$m configuration. 
+  The dots were obtained by simply removing the random particle offset that is usually applied at each time step. \label{fig:disp_mesh}}
+\end{center}
+\end{figure}
+
 
 \subsection{Constraining redshift jumps}
 
@@ -108,7 +138,7 @@ allows the simulation to recover about 30 per cent of dimensionless power at the
 This gain is greatly affected by the choice of initial redshift, the resolution, and the box size, and ideally one would make
 test runs in order to optimize a given configuration.  
 As expected, the {\small CPU} resources required to run these simulations increase rapidly as $r_{max}$ decreases, as seen in Table \ref{table:ra_max}. 
-In this test case, reducing further at 0.001 shows only a mild improvement in accuracy, but the gain in time is more than a factor of four.
+In this test case, reducing further at 0.001 shows only a mild improvement in accuracy, but the increase in time is more than a factor of four.
 
 
 \begin{figure}%[ht]
