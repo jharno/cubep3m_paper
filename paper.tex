@@ -51,16 +51,16 @@ $^{7}$Universit\'{e} de Gen\`{e}ve and Center for Astroparticle Physics, 24 Quai
 
 \begin{abstract}
 This paper presents {\small CUBEP3M}, an upgraded version of {\small PMFAST} that
-solves gravity on a two-level mesh and that is among the fastest publicly available N-body codes. 
-Among the principal changes, the Poisson solver includes particle-particles interactions
-at the sub-grid level and across neighbouring cells, plus each level of the volume decomposition is now cubical,
-which allows for massive parallelization of the code.
-Force kernel have been improved for enhanced matching of the two mesh contributions near the cutoff length.
-We discuss the structure of the code, its accuracy, and its scaling performance.
-In addition, many utilities have been added, including a runtime halofinder,
-particle identification tags and non-Gaussian initial conditions generator, and we briefly describe their implementation strategy
-and accuracy, when applicable . 
-
+is now one of the fastest highest performance public N-body code. 
+Gravity is solved  on a two-level mesh with sub-grid precision due to the particle-particle (pp)
+interactions inside and across neighboring cells.
+Among important changes since {\small PMFAST},  {\small CUBEP3M} has a volumetric decomposition,
+allowing for a massive parallelization over more than 20,000 cores, and has achieved close to ideal weak scaling
+even at this scale.  In addition, force kernels have been improved for enhanced matching of the two mesh contributions near the cutoff length, and the code is now equipped with a unique particle identification tag system that allows reconstruction of individual particle trajectories between time steps.
+In parallel, many utilities and extensions have been added to the standard code package, 
+including a runtime halo finder, a tunable range for the exact pp force, a non-Gaussian initial conditions generator, etc.
+We discuss the structure, the accuracy, any known systematic effects, and the scaling performance
+of the code and its utilities, when applicable.
 \end{abstract}
 
 \begin{keywords}

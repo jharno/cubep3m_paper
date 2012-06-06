@@ -29,16 +29,16 @@ the freedom we have is to choose the number of such layers.
  plot in a CITA256 realization , analogous to Fig. \ref{fig:den_force_ppext0}, but the pp force has been extended to six layers of fine cells. 
  We observe that the scatter about the theoretical curve has reduced significantly, and is still well balanced around the theoretical predictions.
  The same applies to the fractional error on the radial and tangential components of the force, as seen in Fig. \ref{fig:den_force_fracErr_ppext6},
- which are now at least 5 time smaller than in the default p$^{3}$m algorithm.
+ which are now at least 5 time smaller than in the default P$^{3}$M algorithm.
  
  \begin{figure}%[ht]
   \begin{center}
     \includegraphics[width=3.2in]{graphs/densityForce_ppext=6.eps}
-  \caption{Gravity force in the p$^3$m algorithm, compared with the exact $1/r^{2}$ law,
+  \caption{Gravity force in the P$^3$M algorithm, compared with the exact $1/r^{2}$ law,
   in a CITA256 realization. The exact pp force has been extended to six fine mesh layers around each particle.
   Particles in the that range follow the exact curve, then we observe a much smaller scatter at 
   distance of the order of 6 fine grid, compared to Fig. \ref{fig:den_force_ppext0}. 
-  The NGP interpolation scheme is again responsible for the scatter, but the effect is suppressed with increasing distances. 
+  The NGP interpolation scheme is again responsible for the scatter, but the effect is suppressed with increasing distances, and further suppressed by averaging over many time steps.. 
     \label{fig:den_force_ppext6}}
 \end{center}
 \end{figure}
@@ -48,8 +48,9 @@ the freedom we have is to choose the number of such layers.
 \begin{figure}%[ht]
   \begin{center}
     \includegraphics[width=3.2in]{graphs/densityForce_fracErr_ppext=6.eps}
-  \caption{Fractional error on the force in the p$^3$m algorithm, in the radial (top) and tangential (bottom) directions,
-  in a CITA256 simulation in which the exact pp force extends to six fine mesh layers.
+  \caption{Fractional error on the force in the P$^3$M algorithm, in the radial (top) and tangential (bottom) directions,
+  in a CITA256 simulation in which the exact pp force extends to six fine mesh layers. 
+  This was obtained over a single time step.
     \label{fig:den_force_fracErr_ppext6}}
 \end{center}
 \end{figure}
@@ -58,7 +59,7 @@ the freedom we have is to choose the number of such layers.
  
  To quantify the accuracy improvement versus computing time requirements, we performed the following test.
  We generate a set of initial conditions at a starting redshift of $z = 100$, with a box size equal to $ 200 h^{-1}\mbox{Mpc}$,
- and with $128^{3}$ particles. We evolve these CITA128 realizations with different ranges for the pp calculation, and compare 
+ and with $256^{3}$ particles. We evolve these CITA256 realizations with different ranges for the pp calculation, and compare 
  the resulting power spectra. For the results to be meaningful, we also need to use the same random seed for the random number generator,
  such that the only difference between different runs is the range of the pp force.
  Fig. \ref{fig:power} shows the dimensionless power spectrum of the different runs, where we see a significant gains in resolution
@@ -75,7 +76,7 @@ to evolved the particles to the final redshift. Table \ref{table:cpu_pp_ext} pre
   \begin{center}
   \epsfig{file=graphs/pp_ext.eps,width=0.49\textwidth}
   \caption{ Dimensionless power spectrum for varying range of the exact pp force, compared to  {\small CAMB} \citep{Lewis:1999bs}.
-  These CITA128 realizations evolved from a unique set of initial conditions at a starting redshift of $z = 100$, with a box size equal to $ 200 h^{-1}\mbox{Mpc}$ 
+  These CITA256 realizations evolved from a unique set of initial conditions at a starting redshift of $z = 100$, with a box size equal to $ 200 h^{-1}\mbox{Mpc}$ 
   until $z=0$. The only difference between the runs is the ranges of the pp calculation.}
     \label{fig:power}
   \end{center}
@@ -112,5 +113,13 @@ $N_{layers}$       &          \\
 \end{center}
 \end{table}
 
-Another way to quantify the improvement of the calculation is to look at the halo mass function for these different runs.
-{\bf (To do...)}
+Perhaps the most relevant way to quantify the improvement of the calculation is to measure the impact on the halo mass function from these different CITA256 runs. Fig. \ref{fig:MassFunction_extpp} presents this comparison at redshift zero. About 11,000 haloes were found in the end, and we observe a good match with the Sheth-Tormen predictions. 
+
+\begin{figure}
+  \begin{center}
+  \epsfig{file=graphs/MassFunction_pp_ranges.eps,width=0.49\textwidth}
+  \caption{ Halo mass function for different ranges of the pp force calculation, compared to the predictions of Sheth-Tormen. {\bf (y-axis?)}}
+    \label{fig:MassFunction_extpp}
+  \end{center}
+\end{figure}
+

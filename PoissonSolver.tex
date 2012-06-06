@@ -7,15 +7,15 @@ Many parts of the algorithm are identical to {\small PMFAST}, hence we refer the
 to section 2 of MPT for more details. In {\small CUBEP3M}, the mass default assignment scheme are
 a `cloud-in-cell' (CIC) interpolation for the coarse grid,  and a `nearest-grid-point' (NGP) interpolation 
 for the fine grid \citep{1981csup.book.....H}. This choice is motivated by the fact that the most straightforward 
-way to implement a p$^3$m algorithm on a mesh is to have exactly zero mesh force inside a grid, 
+way to implement a P$^3$M algorithm on a mesh is to have exactly zero mesh force inside a grid, 
 which is only true for the NGP interpolation. Although CIC generally has a smoother and more accurate force,
-the pp implementation enhances the code resolution almost by an order of magnitude. 
+the pp implementation enhances the code resolution by almost an order of magnitude. 
 We impose a softening length of one tenth of a grid cell to prevent
 large scattering; particles seperated by less than this distance have their 
 particle-particle force set to zero.
 
-The code units inherit from \citep{2004NewA....9..443T}, which we summarize here for completeness.
-In simulation units,  the comoving length of a fine grid cell is set to one,
+The code units inherit from \citep{2004NewA....9..443T} and are summarized here for completeness.
+The comoving length of a fine grid cell is set to one,
 such that the unit length in simulation unit is 
 \begin{eqnarray}
 1\mathcal{L} = a \frac{L}{N} 
@@ -29,12 +29,12 @@ which, in physical units, corresponds to
 \end{eqnarray}
 $\Omega_{m}$ is the matter density, $H_{o}$ is the Hubble's constant, $\rho_{c}$ is the critical density today,
 and $G$ is Newton's constant. The mass unit is found with $\mathcal{M} = \mathcal{DL}^{3}$.
-Specifying the value of $G$ on the grid fixes the time unit, and with the choice $G_{grid}$ = 1/$(6 \pi a)$,
+Specifying the value of $G$ on the grid fixes the time unit, and with $G_{grid}$ = 1/$(6 \pi a)$,
 we get:
 \begin{eqnarray}
 1 \mathcal{T} = \frac{2a^{2}}{3}\frac{1}{\sqrt{\Omega_{m}H_{o}^{2}}}
 \end{eqnarray}
-These choices completely determine the convertion between physical units into simulation units and vice versa.
+These choices completely determine the convertion between physical and simulation units.
 For instance, the velocity units are given by $1\mathcal{V} = \mathcal{L}$/$\mathcal{T}$.
 
 
@@ -46,26 +46,30 @@ Gravity fields are curl-free, which allows us to relate the potential $\phi({\bf
 \nabla^{2}\phi({\bf x}) = 4 \pi G \rho({\bf x})
 \label{eq:poisson}
 \end{eqnarray}
-$G$ being Newton's constant. We solve this equation in Fourier space, where we write
+We solve this equation in Fourier space, where we write:
 \begin{eqnarray}
- \tilde{\phi}({\bf k}) = \frac{4 \pi G \tilde{\rho}({\bf k})}{- k^{2}} \equiv \tilde{\omega}_{\phi}({\bf k})\tilde{\rho}({\bf k})
+ \tilde{\phi}({\bf k}) = \frac{-4 \pi G \tilde{\rho}({\bf k})}{k^{2}} \equiv \tilde{\omega}_{\phi}({\bf k})\tilde{\rho}({\bf k})
 \label{eq:poissonFourier}
 \end{eqnarray}
 The potential in real space is then obtained with an inverse Fourier transform, and the kernel becomes $\omega_{\phi} ({\bf x}) = -G/r$.
 Using the convolution theorem, we can write
 \begin{eqnarray}
- \phi({\bf x}) = \int \rho({\bf x'}) \omega_{\phi}({\bf x'} - {\bf x}) d{\bf x'}
+ \phi({\bf x}) = \int \rho({\bf x'}) \omega_{\phi}({\bf x'} - {\bf x}) d{\bf x'}   
 \label{eq:poisson_solution_pot}
 \end{eqnarray}
-Although this approach is fast, it involves a finite differentiation which enhances the numerical noise.
-We therefore opt for a force kernel, which is more accurate but has the inconvenient to require four extra Fourier transforms.
-In this case, we must solve the convolution in three dimensions:
+and
 \begin{eqnarray}
- F({\bf x}) = - m {\bf \nabla} \phi({\bf x})   = \int \rho({\bf x'}) \mbox{\boldmath $\omega$}_{F}({\bf x'} - {\bf x}) d{\bf x'}                                      
+{\bf F}({\bf x}) = - m {\bf \nabla} \phi({\bf x}) 
+\label{eq:Force_sol}
+\end{eqnarray}
+Although this approach is fast, it involves a finite differentiation at the final step, which enhances the numerical noise.
+We therefore opt for a force kernel, which is more accurate, even though it requires four extra Fourier transforms.
+In this case, we must solve the convolution in three dimensions and define the force kernel {\boldmath $\omega$}$_{F}$ such as:
+\begin{eqnarray}
+ {\bf F}({\bf x}) =  \int \rho({\bf x'}) \mbox{\boldmath $\omega$}_{F}({\bf x'} - {\bf x}) d{\bf x'}                                      
 \label{eq:poisson_solution_force}
 \end{eqnarray}
-The differentiation does not affect the density since it only acts on un-prime variables,
-and the force kernel is given by 
+Because the gradient acting on \ref{eq:poisson_solution_pot} affects only un-prime variables, we can express the force kernel as a gradient of the potential kernel. Namely:  
 \begin{eqnarray}
 \mbox{\boldmath $\omega$}_{F}({\bf x}) \equiv - {\bf \nabla}\omega_{\phi}({\bf x}) = - \frac{mG \hat{\bf r}}{r^{2}}
 \end{eqnarray}
@@ -84,7 +88,7 @@ and
  \mbox{\boldmath $\omega$}_{F}(r)  &\mbox{otherwise} 
 \end{cases}
 \end{eqnarray}
-The vector $\mbox{\boldmath $\beta$}(r)$ is related to the fourth order polynomial that is used in the potential case by
+The vector $\mbox{\boldmath $\beta$}(r)$ is related to the fourth order polynomial that is used in the potential case described in MPT by
  $ \mbox{\boldmath $\beta$} = - {\bf \nabla} \alpha(r)$. The coefficients are found by matching the boundary conditions at $r_{c}$ up to the second derivative,
  and we get
   \begin{eqnarray}
@@ -93,23 +97,23 @@ The vector $\mbox{\boldmath $\beta$}(r)$ is related to the fourth order polynomi
 
 Because these calculations are performed on two grids of different resolution, a sampling window function must be convoluted 
 both with the density and the kernel (see [Eq. 7-8] of MPT).
-When matching the two  force kernels, it was realized that close to the cutoff region, the long range force is always on the low side, whereas 
-the short range force is scattered across the theoretical $1/r^2$ value. These behaviors are purely features of the CIC and NGP interpolation scheme 
-respectively. We identified a small range surrounding the cutoff length, in which we empirically adjust both kernels such as to improve 
-the match. Namely, for $14 \le r \le 16$, $\mbox{\boldmath $\omega$}_{s}({r}) \rightarrow \mbox{\boldmath $\omega$}_{s}({ r})*0.985$,
-and for  $12 \le r \le 16$, $\mbox{\boldmath $\omega$}_{l}({r}) \rightarrow \mbox{\boldmath $\omega$}_{l}({ r})*1.2$.
-The two fudge factors were found by performing force measurements on two particles randomly placed in the volume.
+When matching the two force kernels, the long range force is always on the low side close to the cutoff region, whereas the short range force is uniformly scattered across the theoretical $1/r^2$ value -- intrinsic features of the CIC and NGP interpolation schemes respectively.  By performing force measurements on two particles randomly placed in the volume, we identified a small region surrounding the cutoff length in which we empirically adjust both kernels such as to improve the match. Namely, for $14 \le r \le 16$, $\mbox{\boldmath $\omega$}_{s}({r}) \rightarrow 0.985\mbox{\boldmath $\omega$}_{s}({ r})$,
+and for  $12 \le r \le 16$, $\mbox{\boldmath $\omega$}_{l}({r}) \rightarrow 1.2\mbox{\boldmath $\omega$}_{l}({ r})$.
 
-In addition, {\small PMFAST} could run with a different kernel, described in MPT as the `least square kernel', 
-which basically adjust the kernel on cell by cell basis based on minimization of the deviation with respect
+As mentioned in section \ref{sec:structure} an summarized in FIg. \ref{fig:particle_mesh},
+the force kernels are first  in the code initialization stage.
+Eq. \ref{eq:poisson_solution_force} is then solved with fast Fourier transform along each directions, 
+ and is applied onto particles in the {\tt update\_velocity} subroutine.
+
+As an option, {\small PMFAST} could run with a different set of kernels, described in MPT as the `least square matching' , 
+which basically adjust the kernels on cell-by-cell basis based on minimization of the deviation with respect
 to the Newtonian predictions. This was originally computed such as to optimize the force calculation for
-the case where both grids are computed from CIC interpolation. Moving to a mix CIC/NGP scheme
+the case where both grids are obtained from CIC interpolation. Moving to a mix CIC/NGP scheme
 requires solving the system of equations with the new configuration, a straightforward operation. 
 {\bf (results are presented somewhere?)}
 
-Finally, a choice must be done concerning the longest range of the force. Gravity can be either a) an accurate $1/r^2$ force, as far as the volume allows, 
+Finally, a choice must be done concerning the longest range of the coarse mesh force. Gravity can be either a) an accurate $1/r^2$ force, as far as the volume allows, 
 or b) modified to correctly match the periodicity of the boundary conditions. By default, the code is configured along to the second choice,
-which accurately models the growth of structure at very large scales. However, detailed studies of gravitational collapse would benefit 
-from the first settings.
+which accurately models the growth of structures at very large scales. However, detailed studies of gravitational collapse of a single large object would benefit 
+from the first settings, even though the code is not optimal for such settings.
 
-{\bf Least square kernel?}

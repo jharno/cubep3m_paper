@@ -22,23 +22,27 @@ we shall come back to these later, but for the moment, we adopt the
 standard configuration. 
 The long range component of the gravity force is solved on the coarse grid, 
 and is global in the sense that the calculations require knowledge about the full simulated volume.
-The short range force and the particle-particle interactions are computed in parallel on local volumes\footnote{To make this possible, the fine grid arrays are constructed such as to support parallel reading and writing. In practice, this is done by adding an additional dimension to the relevant arrays, such that each {\small CPU} accesses a unique memory location.} or {\it tiles}. The force matching of the two meshes is performed by introducing a cutoff in the two force kernel. The value of $r_{c}=16$ fine cells was chosen such as to balance the communication 
+The short range force and the particle-particle interactions are computed in parallel on
+a second level of cubical decomposition of the local volumes, the {\it tiles}. To make this possible, the fine grid arrays are constructed such as to support parallel memory access. In practice, this is done by adding an additional dimension to the relevant arrays, such that each {\small CPU} accesses a unique memory location. The force matching between the two meshes is performed by introducing a cutoff length, $r_{c}$, in the definition of the two force kernels. The value of $r_{c}=16$ fine cells was found to balance the communication 
 overhead between processes and the accuracy of the match between the two meshes. 
 
-The computation of the short range force requires each tile to store the fine grid density in a buffer surface around the physical volume it is assigned. The thickness of this surface must be larger than the cutoff length (of 16 cells), and we find that a 24 cells deep buffer
+The computation of the short range force requires each tile to store the fine grid density of a region that includes a buffer surface around the physical volume it is assigned. The thickness of this surface must be larger than $r_{c}$, and we find that a 24 cells deep buffer
 is a good compromise between memory usage and accuracy.
-When it comes to finding haloes at run time can this buffer create a problem, because a large halo located close to the boundary
-can have a radius larger than the buffer zone, in which case it would be truncated, thus falling in the wrong mass bin, producing an incorrect center of mass, etc. 
-It could then be desirable to increase the buffer zone around each tile, at the cost of a loss of memory dedicated to the actual physical volume.
+This is basically to fully compensate for the coarse mesh calculations, whose CIC interpolation scheme 
+reaches two coarse cells deep beyond the cutoff.   
+
+When it comes to finding haloes at run time, this buffer can create a problem, because a large object located close to the boundary can have a radius larger than the buffer zone, in which case it would be truncated and be assigned a wrong mass, center of mass, etc. 
+It could then be desirable to increase the buffer zone around each tile, at the cost of a loss of memory dedicated to the actual physical volume, and the code is designed to allow for such a flexibility.
 
 
 %\subsection{Memory foot-print and communication strategy}
 %\label{subsec:memory}
 
 Because the coarse grid arrays require $4^3$ times less memory per node, 
-the bulk of the foot-print is concentrated in a handful of fine grid arrays.
-In addition, some of these are required for intermediate steps of the calculations only, 
-hence it is possible to hide some of the coarse grid arrays\footnote{ This memory recycling is done with `equivalence' statements in {\small F90}}.   
+it does not contribute much to the total memory requirement, and the bulk of the foot-print is 
+concentrated in a handful of fine grid arrays.
+Some of these are only required for intermediate steps of the calculations, 
+hence it is possible to hide therein many coarse grid arrays\footnote{ This memory recycling is done with `equivalence' statements in {\small F90}}.   
 We present here the largest arrays used by the code:
 \begin{enumerate}
 \item{{\tt xv} stores the position and velocity of each particle} 
@@ -73,12 +77,12 @@ which first updates the positions and velocities of the dark matter particles, e
 creates a new linked list, then solve Poisson's equation.  This subroutine is conceptually identical to that of {\small PMFAST}, 
 with the exception  that {\small CUBEP3M} decomposes the volume into cubes (as opposed to slabs). 
 The loop over tiles and the particle exchange are thus performed in three dimensions.
-{\bf (Should I mention leapfrog here or anywhere else?)}
 When the short range and pp forces have been calculated on all tiles, the code exits the parallel {\small OPENMP} loop
-and proceeds to the long range. This section of the code is also parallelized in many occasions, but, unfortunately, the current {\small MPI-FFTW}
+and proceeds to the long range. This section of the code is also parallelized on many occasions, but, unfortunately, the current {\small MPI-FFTW}
 do not allow multi-threading. There is thus an inevitable loss of efficiency during each global Fourier transforms, during which
 only the single core {\small MPI} process is active\footnote{Other libraries such as {\small P3DFFT} ({\tt http://code.google.com/p/p3dfft/}) currently permit
  an extra level of parallelization, and it is our plan to migrate to one of these in the near future.}.
+ As in {\small PMFAST}, the particle position and velocity updates are performed in a leap frog scheme \citep{1981csup.book.....H}.
 
 \begin{figure}
 \begin{verbatim}
@@ -96,14 +100,14 @@ program cubep3m
    call finalize
 end program cubep3m
 \end{verbatim}
-\caption{Overall structure of the code.}
+\caption{Overall structure of the code simplified for readability.}
 \label{fig:structure}
 \end{figure}
 
 \begin{figure}
 \begin{verbatim}
 subroutine particle_mesh
-   call update_position
+   call update_position + apply random offset
    call link_list
    call particle_pass
    !$omp parallel do
@@ -133,7 +137,7 @@ subroutine particle_mesh
    delete_buffers
 end subroutine particle_mesh
 \end{verbatim}
-\caption{Overall structure of the two-level mesh algorithm. We have included the section that concerns the extended pp force calculation to illustrate that it follows the same basic logic. We mention here that the three linked list arrays are distinct entities, and their structure differ slightly.  }
+\caption{Overall structure of the two-level mesh algorithm. We have included the section that concerns the standard pp and the extended pp force calculation, to illustrate that they follows similar linked-list logic. }
 \label{fig:particle_mesh}
 \end{figure}
 
@@ -145,6 +149,6 @@ and clears the {\small MPI} communicators. We have collected those operations un
 
 Other considerations that need to be considered is that any decomposition geometry somehow 
 limits permissible grid sizes, and that volume evenly decomposed into cubic sub-sections 
---  such as {\small CUBEP3M} -- requires the number of MPI processes to be a perfect cube.
+--  such as {\small CUBEP3M} -- requires the number of {\small MPI} processes to be a perfect cube.
 Also,  since the decomposition is volumetric, as opposed to density dependent -- 
 it suffers from load imbalance when probing deep into the non-linear regime.
