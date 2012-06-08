@@ -54,7 +54,7 @@ This paper presents {\small CUBEP3M}, an upgraded version of {\small PMFAST} tha
 is now one of the fastest highest performance public N-body code. 
 Gravity is solved  on a two-level mesh with sub-grid precision due to the particle-particle (pp)
 interactions inside and across neighboring cells.
-Among important changes since {\small PMFAST},  {\small CUBEP3M} has a volumetric decomposition,
+Among important improvements,  {\small CUBEP3M} has a volumetric decomposition,
 allowing for a massive parallelization over more than 20,000 cores, and has achieved close to ideal weak scaling
 even at this scale.  In addition, force kernels have been improved for enhanced matching of the two mesh contributions near the cutoff length, and the code is now equipped with a unique particle identification tag system that allows reconstruction of individual particle trajectories between time steps.
 In parallel, many utilities and extensions have been added to the standard code package, 

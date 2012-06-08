@@ -1,5 +1,16 @@
-\section{Accuracy}
+\section{Accuracy and Systematics}
 \label{sec:accuracy}
+ 
+ This section describes the systematics effects that are inherent to our P$^{3}$M algorithm.
+ We start with a demontration of the accuracy with a power spectrum measurement of a RANGER4000 simulation. 
+ The halo mass function also assess the code capacity to model gravitational collapse, 
+ but depends on the particular halo finder used, which we discuss in section \ref{sec:halo}.
+ For the moment, we focus on the two-point function, and further quantify the accuracy of the force calculation
+ with comparisons to Newton's law of gravitation.
+ 
+ 
+ \subsection{Power Spectrum}
+ \label{subsec:powerspectrum}
  
 One of the most reliable way to assess the simulation's accuracy at evolving particles
 is to measure the density power spectrum at late time, and compare to non-linear prediction. 
@@ -22,9 +33,12 @@ The drop of power at high-$k$ is caused by the finite resolution, and the fluctu
 \end{center}
 \end{figure*}
 
+\subsection{Mesh force at grid distances}
+\label{subsec:force}
+
 The actual force of gravity in the P$^3$M algorithm,
-as felt by a single particle, is presented in Fig. \ref{fig:den_force_ppext0}.
-This shows the force versus distance -- in fine cell units -- a calculation that was performed from a CITA256 realization in two steps: 
+as felt by a single particle, is presented in the left panel of Fig. \ref{fig:den_force_fracErr}.
+The left panel shows the force versus distance -- in fine cell units -- a calculation that was performed from a CITA256 realization in two steps: 
 1- we compute the force on each particle in a given time step.
 2- we remove a selected particle, compute the force again on all particles, and record on file the 
 force difference (before  and after the removal) as a function of the distance to the `hole'.
@@ -39,37 +53,32 @@ from Newton's law in order to preserve periodic boundary conditions.
 This feature, however, can be turned off at compilation time.
 
 
-Fig. \ref{fig:den_force_fracErr} shows the fractional error on the force along the radial and tangential directions.
+The right panel of Fig. \ref{fig:den_force_fracErr} shows the fractional error on the force along the radial and tangential directions, calculated from a single time step.
 It is larger than in {\small PMFAST} at grid scales, largely due to the fact that the fine mesh force is performed with an NGP interpolation scheme -- as opposed to CIC -- which shows a larger scatter about the theoretical value. 
-As discuss in the next section, to minimize this effect, we apply a random offset to all the particles,
-such that this undesired scatter is averaged out over a few time steps.
+This change of interpolation is essential for the pp part.
 
-
-
-\begin{figure}%[ht]
+\begin{figure*}%[ht]
   \begin{center}
     \includegraphics[width=3.2in]{graphs/densityForce_ppext=0.eps}
-  \caption{Gravity force in of the P$^3$M algorithm, versus distance in fine mesh cell units, compared with the exact $1/r^{2}$ law.
-    This particular calculation was obtained in a CITA256 realization with  a box size of $500 h^{-1}\mbox{Mpc}$,
-    in a single time step. In a full simulation run, the scatter averages over many time steps, thanks to the inclusion of a random offset that is imposed on each particle. 
-    \label{fig:den_force_ppext0}}
-\end{center}
-\end{figure}
-
-\begin{figure}%[ht]
-  \begin{center}
+  %\caption{Gravity force in of the P$^3$M algorithm, versus distance in fine mesh cell units, compared with the exact $1/r^{2}$ law.
+    %This particular calculation was obtained in a CITA256 realization with  a box size of $500 h^{-1}\mbox{Mpc}$,
+    %in a single time step. In a full simulation run, the scatter averages over many time steps, thanks to the inclusion of a random offset that is imposed on each particle. 
+ %   \label{fig:den_force_ppext0}}
+%\end{center}
+%\end{figure}
+%
+%\begin{figure}%[ht]
+ % \begin{center}
     \includegraphics[width=3.2in]{graphs/densityForce_fracErr.eps}
-  \caption{Fractional error on the force in of the P$^3$M algorithm, in the radial (top) and tangential (bottom) directions.
-  This scatter is significantly reduced with the random offset, as discussed in section \ref{sec:systematics}.
+  \caption{({\it left}:) Gravity force in of the P$^3$M algorithm, versus distance in fine mesh cell units, compared with the exact $1/r^{2}$ law.
+    This particular calculation was obtained in a CITA256 realization with  a box size of $500 h^{-1}\mbox{Mpc}$,
+    in a single time step. 
+    ({\it right}:) Fractional error on the force in of the P$^3$M algorithm, in the radial (top) and tangential (bottom) directions.
+  In a full simulation run, the scatter averages over many time steps, 
+    thanks to the inclusion of a random offset that is imposed on each particle, as discussed in the main text.
     \label{fig:den_force_fracErr}}
 \end{center}
-\end{figure}
-
-
-\section{Systematics}
-\label{sec:systematics}
-
-\subsection{Mesh force at grid distances}
+\end{figure*}
 
 The biggest problem with the straightforward pp force calculation is that the results 
 are anisotropic and depend on the location of the fine mesh with respect 
@@ -93,7 +102,7 @@ or for hybrid dark matter -- MHD simulations.
 We ensure that, on average, this solution balances out the mesh feature,
 by tuning the force kernels such as to provide  force as evenly balanced as possible at grid cell distances
 and at the cutoff length ($r_{c}=16$ fine cells).
-These adjustments are performed from the pairwise force test described in section \ref{sec:accuracy}.
+These adjustments are performed from a pairwise force test described in MPT.
 We note that this is one of the driving argument to extend the pp force outside the fine mesh cell,
 since the scattering of the NGP force about the actual $1/r^{2}$ law drops rapidly as the distance increases.
 As discussed in section \ref{subsec:extendedpp}, this gain in accuracy comes at a price,
@@ -117,7 +126,26 @@ We see that deviations are enormous when the random offset is turned off.
 \end{center}
 \end{figure}
 
-{\bf (Show how averaging over $~sim10$ time steps reduces the scatter.)}
+To illustrate how well the random offset performs, we present in Fig. \ref{fig:den_force_N10}
+the impact of averaging over 10 time steps. We recast the same force test in which we dig a hole, 
+with the addition that we apply a random offset the whole particle population at the end of the calculation.
+We repeat this operation ten times, always extracting the same particle, and average the mean force and the deviation.
+When compared with a single time step, we see that the scatter has reduced by almost a factor of three in the radial direction, 
+while the transverse deviation shows a milder improvement.
+
+\begin{figure*}%[ht]
+  \begin{center}
+    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_N1.eps}
+    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_N10.eps}
+    \includegraphics[width=3.2in]{graphs/densityForce_Zoom_N1.eps}
+    \includegraphics[width=3.2in]{graphs/densityForce_Zoom_N10.eps}
+  \caption{({\it top}:) Gravity force in of the P$^3$M algorithm, versus distance in fine mesh cell units, compared with the exact $1/r^{2}$ law.
+    This particular calculation was obtained in a CITA128 realization with  a box size of $100 h^{-1}\mbox{Mpc}$.
+    ({\it bottom}:) Fractional error on the force in of the P$^3$M algorithm, in the radial (top) and tangential (bottom) directions.
+    The left panels are calculated from a single time step, while the right panels show the average over time time steps.
+    \label{fig:den_force_N10}}
+\end{center}
+\end{figure*}
 
 
 \subsection{Constraining redshift jumps}

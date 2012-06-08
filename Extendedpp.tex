@@ -26,7 +26,7 @@ the freedom we have is to choose the number of such layers.
  \end{itemize}
  The case where all three coordinates are equal is already calculated in the standard configuration of the code.
  To assess the improvement of the force calculation, we present in Fig \ref{fig:den_force_ppext6} a force versus distance
- plot in a CITA256 realization , analogous to Fig. \ref{fig:den_force_ppext0}, but the pp force has been extended to six layers of fine cells. 
+ plot in a CITA256 realization , analogous to Fig. \ref{fig:den_force_fracErr}, but the pp force has been extended to six layers of fine cells. 
  We observe that the scatter about the theoretical curve has reduced significantly, and is still well balanced around the theoretical predictions.
  The same applies to the fractional error on the radial and tangential components of the force, as seen in Fig. \ref{fig:den_force_fracErr_ppext6},
  which are now at least 5 time smaller than in the default P$^{3}$M algorithm.
@@ -37,7 +37,7 @@ the freedom we have is to choose the number of such layers.
   \caption{Gravity force in the P$^3$M algorithm, compared with the exact $1/r^{2}$ law,
   in a CITA256 realization. The exact pp force has been extended to six fine mesh layers around each particle.
   Particles in the that range follow the exact curve, then we observe a much smaller scatter at 
-  distance of the order of 6 fine grid, compared to Fig. \ref{fig:den_force_ppext0}. 
+  distance of the order of 6 fine grid, compared to Fig. \ref{fig:den_force_fracErr}. 
   The NGP interpolation scheme is again responsible for the scatter, but the effect is suppressed with increasing distances, and further suppressed by averaging over many time steps.. 
     \label{fig:den_force_ppext6}}
 \end{center}
