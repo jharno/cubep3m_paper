@@ -25,35 +25,33 @@ the freedom we have is to choose the number of such layers.
  \item{if $z_2 = z_1$ and $y_2 = y_1$, then we enforce $x_2 > x_1$}
  \end{itemize}
  The case where all three coordinates are equal is already calculated in the standard configuration of the code.
- To assess the improvement of the force calculation, we present in Fig \ref{fig:den_force_ppext6} a force versus distance
+ To assess the improvement of the force calculation, we present in Fig \ref{fig:den_force_fracErr_ppext6} a force versus distance
  plot in a CITA256 realization , analogous to Fig. \ref{fig:den_force_fracErr}, but the pp force has been extended to six layers of fine cells. 
  We observe that the scatter about the theoretical curve has reduced significantly, and is still well balanced around the theoretical predictions.
- The same applies to the fractional error on the radial and tangential components of the force, as seen in Fig. \ref{fig:den_force_fracErr_ppext6},
+ The same applies to the fractional error on the radial and tangential components of the force, as seen in the right panel,
  which are now at least 5 time smaller than in the default P$^{3}$M algorithm.
  
- \begin{figure}%[ht]
+ \begin{figure*}%[ht]
   \begin{center}
     \includegraphics[width=3.2in]{graphs/densityForce_ppext=6.eps}
-  \caption{Gravity force in the P$^3$M algorithm, compared with the exact $1/r^{2}$ law,
+%    \label{fig:den_force_ppext6}}
+%\end{center}
+%\end{figure}
+%\begin{figure}%[ht]
+%  \begin{center}
+    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_ppext=6.eps}
+    \caption{({\it left}:) Gravity force in the P$^3$M algorithm, compared with the exact $1/r^{2}$ law,
   in a CITA256 realization. The exact pp force has been extended to six fine mesh layers around each particle.
   Particles in the that range follow the exact curve, then we observe a much smaller scatter at 
   distance of the order of 6 fine grid, compared to Fig. \ref{fig:den_force_fracErr}. 
-  The NGP interpolation scheme is again responsible for the scatter, but the effect is suppressed with increasing distances, and further suppressed by averaging over many time steps.. 
-    \label{fig:den_force_ppext6}}
-\end{center}
-\end{figure}
-
-
- 
-\begin{figure}%[ht]
-  \begin{center}
-    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_ppext=6.eps}
-  \caption{Fractional error on the force in the P$^3$M algorithm, in the radial (top) and tangential (bottom) directions,
-  in a CITA256 simulation in which the exact pp force extends to six fine mesh layers. 
-  This was obtained over a single time step.
+  The NGP interpolation scheme is again responsible for the scatter, but the effect is suppressed with increasing distances, and further suppressed by averaging over many time steps.
+  %\caption{
+  ({\it right}:) Fractional error on the force in the P$^3$M algorithm, in the radial (top) and tangential (bottom) directions,
+  calculated from a CITA256 simulation in which the exact pp force extends to six fine mesh layers. 
+  This was also obtained over a single time step.
     \label{fig:den_force_fracErr_ppext6}}
 \end{center}
-\end{figure}
+\end{figure*}
 
  
  
@@ -118,7 +116,8 @@ Perhaps the most relevant way to quantify the improvement of the calculation is 
 \begin{figure}
   \begin{center}
   \epsfig{file=graphs/MassFunction_pp_ranges.eps,width=0.49\textwidth}
-  \caption{ Halo mass function for different ranges of the pp force calculation, compared to the predictions of Sheth-Tormen. {\bf (y-axis?)}}
+  \caption{ Halo mass function for different ranges of the pp force calculation, compared to the predictions of Sheth-Tormen. 
+  The smallest haloes have a mass equivalent to 20 particles.{\bf (y-axis?)}}
     \label{fig:MassFunction_extpp}
   \end{center}
 \end{figure}

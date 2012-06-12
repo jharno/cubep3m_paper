@@ -22,13 +22,15 @@ For an over-density field $\delta({\bf \it x})$, the power spectrum is extracted
 where the angle bracket corresponds to an ensemble (or volume) average.
 We plot in Fig. \ref{fig:power_highres} the dimensionless power spectrum in a RANGER4000 simulation and
 observe that the agreement with the non-linear prediction of \cite{Lewis:1999bs} is at the per cent level over a large dynamical range.
-The drop of power at high-$k$ is caused by the finite resolution, and the fluctuations at low-$k$ are caused by the white noise imposed in the initial conditions. {\b (I should add a vertical line at the k of the coarse mesh for visualization purposes.)}
+The drop of power at high-$k$ is partly caused by the finite mesh resolution, partly from expected deviations about the predictions.
+The fluctuations at low-$k$ come from the white noise imposed in the initial conditions. The vertical line corresponds to the scale of the coarse mesh.
 
 \begin{figure*}%[ht]
   \begin{center}
     \includegraphics[width=5.2in]{graphs/power_highres.eps}
   \caption{Dark matter power spectrum, measured at $z=0$ in a RANGER4000 simulation,
-  compared to the non-linear predictions of {\small CAMB}.
+  compared to the non-linear predictions of {\small CAMB}. 
+  The vertical line corresponds to the scale of the coarse mesh.
     \label{fig:power_highres}}
 \end{center}
 \end{figure*}
@@ -131,14 +133,16 @@ the impact of averaging over 10 time steps. We recast the same force test in whi
 with the addition that we apply a random offset the whole particle population at the end of the calculation.
 We repeat this operation ten times, always extracting the same particle, and average the mean force and the deviation.
 When compared with a single time step, we see that the scatter has reduced by almost a factor of three in the radial direction, 
-while the transverse deviation shows a milder improvement.
+while the transverse deviation shows a milder improvement. When rebining these results, we observe that the mean mesh force
+calculation agrees well down to the grid cell, as seen in Fig. \ref{fig:F_rebin}. For this calculation, the hole was not part of a very dense halo,
+hence most of the force it experiences comes from the mesh.
 
 \begin{figure*}%[ht]
   \begin{center}
-    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_N1.eps}
-    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_N10.eps}
-    \includegraphics[width=3.2in]{graphs/densityForce_Zoom_N1.eps}
+     \includegraphics[width=3.2in]{graphs/densityForce_Zoom_N1.eps}
     \includegraphics[width=3.2in]{graphs/densityForce_Zoom_N10.eps}
+   \includegraphics[width=3.2in]{graphs/densityForce_fracErr_N1.eps}
+    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_N10.eps}
   \caption{({\it top}:) Gravity force in of the P$^3$M algorithm, versus distance in fine mesh cell units, compared with the exact $1/r^{2}$ law.
     This particular calculation was obtained in a CITA128 realization with  a box size of $100 h^{-1}\mbox{Mpc}$.
     ({\it bottom}:) Fractional error on the force in of the P$^3$M algorithm, in the radial (top) and tangential (bottom) directions.
@@ -147,6 +151,15 @@ while the transverse deviation shows a milder improvement.
 \end{center}
 \end{figure*}
 
+\begin{figure}%[ht]
+  \begin{center}
+     \includegraphics[width=3.2in]{graphs/densityForce_ppext=10_rebin.eps}
+  \caption{ Gravity force in of the P$^3$M algorithm, versus distance in fine mesh cell units, compared with the exact $1/r^{2}$ law.
+    This particular calculation was obtained in a CITA128 realization with  a box size of $100 h^{-1}\mbox{Mpc}$, averaged over 10 time steps.
+    Results are rebined to show how well the mean value follows the thoretical curve down to the grid size.
+    \label{fig:F_rebin}}
+\end{center}
+\end{figure}
 
 \subsection{Constraining redshift jumps}
 

@@ -109,8 +109,11 @@ As an option, {\small PMFAST} could run with a different set of kernels, describ
 which basically adjust the kernels on cell-by-cell basis based on minimization of the deviation with respect
 to the Newtonian predictions. This was originally computed such as to optimize the force calculation for
 the case where both grids are obtained from CIC interpolation. Moving to a mix CIC/NGP scheme
-requires solving the system of equations with the new configuration, a straightforward operation. 
-{\bf (results are presented somewhere?)}
+requires solving the system of equations with the new configuration, a straightforward operation.
+ With the inclusion of the random shifting, it is not clear how much improvement 
+one would recover from this other kernel matching.  It is certainly something
+we will investigate and document in the near future.
+
 
 Finally, a choice must be done concerning the longest range of the coarse mesh force. Gravity can be either a) an accurate $1/r^2$ force, as far as the volume allows, 
 or b) modified to correctly match the periodicity of the boundary conditions. By default, the code is configured along to the second choice,
