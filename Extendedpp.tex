@@ -26,29 +26,31 @@ the freedom we have is to choose the number of such layers.
  \end{itemize}
  The case where all three coordinates are equal is already calculated in the standard configuration of the code.
  To assess the improvement of the force calculation, we present in Fig \ref{fig:den_force_fracErr_ppext6} a force versus distance
- plot in a CITA256 realization , analogous to Fig. \ref{fig:den_force_fracErr}, but the pp force has been extended to six layers of fine cells. 
+ plot in a CITA128 realization, analogous to Fig. \ref{fig:den_force_fracErr}, but the pp force has been extended to  six layers of fine cells
+ in the force test part of the code {\bf (do pp\_ext2 as well?)}. 
  We observe that the scatter about the theoretical curve has reduced significantly, and is still well balanced around the theoretical predictions.
  The same applies to the fractional error on the radial and tangential components of the force, as seen in the right panel,
- which are now at least 5 time smaller than in the default P$^{3}$M algorithm.
+ which are now at least 5 time smaller than in the default P$^{3}$M algorithm {\bf (Check these numbers again)}.
+ When averaging over 10 time steps, the improvement is only mild, as the calculation is already very accurate. 
  
  \begin{figure*}%[ht]
   \begin{center}
-    \includegraphics[width=3.2in]{graphs/densityForce_ppext=6.eps}
-%    \label{fig:den_force_ppext6}}
-%\end{center}
-%\end{figure}
-%\begin{figure}%[ht]
-%  \begin{center}
-    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_ppext=6.eps}
-    \caption{({\it left}:) Gravity force in the P$^3$M algorithm, compared with the exact $1/r^{2}$ law,
-  in a CITA256 realization. The exact pp force has been extended to six fine mesh layers around each particle.
+    \includegraphics[width=3.2in]{graphs/densityForce_ppext=6_rebin.eps}
+    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_ppext=6_rebin.eps}
+     \includegraphics[width=3.2in]{graphs/densityForce_ppext=6_rebin_N10.eps}
+    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_ppext=6_rebin_N10.eps}
+    \caption{({\it top left}:) Gravity force in the P$^3$M algorithm, compared with the exact $1/r^{2}$ law,
+  in the same CITA128 realization as that shown in Fig. \ref{fig:den_force_fracErr}, 
+  except that the exact pp force has been extended to six fine mesh layers around each particle
+  in the force test code.
   Particles in the that range follow the exact curve, then we observe a much smaller scatter at 
   distance of the order of 6 fine grid, compared to Fig. \ref{fig:den_force_fracErr}. 
   The NGP interpolation scheme is again responsible for the scatter, but the effect is suppressed with increasing distances, and further suppressed by averaging over many time steps.
   %\caption{
-  ({\it right}:) Fractional error on the force in the P$^3$M algorithm, in the radial (top) and tangential (bottom) directions,
-  calculated from a CITA256 simulation in which the exact pp force extends to six fine mesh layers. 
+  ({\it top right}:) Fractional error on the force in the P$^3$M algorithm, in the radial (top) and tangential (bottom) directions.
   This was also obtained over a single time step.
+  ({\it bottom row}:) Same as top row, but averaged over ten time steps.
+{ \bf (I should add pp\_ext = 2. ) }
     \label{fig:den_force_fracErr_ppext6}}
 \end{center}
 \end{figure*}

@@ -151,11 +151,11 @@ scales, some of the cuboid sub-domains came to contain a number of particles
 well above the 
 average, thereby requiring more memory per {\small MPI} process
 in order to run until the end. 
-As a consequence, {\it throughout most of the evolution}{\bf (Ilian, did you actually restarted simulations and switched 4ways to 2ways?)} the 
+As a consequence,  throughout most of their late evolution, the 
 largest two of these simulations were run with 4096 and 21,952 cores and 
 with only 2 {\small MPI} processes and 8 threads per Ranger node (`2way'), which on 
 Ranger allows using up to 16 GB of RAM per {\small MPI} process\footnote{In order to insure 
-local memory affinity,  a second special NUMA control script, {\it tacc\_affinity\_2way}) 
+local memory affinity,  a second special NUMA control script, {\it tacc\_affinity\_2way}, 
 was developed for us by the TACC technical staff and allowed to run more efficiently 
 in this mode.}. Because each processor accesses memory that is not fully local, this configuration does affect the 
 performance somewhat, as does the imperfect load balancing that arises in such situations.
