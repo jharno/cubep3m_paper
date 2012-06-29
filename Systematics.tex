@@ -53,10 +53,13 @@ Particles in the same fine cell as the hole follow the exact $1/r^{2}$ curve. Th
   particles in adjacent fine cells can be actually very close, as seen in the upper left region of this plot,
   but still feel the same mesh force at grid cell distances.
 This  creates a discrepancy up to an order of magnitude, in loss or gain, depending on the location of the pair with respect to the centre of the cell.
-As the separation approaches a tenth of the full box size or so, the force on the coarse mesh deviates
-from Newton's law in order to preserve periodic boundary conditions.
+As the separation approaches a tenth of the full box size or so, the force on the coarse mesh 
+scatters significantly about Newton's law due to periodic boundary conditions. 
+As mentioned at the end of section \ref{sec:Poisson}, the longest range of force kernel can either model accurately Newtonian gravity,
+or the structure growth of the largest modes, but not both. For the sake of demonstrating the accuracy of the force calculation,
+we chose the first option in this section.
 
-It is not clear from this scatter plot whether the mean force felt  is below or under the predictions, hence we rebin the results
+It is not clear from these scatter plots whether the mean force felt  is below or under the predictions, hence we rebin the results
 in 50 logarithmically spaced bins and compute the mean and standard deviation. 
 We show this plot in the middle left panel of Fig. \ref{fig:den_force_fracErr}, where we observe that on average,
 there is a loss of force of the order of unity in the range $ 0.4 < r < 1$ (in units of fine grid), but the force force is otherwise
@@ -69,12 +72,12 @@ The transverse fractional error peaks exactly at the gris distance,  and is abou
 
 \begin{figure*}%[ht]
   \begin{center}
-    \includegraphics[width=3.2in]{graphs/densityForce_ppext=0.eps}
-    \includegraphics[width=3.2in]{graphs/densityForce_fracErr.eps}
-    \includegraphics[width=3.2in]{graphs/densityForce_ppext=0_rebin.eps}
-    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_ppext=0_rebin.eps}
-    \includegraphics[width=3.2in]{graphs/densityForce_ppext=0_rebin_N10.eps}
-    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_ppext=0_rebin_N10.eps}
+    \includegraphics[width=3.2in]{graphs/densityForce_ppext=0_new.eps}
+    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_ppext=0_new.eps}
+    \includegraphics[width=3.2in]{graphs/densityForce_ppext=0_rebin_new.eps}
+    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_ppext=0_rebin_new.eps}
+    \includegraphics[width=3.2in]{graphs/densityForce_ppext=0_rebin_N10_new.eps}
+    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_ppext=0_rebin_N10_new.eps}
   \caption{({\it top left}:) Gravity force in of the P$^3$M algorithm, versus distance in fine mesh cell units, compared with the exact $1/r^{2}$ law.
     This particular calculation was obtained in a CITA128 realization with  a box size of $100 h^{-1}\mbox{Mpc}$,
     in a single time step. 

@@ -26,31 +26,30 @@ the freedom we have is to choose the number of such layers.
  \end{itemize}
  The case where all three coordinates are equal is already calculated in the standard configuration of the code.
  To assess the improvement of the force calculation, we present in Fig \ref{fig:den_force_fracErr_ppext6} a force versus distance
- plot in a CITA128 realization, analogous to Fig. \ref{fig:den_force_fracErr}, but the pp force has been extended to  six layers of fine cells
- in the force test part of the code {\bf (do pp\_ext2 as well?)}. 
+ plot in a CITA128 realization, analogous to Fig. \ref{fig:den_force_fracErr}, but the pp force has been extended to  two layers of fine cells
+ in the force test part of the code. 
  We observe that the scatter about the theoretical curve has reduced significantly, and is still well balanced around the theoretical predictions.
- The same applies to the fractional error on the radial and tangential components of the force, as seen in the right panel,
- which are now at least 5 time smaller than in the default P$^{3}$M algorithm {\bf (Check these numbers again)}.
- When averaging over 10 time steps, the improvement is only mild, as the calculation is already very accurate. 
+ The fractional error on the radial and tangential components of the force, as seen in the right panel,
+ are now at least 5 time smaller than in the default P$^{3}$M algorithm.
+ When averaging over 10 time steps, we observe that the improvement is only mild, as the calculation is already very accurate {\bf (To verify/quantify)}. 
  
  \begin{figure*}%[ht]
   \begin{center}
-    \includegraphics[width=3.2in]{graphs/densityForce_ppext=6_rebin.eps}
-    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_ppext=6_rebin.eps}
-     \includegraphics[width=3.2in]{graphs/densityForce_ppext=6_rebin_N10.eps}
-    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_ppext=6_rebin_N10.eps}
+    \includegraphics[width=3.2in]{graphs/densityForce_ppext=2_rebin_new.eps}
+    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_ppext=2_rebin_new.eps}
+     \includegraphics[width=3.2in]{graphs/densityForce_ppext=2_rebin_new_N10.eps}
+    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_ppext=2_rebin_new_N10.eps}
     \caption{({\it top left}:) Gravity force in the P$^3$M algorithm, compared with the exact $1/r^{2}$ law,
   in the same CITA128 realization as that shown in Fig. \ref{fig:den_force_fracErr}, 
-  except that the exact pp force has been extended to six fine mesh layers around each particle
+  except that the exact pp force has been extended to two fine mesh layers around each particle
   in the force test code.
   Particles in the that range follow the exact curve, then we observe a much smaller scatter at 
-  distance of the order of 6 fine grid, compared to Fig. \ref{fig:den_force_fracErr}. 
+  distance of the order of 2 fine grid, compared to Fig. \ref{fig:den_force_fracErr}. 
   The NGP interpolation scheme is again responsible for the scatter, but the effect is suppressed with increasing distances, and further suppressed by averaging over many time steps.
   %\caption{
   ({\it top right}:) Fractional error on the force in the P$^3$M algorithm, in the radial (top) and tangential (bottom) directions.
   This was also obtained over a single time step.
   ({\it bottom row}:) Same as top row, but averaged over ten time steps.
-{ \bf (I should add pp\_ext = 2. ) }
     \label{fig:den_force_fracErr_ppext6}}
 \end{center}
 \end{figure*}
@@ -58,68 +57,78 @@ the freedom we have is to choose the number of such layers.
  
  
  To quantify the accuracy improvement versus computing time requirements, we performed the following test.
- We generate a set of initial conditions at a starting redshift of $z = 100$, with a box size equal to $ 200 h^{-1}\mbox{Mpc}$,
- and with $256^{3}$ particles. We evolve these CITA256 realizations with different ranges for the pp calculation, and compare 
+ We generate a set of initial conditions at a starting redshift of $z = 50$, with a box size equal to $ 150 h^{-1}\mbox{Mpc}$,
+ and with $512^{3}$ particles. We evolve these CITA512 realizations with different ranges for the pp calculation, and compare 
  the resulting power spectra. For the results to be meaningful, we also need to use the same random seed for the random number generator,
  such that the only difference between different runs is the range of the pp force.
  Fig. \ref{fig:power} shows the dimensionless power spectrum of the different runs, where we see a significant gains in resolution
- when extending  PM to P$^{3}$M first, and when adding successive layers of fine cell mesh where the pp force is extended.
-We have not plotted the results for higher numbers of layers, as the improvement becomes milder there: the fine grid calculations
-are more accurate as the distance increases. For this reason, it seems that a range of a few layers, between 3 and 6, suffices 
+ when extending  PM to P$^{3}$M first, and when adding successively one and two layers of fine cell mesh in which the pp force is extended.
+We have not plotted the results for higher numbers of layers, as the improvement becomes milder there: the mesh calculations
+become accurate enough as the distance increases. For this reason, it seems that a range of a two layers, suffices 
 to reduce most of the undesired NGP scatter.
 
 Extending the pp calculation comes at a price, since the number of operation scales as  $N^{2}$ in the sub-domain. 
 This cost is best capture by the increase of real time required by a fixed number of dedicated  {\small CPU}s 
-to evolved the particles to the final redshift. Table \ref{table:cpu_pp_ext} presents this usage.
+to evolved the particles to the final redshift. For instance, in our CITA512 simulations, 
+the difference between $N_{layer} = 1$ and $2$ is about a factor of $2.3$ in real time.
+This number will change depending on the problem at hand and on the machine, and we recommand
+to perform performance gain vs resource usage tests on smaller runs before performing large scale simulations
+with the extended force.
+
 
 \begin{figure}
   \begin{center}
   \epsfig{file=graphs/pp_ext.eps,width=0.49\textwidth}
   \caption{ Dimensionless power spectrum for varying range of the exact pp force, compared to  {\small CAMB} \citep{Lewis:1999bs}.
-  These CITA256 realizations evolved from a unique set of initial conditions at a starting redshift of $z = 100$, with a box size equal to $ 200 h^{-1}\mbox{Mpc}$ 
-  until $z=0$. The only difference between the runs is the ranges of the pp calculation.}
+  These CITA512 realizations evolved from a unique set of initial conditions at a starting redshift of $z = 50$, with a box size equal to $ 150 h^{-1}\mbox{Mpc}$ 
+  until $z=2.0$. The only difference between the runs is the ranges of the pp calculation. The inset shows details about the resolution turnaround. }
     \label{fig:power}
   \end{center}
 \end{figure}
 
 
-\begin{table}
-\begin{center}
-\caption{Scaling in {\small CPU} resources as a function of the range of the pp interaction.
-$N_{layers}$ refers to the number of fine mesh layers around a given cell, inside of which the force calculation
-is purely given by the pp contribution. }
-\begin{tabular}{|l|c|c|}
-\hline 
-             Type         & time (h)   \\
-                  \hline
-PM                         & 1.77 \\
-P$^{3}$M             & 2.09 \\
-\hline
-$N_{layers}$       &          \\
-\hline
- $1$ & 8.74 \\
- $2$ & 11.47\\
- $3$ & 14.30 \\
- $4$ & 18.87\\
- $5$ & 22.52\\
- $6$ & 29.62\\
- $7$ & 34.82\\
- $8$ & 47.00\\
- 
+%\begin{table}
+%\begin{center}
+%\caption{Scaling in {\small CPU} resources as a function of the range of the pp interaction.
+%$N_{layers}$ refers to the number of fine mesh layers around a given cell, inside of which the force calculation
+%is purely given by the pp contribution. }
+%\begin{tabular}{|l|c|c|}
+%\hline 
+%             Type         & time (h)   \\
+%                  \hline
+%PM                         & 1.77 \\
+%P$^{3}$M             & 2.09 \\
+%\hline
+%$N_{layers}$       &          \\
+%\hline
+% $1$ & 8.74 \\
+% $2$ & 11.47\\
+% $3$ & 14.30 \\
+ %$4$ & 18.87\\
+ %$5$ & 22.52\\
+ %$6$ & 29.62\\
+ %$7$ & 34.82\\
+ %$8$ & 47.00\\
+%\hline \hline
+%\end{tabular}
+%\label{table:cpu_pp_ext}
+%\end{center}
+%\end{table}
 
-\hline \hline
-\end{tabular}
-\label{table:cpu_pp_ext}
-\end{center}
-\end{table}
+The power spectrum does not provide the complete story, and one of the most relevant way to quantify the improvement of the calculation is to measure the impact on the halo mass function from these different CITA512 runs. Fig. \ref{fig:MassFunction_extpp} presents this comparison at redshift two. About 56,000 haloes were found in the end, yielding a halo number density of about $0.0166$ per $\mbox{Mpc/$h$}^{3}$. 
+We observe that the simulation undershoot the Sheth-Tormen predictions, which is caused by XXXXX. 
+We also observe that the pure PM code yields up 10 per cent less haloes than the P$^{3}$M version, 
+whereas the extended pp algorithm generally recovers  up to 10 per cent more haloes.
+The difference in performance between an extended pp  range of two vs four cells is rather mild, from where
+we conclude that $N_{layers} = 2$ is the most optimal choice.
 
-Perhaps the most relevant way to quantify the improvement of the calculation is to measure the impact on the halo mass function from these different CITA256 runs. Fig. \ref{fig:MassFunction_extpp} presents this comparison at redshift zero. About 11,000 haloes were found in the end, and we observe a good match with the Sheth-Tormen predictions. 
 
 \begin{figure}
   \begin{center}
   \epsfig{file=graphs/MassFunction_pp_ranges.eps,width=0.49\textwidth}
-  \caption{ Halo mass function for different ranges of the pp force calculation, compared to the predictions of Sheth-Tormen. 
-  The smallest haloes have a mass equivalent to 20 particles.{\bf (y-axis?)}}
+  \caption{ ({\it top}:) Halo mass function for different ranges of the pp force calculation, compared to the predictions of Sheth-Tormen. 
+  The smallest haloes shown here have a mass equivalent to 100 particles, and fall in the lowest mass bin.
+  ({\it bottom}:) Ratio between the different curves and that of the default P$^3$M configuration.}
     \label{fig:MassFunction_extpp}
   \end{center}
 \end{figure}

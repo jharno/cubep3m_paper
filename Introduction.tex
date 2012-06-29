@@ -98,14 +98,11 @@ separate measurement that quantifies a specific aspect of the code.
 We have tried to keep to a minimum the number of such different runs, and although the detailed numbers vary 
 with the problem size and the machines, the general trends are are rather universal.
 
-Tests on constraints of the redshift step size were performed 
+Tests on constraints of the redshift step size and on improvements of the force calculations were performed 
 on the Sunnyvale beowulf cluster at the Canadian Institute for Theoretical Astrophysics (CITA).
 Each node contains 2 Quad Core Intel(R) Xeon(R) E5310 1.60GHz processors, 4GB of RAM,  a 40 GB disk and 2 gigE network interfaces. 
-We generate a set of Gaussian initial conditions at a starting redshift of $z = 100$, 
-with a box size equal to $200 h^{-1}\mbox{Mpc}$, we placed
-$256^{3}$  particles on a grid with $2^{3}$ more cells, and let them evolve until $z=0$.
-Tests on improvements of the force calculations were performed on the same machine, but with  a box size of $500 h^{-1}\mbox{Mpc}$.
-Hereafter we refer to these simulation sets as the CITA256 configurations, and specify which volume was used in each context.
+Each of these tests were performed on the same cluster, but with  different box sizes, starting redshifts and particle numbers.
+Hereafter we refer to these simulation sets as the CITA configurations, and specify which parameters were used in each case.
 
 For tests of the code accuracy, of the non-Gaussian initial conditions generator and of the run time halo finder algorithm, 
 we used a third simulation configuration series that was run at the Texas Advanced Computing Centre (TACC) on Ranger, a SunBlade 

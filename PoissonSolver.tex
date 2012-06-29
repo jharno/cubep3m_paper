@@ -10,9 +10,6 @@ for the fine grid \citep{1981csup.book.....H}. This choice is motivated by the f
 way to implement a P$^3$M algorithm on a mesh is to have exactly zero mesh force inside a grid, 
 which is only true for the NGP interpolation. Although CIC generally has a smoother and more accurate force,
 the pp implementation enhances the code resolution by almost an order of magnitude. 
-We impose a softening length of one tenth of a grid cell to prevent
-large scattering; particles seperated by less than this distance have their 
-particle-particle force set to zero.
 
 The code units inherit from \citep{2004NewA....9..443T} and are summarized here for completeness.
 The comoving length of a fine grid cell is set to one,
@@ -95,17 +92,32 @@ The vector $\mbox{\boldmath $\beta$}(r)$ is related to the fourth order polynomi
    \mbox{\boldmath $\beta$}(r) = \bigg[ -\frac{7 r}{4 r_{c}^{3}} + \frac{3 r^{3}}{4 r^{5}}\bigg] \hat{\bf r}
   \end{eqnarray}
 
-Because these calculations are performed on two grids of different resolution, a sampling window function must be convoluted 
+Since these calculations are performed on two grids of different resolution, a sampling window function must be convoluted 
 both with the density and the kernel (see [Eq. 7-8] of MPT).
 When matching the two force kernels, the long range force is always on the low side close to the cutoff region, whereas the short range force is uniformly scattered across the theoretical $1/r^2$ value -- intrinsic features of the CIC and NGP interpolation schemes respectively.  By performing force measurements on two particles randomly placed in the volume, we identified a small region surrounding the cutoff length in which we empirically adjust both kernels such as to improve the match. Namely, for $14 \le r \le 16$, $\mbox{\boldmath $\omega$}_{s}({r}) \rightarrow 0.985\mbox{\boldmath $\omega$}_{s}({ r})$,
 and for  $12 \le r \le 16$, $\mbox{\boldmath $\omega$}_{l}({r}) \rightarrow 1.2\mbox{\boldmath $\omega$}_{l}({ r})$.
 
-As mentioned in section \ref{sec:structure} an summarized in FIg. \ref{fig:particle_mesh},
+As mentioned in section \ref{sec:structure} and summarized in FIg. \ref{fig:particle_mesh},
 the force kernels are first  in the code initialization stage.
 Eq. \ref{eq:poisson_solution_force} is then solved with fast Fourier transform along each directions, 
  and is applied onto particles in the {\tt update\_velocity} subroutine.
 
-As an option, {\small PMFAST} could run with a different set of kernels, described in MPT as the `least square matching' , 
+The pp force is calculated during the fine mesh velocity update, which avoids loading the particle list twice and allows the operation to be threaded without significant additional work. During this process, the particles within a given fine mesh tile are first read in via the linked list, 
+then their velocity is updated with the fine mesh force component, according to their location within the tile. 
+In order to organize the particle-particle interactions, we proceed in constructing a set of threaded fine-cell linked list chains for each coarse cell. 
+We then calculate the pairwise force between all particles that lie within the same fine mesh cell, exluding pairs whose separation is smaller than a softening length of one tenth of a grid cell; particles seperated by less than this distance have their 
+particle-particle force set to zero.  As this proceeds, we accumulate the  pp force applied on each particle and then determine the maximum force element of the pp contribution, which is also taken into account when constraining the length of the global timestep. 
+
+This kind of force softening is generally required by any code to prevent
+large scattering as $r \rightarrow 0$, which can otherwise slow the calculation down, 
+and to reduce the two-body relaxation, which can affect the numerical convergence. 
+Many force softening scheme can be found in the litterature, including Plummer force, uniform or linear density profiles or the spline-softened model 
+(see \cite{Dyer1993} for a review). In this case, a sharp force cutoff corresponds to a particle density profile that resembles that of a hollow shell.
+In comparison with other techniques, this  force softening is the easiest to code, the fastest to execute, but has a discontinuous profile at the cutoff lenght,
+which certainly has an impact on the smallest resolved structure. 
+{\bf (Have we tried anything else? Why did we choose this one? How does this cutoff translates in terms of energy and momentum conservation? Unstable?)}
+
+In addition, {\small PMFAST} could run with a different set of force kernels, described in MPT as the `least square matching' , 
 which basically adjust the kernels on cell-by-cell basis based on minimization of the deviation with respect
 to the Newtonian predictions. This was originally computed such as to optimize the force calculation for
 the case where both grids are obtained from CIC interpolation. Moving to a mix CIC/NGP scheme
