@@ -108,14 +108,23 @@ In order to organize the particle-particle interactions, we proceed in construct
 We then calculate the pairwise force between all particles that lie within the same fine mesh cell, exluding pairs whose separation is smaller than a softening length of one tenth of a grid cell; particles seperated by less than this distance have their 
 particle-particle force set to zero.  As this proceeds, we accumulate the  pp force applied on each particle and then determine the maximum force element of the pp contribution, which is also taken into account when constraining the length of the global timestep. 
 
-This kind of force softening is generally required by any code to prevent
-large scattering as $r \rightarrow 0$, which can otherwise slow the calculation down, 
+Force softening is generally required by any code to prevent
+large scattering as $r \rightarrow 0$ that can otherwise slow the calculation down, 
 and to reduce the two-body relaxation, which can affect the numerical convergence. 
 Many force softening scheme can be found in the litterature, including Plummer force, uniform or linear density profiles or the spline-softened model 
-(see \cite{Dyer1993} for a review). In this case, a sharp force cutoff corresponds to a particle density profile that resembles that of a hollow shell.
-In comparison with other techniques, this  force softening is the easiest to code, the fastest to execute, but has a discontinuous profile at the cutoff lenght,
-which certainly has an impact on the smallest resolved structure. 
-{\bf (Have we tried anything else? Why did we choose this one? How does this cutoff translates in terms of energy and momentum conservation? Unstable?)}
+(see \citet{1993ApJ...409...60D} for a review). In the current case, a sharp force cutoff corresponds to a particle interacting with a hollow shell.
+In comparison with other techniques, this  force softening is the easiest to code and the fastest to execute. 
+Generally, it is desirable to match the smoothness of the force to the order of the time integration. 
+A Plummer force is infinitely differentiable, which is a sufficient but not necessary condition for our 2nd order time integration.  
+Also, one of the drawback of Plummer's softening is that the resolution degrades smoothly: the effects of the smoothing are present at all radii. 
+In comparison, the uniform density and hollow shell alternatives both have the advantage that the deviations from $1/r^2$ are minimized. 
+Although all the results presented in this paper were obtained with the sharp cutoff softening, other schemes can easily be adopted as these 
+are typically a single line changes to the code. \citep{1993ApJ...409...60D} argues in favor on the uniform density profile scheme -- which is more physical --
+and future developments of {\small CUBEP3M} will incorporate this option.
+
+
+
+
 
 In addition, {\small PMFAST} could run with a different set of force kernels, described in MPT as the `least square matching' , 
 which basically adjust the kernels on cell-by-cell basis based on minimization of the deviation with respect

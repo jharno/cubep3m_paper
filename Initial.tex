@@ -5,7 +5,12 @@ As mention in section \ref{sec:structure}, the code starts off by reading a set 
 These are organized as a set of $6 \times N$ phase-space arrays -- one per {\small MPI} process -- where $N$ is the number of particles in the
 local volume. Although many applications are typically based on initial conditions that follow Gaussian statistics,
 we have developed a non-Gaussian initial conditions generator that we briefly describe in this section. 
-
+This becomes important especially for simulations in which the sensitivity to very small scales becomes more important.
+For the Zel'dovich approximation to hold in such cases, the simulations need to be started at very early redshift.
+Consequently, the size of the first few redshift jumps in such simulations are rather large, and therefore less accurate. 
+One way to fix this is to constrain the size of the jumps, as discussed in section \ref{subsec:z_jumps}.
+However,  the simulations take much more time to run, and this solution is therfore not adequate for 
+very large configurations.
 
 The original code that provides Gaussian initial conditions for {\small CUBEP3M} 
 is extended to include non-Gaussian features of the `local' form,

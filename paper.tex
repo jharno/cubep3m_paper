@@ -21,7 +21,7 @@
 \usepackage{txfonts}
 
 \title[{\small}  High Performance P$^{3}$M N-body code: CUBEP3M]{{\small} High Performance P$^{3}$M N-body code: CUBEP3M}
-\author[Joachim Harnois-D\'{e}raps, Ue-Li Pen, Ilian T. Iliev, Hugh Merz, JD Emberson, Vincent Desjacques]{Joachim Harnois-D\'{e}raps$^{1,2}$ 
+\author[Joachim Harnois-D\'{e}raps, Ue-Li Pen, Ilian T. Iliev, Hugh Merz, J. D.  Emberson, Vincent Desjacques]{Joachim Harnois-D\'{e}raps$^{1,2}$ 
 \thanks{E-mail: jharno@cita.utoronto.ca},  Ue-Li Pen$^{1}$, 
 Ilian T. Iliev$^{3}$, Hugh Merz$^{4}$, \newauthor
 JD Emberson$^{1,5}$ and Vincent Desjacques$^{6,7}$\\
@@ -60,8 +60,7 @@ even at this scale.  In addition, force kernels have been improved for enhanced 
 In parallel, many utilities and extensions have been added to the standard code package, 
 including a runtime halo finder, a tuneable range for the exact pp force, a non-Gaussian initial conditions generator, etc.
 We discuss the structure, the accuracy, any known systematic effects, and the scaling performance
-of the code and its utilities, when applicable {\bf (We should include a density picture somewhere. Ideally a RANGER4000, for which we show the
-power spectrum and the halo mass function.)}.
+of the code and its utilities, when applicable.
 \end{abstract}
 
 \begin{keywords}
@@ -75,6 +74,9 @@ N-body simulations --- Large scale structure of Universe --- Dark matter
 \input{Systematics}
 \input{Halos}
 \input{Extensions}
+\input{Initial}
+\input{PID}
+\input{Extendedpp}
 \input{Conclusion}
 %\input{Appendix}
 \bibliographystyle{mn2e}

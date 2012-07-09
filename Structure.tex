@@ -55,6 +55,8 @@ the local fine grid density  in real and Fourier space respectively}
 \end{enumerate}
 The particle ID is a feature that can be switched off by removing a compilation flag, 
 and allows to optimize the code for higher resolution configurations.
+In terms of memory, {\small CUBEP3M} uses about $130 - 150$ bytes per particles, and is in that sense more heavy than other codes like {\small GADGET}, which 
+lies around $90$ per particles.
 %\subsection{Code overview}
 %\label{subsec:overview}
 
@@ -147,8 +149,10 @@ and writes them to file. Similarly, the code can compute two-dimensional project
 The code exits the loop when it has reached the final redshift, it then wraps up the {\small FFTW} plans 
 and clears the {\small MPI} communicators. We have collected those operations under the subroutine {\tt finalize} for concision.
 
-Other considerations that need to be considered is that any decomposition geometry somehow 
+Other constraints that need to be considered is that any decomposition geometry somehow 
 limits permissible grid sizes, and that volume evenly decomposed into cubic sub-sections 
 --  such as {\small CUBEP3M} -- requires the number of {\small MPI} processes to be a perfect cube.
 Also,  since the decomposition is volumetric, as opposed to density dependent -- 
 it suffers from load imbalance when probing deep into the non-linear regime.
+This latter effect can be overcome by allocating extra memory per node, either for the full run,
+or for the first part of it, follow by a restart configuration with more memory.

@@ -10,7 +10,7 @@ and focus for the moment on the particles only. In addition to the power spectru
  with comparisons to Newton's law of gravitation.
  
  
- \subsection{Power Spectrum}
+ \subsection{Density and Power Spectrum}
  \label{subsec:powerspectrum}
  
 One of the most reliable way to assess the simulation's accuracy at evolving particles
@@ -21,10 +21,25 @@ For an over-density field $\delta({\bf \it x})$, the power spectrum is extracted
 \label{eq:power}
 \end{eqnarray}
 where the angle bracket corresponds to an ensemble (or volume) average.
-We plot in Fig. \ref{fig:power_highres} the dimensionless power spectrum in a RANGER4000 simulation and
-observe that the agreement with the non-linear prediction of \cite{Lewis:1999bs} is at the per cent level over a large dynamical range.
-The drop of power at high-$k$ is partly caused by the finite mesh resolution, partly from expected deviations about the predictions.
-The fluctuations at low-$k$ come from the white noise imposed in the initial conditions. The vertical line corresponds to the scale of the coarse mesh.
+Fig. \ref{fig:density} presents  a 2-dimensional density projection of a RANGER4000 simulation, which evolved 4000$^3$ particles until redshift zero.
+We then plot in Fig. \ref{fig:power_highres}  its dimensionless power spectrum  and
+observe that the agreement with the non-linear prediction of \cite{Lewis:1999bs} is within five per cent up to $k = 1.0 h \mbox{Mpc}^{-1}$.
+The drop of power at higher $k$ is partly caused by the finite mesh resolution, partly from expected deviations about the predictions.
+The fluctuations at low-$k$ come from the white noise imposed in the initial conditions, and it was show in \citet{2012MNRAS.419.2949N} and 
+\citet{2012MNRAS.423.2288H} that
+samples of a few hundreds of realizations average to the correct value. 
+
+\begin{figure*}%[ht]
+  \begin{center}
+%    \includegraphics[width=5.2in]{graphs/0.000xz_w_halos_pink_blue_enh-1.eps}
+\includegraphics[width=5.2in]{graphs/0.000proj_1000x1000.eps}
+  \caption{Detail of a dark matter density projection, measured at $z=0$ in a RANGER4000 simulation.
+  Particles are shown in pink, halos in blue in the online version. The full projection is 64 times larger,
+  but does not provide much details on the structure on a paper format.
+    \label{fig:density}}
+\end{center}
+\end{figure*}
+
 
 \begin{figure*}%[ht]
   \begin{center}
@@ -32,7 +47,7 @@ The fluctuations at low-$k$ come from the white noise imposed in the initial con
   \caption{Dark matter power spectrum, measured at $z=0$ in a RANGER4000 simulation,
   compared to the non-linear predictions of {\small CAMB}. 
   The vertical line corresponds to the scale of the coarse mesh, while the dotted line represents the Poisson noise.
-    \label{fig:power_highres} {\bf Should I show another redshift instead? Also, the legend box cuts the text: need to fix this. Finally, I could also show linear theory.}}
+    \label{fig:power_highres}}
 \end{center}
 \end{figure*}
 
@@ -72,12 +87,12 @@ The transverse fractional error peaks exactly at the gris distance,  and is abou
 
 \begin{figure*}%[ht]
   \begin{center}
-    \includegraphics[width=3.2in]{graphs/densityForce_ppext=0_new.eps}
-    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_ppext=0_new.eps}
-    \includegraphics[width=3.2in]{graphs/densityForce_ppext=0_rebin_new.eps}
-    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_ppext=0_rebin_new.eps}
-    \includegraphics[width=3.2in]{graphs/densityForce_ppext=0_rebin_N10_new.eps}
-    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_ppext=0_rebin_N10_new.eps}
+    \includegraphics[width=3.2in]{graphs/densityForce_ppext=0_new-1.eps}
+    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_ppext=0_new-1.eps}
+    \includegraphics[width=3.2in]{graphs/densityForce_ppext=0_rebin_new-1.eps}
+    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_ppext=0_rebin_new-1.eps}
+    \includegraphics[width=3.2in]{graphs/densityForce_ppext=0_rebin_N10_new-1.eps}
+    \includegraphics[width=3.2in]{graphs/densityForce_fracErr_ppext=0_rebin_N10_new-1.eps}
   \caption{({\it top left}:) Gravity force in of the P$^3$M algorithm, versus distance in fine mesh cell units, compared with the exact $1/r^{2}$ law.
     This particular calculation was obtained in a CITA128 realization with  a box size of $100 h^{-1}\mbox{Mpc}$,
     in a single time step. 
@@ -102,7 +117,7 @@ This is clearly seen in the top left panel of Fig. \ref{fig:den_force_fracErr}, 
 feel a force up to an order of magnitude too small.
 This effect is especially pronounced at the early stages of the simulation where
 the density is more homogeneous, and leads to mesh artefacts appearing
-in the density field {\bf (Should I show a density plot?)}.
+in the density field.
 
 In order to minimize these two systematic effect -- the large scatter and the anisotropy -- 
 we randomly shift the particle distribution relative to the mesh by a small
@@ -123,7 +138,7 @@ The bottom panels of Fig. \ref{fig:den_force_fracErr} show the effect of averagi
 where the random offset is applied on the particles (and on the hole) at the end of each force calculation. 
 We observe that the agreement extends at the per cent level down to $r \sim 1.5$, beyond which point
 the discretize effect of the NGP causes an underestimate of the force of up to 60 per cent.
-{\bf (Can't we beat this by tempering with the fine force kernel? Will the least square fit enhance this?)}
+%{\bf (Can't we beat this by tempering with the fine force kernel? Will the least square fit enhance this?)}
 
 We note that this inevitable loss of force in the NGP scheme is one of the driving argument to extend the pp force outside the fine mesh cell,
 since the scattering about the actual $1/r^{2}$ law drops rapidly as the distance increases.
@@ -139,7 +154,7 @@ and to the anisotropic nature of the P$^3$M calculations mentioned above.
 When these effects are not averaged over, the errors directly add up at each time step,
 which explains why later time are worst.
 We recall that {\small PMFAST} did not have this problem since it used CIC interpolation on both meshes.  
-{\bf (Anything else to add here?)}
+%{\bf (Anything else to add here?)}
 
 \begin{figure}%[ht]
   \begin{center}
@@ -174,6 +189,8 @@ We recall that {\small PMFAST} did not have this problem since it used CIC inter
 %\end{figure}
 
 \subsection{Constraining redshift jumps}
+\label{subsec:z_jumps}
+
 
 At early stages of the simulation, the density fields is rather homogenous, causing the force of gravity to be
 rather weak everywhere. In that case, the size of the redshift jumps is controlled by a limit in the cosmological expansion.
@@ -203,7 +220,7 @@ We should mention that with a proper use of the non-Gaussian initial conditions,
   \begin{center}
     \includegraphics[width=3.2in]{graphs/power_ra_max.eps}
   \caption{Dark matter power spectrum, measured at $z=0$ in a series of CITA256 realizations. 
- The starting redshift ofwas raised to $z=200$ to enhance the systematic effect. The different curves show different values of $r_{max}$. 
+ The starting redshift was raised to $z=200$ to enhance the systematic effect. The different curves show different values of $r_{max}$. 
   The resources required to run these simulations increase rapidly as $r_{max}$ decreases, as seen in Table \ref{table:ra_max}.    \label{fig:ra_max}}
 \end{center}
 \end{figure}
@@ -230,7 +247,7 @@ $r_{max}$         & time (h)   \\
 \end{table}
 
 
-{\bf (Any other systematics effects we want to discuss here?)}
+%{\bf (Any other systematics effects we want to discuss here?)}
 
  
 

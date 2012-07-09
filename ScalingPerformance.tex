@@ -103,7 +103,7 @@ especially in non-uniform memory access (NUMA) environments.
  The intermediary version of the code -- {\small CUBEPM} --
 was first  ported to the IBM Blue Gene/L platform, and achieved 
 weak-scaling up to 4096 processes (over a billion particles), with the N-body calculation only incurring a 10 per cent overhead 
-at runtime (compared to 8 processes) for a balanced workload \footnote{\tt http://web.archive.org/web/20060925132146/http://www-03.ibm.com/servers/deepcomputing/pdf/Blue\_Gene\_Applications\_Paper\_CubePM\_032306.pdf}.  In order to 
+at runtime (compared to 8 processes) for a balanced workload\footnote{\tt http://web.archive.org/web/20060925132146/ http://www-03.ibm.com/servers/deepcomputing/pdf/ Blue\_Gene\_Applications\_Paper\_CubePM\_032306.pdf}.  In order to 
 accommodate the limited amount of memory available per processing core on the 
 Blue Gene/L platform machines, it was necessary to perform the long range {\small MPI FFT}
 with a volumetric decomposition \citep{3DFFT}.
@@ -172,4 +172,3 @@ In particular, we encountered unexpected problems from software libraries such a
 {\small MPICH} and {\small FFTW} when applied to calculations of such 
 unprecedented size. 
 
-{\bf (We should also compare the memory usage to other codes like Gadget. Ilian mentioned Gadget uses 90 Bytes per particle. Is cubep3m really using 130 Bytes per particle? Check with mem\_usage.)}
