@@ -962,10 +962,23 @@ at grid distances. Basically, the idea is to boost the small distance elements o
 which somehow corrects for the loss observed in the bottom panels of Fig. \ref{fig:den_force_fracErr}.
 We show here the impact of three different trials: a) the force from the first layer of neighbours is boosted by $90$ per cent, b)
 the force from the first two layers of neighbours is boosted by $60$ per cent, and c) by $80$ per cent.
-We observe that we are able to improve the power at turn around by almost a factor of two, which doubles the resolution.  
+We observe that with the trial a), we are able to improve the power at turn around by a factor of $1.5$, which almost doubles the resolution.  
 This test was performed in a series of SciNet256 simulations with a volume of $150 h^{-1} \mbox{Mpc}$ and at $z=0$.
 We see from the figure that in the original configuration, the departure from the non-linear predictions occur at $k\sim 3.0 h\mbox{Mpc}^{-1}$,
-whereas the third trial allows for a resolution down to $k\sim 6.0 h\mbox{Mpc}^{-1}$. 
+whereas the first trial allows for a similar resolution down to $k\sim 4.5 h\mbox{Mpc}^{-1}$. 
+Other correction schemes are more aggressive, and although they recover power at even smaller scales, 
+they exhibit a small overestimate compare to non-linear predictions in the range $2.0 < k < 4.0 h\mbox{Mpc}^{-1}$, 
+and more testing should be done prior to using these corrections. 
+
+We therefore recommend that the fine force kernel should be considered as an adjustable parameter;
+`no correction' is considered as the  conservative mode, which is accurate only up to the resolution turn around 
+observed in the dimensionless power spectrum. Higher resolution can be achieved with the modified fine force kernel following `trial a',
+and should be considered as an actual resolution improvement, with no cost in accuracy nor in run time;
+`trial b' and `trial c' should be considered as too aggressive. We note that we have not exhausted the list of possible correction,
+and that future work in that direction might result in even better resolution.
+
+
+
 %We note that these trials have not yet been 
 %tried on very large runs, and we recommend that some more testing should be done to assess the robustness of this correction. 
 
