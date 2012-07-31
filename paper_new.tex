@@ -24,7 +24,7 @@
 \author[Joachim Harnois-D\'{e}raps, Ue-Li Pen, Ilian T. Iliev, Hugh Merz, JD Emberson, Vincent Desjacques]{Joachim Harnois-D\'{e}raps$^{1,2}$ 
 \thanks{E-mail: jharno@cita.utoronto.ca},  Ue-Li Pen$^{1}$, 
 Ilian T. Iliev$^{3}$, Hugh Merz$^{4}$, \newauthor
-J.D. Emberson$^{1,5}$ and Vincent Desjacques$^{6,7}$\\
+J.D. Emberson$^{1,5}$ and Vincent Desjacques$^{6}$\\
 %\footnotemark[1]\thanks{This file has been amended to
 %highlight the proper use of \LaTeXe\ code with the class file.
 %These changes are for illustrative purposes and do not reflect the
@@ -35,8 +35,7 @@ $^{2}$Department of Physics, University of Toronto, M5S 1A7, Ontario,  Canada\\
 $^{3}$Astronomy Centre, Department of Physics and Astronomy, Pevensey II Building, University of Sussex, BN1 9QH, Brighton, United Kingdom\\
 $^{4}$SHARCNET, Laurentian University, P3E 2C6, Ontario, Canada\\
 $^{5}$Department of Astronomy and Astrophysics, University of Toronto, M5S 3H4, Ontario, Canada\\
-$^{6}$Institute for Theoretical Physics, University of Z\"{u}rich, Z\"{u}rich, CH 8057, Switzerland\\
-$^{7}$Universit\'{e} de Gen\`{e}ve and Center for Astroparticle Physics, 24 Quai Ernest Ansermet, 1211 Gen\`{e}ve 4, Switzerland}
+$^{6}$Universit\'{e} de Gen\`{e}ve and Center for Astroparticle Physics, 24 Quai Ernest Ansermet, 1211 Gen\`{e}ve 4, Switzerland}
 
 \begin{document}
 
@@ -50,15 +49,28 @@ $^{7}$Universit\'{e} de Gen\`{e}ve and Center for Astroparticle Physics, 24 Quai
 \label{firstpage}
 
 \begin{abstract}
-This paper presents {\small CUBEP3M}, an upgraded version of {\small PMFAST} that
-is now one of the fastest highest performance public N-body code. 
-Gravity is solved  on a two-level mesh with sub-grid precision due to the particle-particle (pp)
-interactions inside and across neighboring cells.
-Among important improvements,  {\small CUBEP3M} has a volumetric decomposition,
-allowing for a massive parallelization over more than 20,000 cores, and has achieved close to ideal weak scaling
-even at this scale.  In addition, force kernels have been improved for enhanced matching of the two mesh contributions near the cutoff length, and the code is now equipped with a unique particle identification tag system that allows reconstruction of individual particle trajectories between time steps.
-In parallel, many utilities and extensions have been added to the standard code package, 
-including a runtime halo finder, a tuneable range for the exact pp force, a non-Gaussian initial conditions generator, etc.
+This paper presents {\small CUBEP3M}, a high performance cosmological N-body code
+and describes many utilities and extensions that have been added to the standard package, including a runtime halo finder,
+a non-Gaussian initial conditions generator, a tuneable accuracy, and a system of unique particle identification.
+{\small CUBEP3M} is fast, has a low memory imprint, and 
+has been run on up to $20,000$ cores, achieving close to ideal weak scaling
+even at this scale.
+It is well suited for a vast number of science applications that 
+require either large samples of non-linear realizations or 
+very large dark matter N-body simulations,
+including  cosmological reionization, baryonic acoustic oscillations, weak lensing or
+non-Gaussian statistics.
+%Since there is no explicit load balancing algorithm, the code runs optimally 
+%for homogeneous systems such as those which prevail in large scale structures studies. 
+%It has an interface with a MHD-TVD module and a radiative transfer code, 
+%which opens the door to a vast number of science applications.
+%or a large number of realizations for statistical studies.
+%one of the fastest highest performance public N-body code. 
+%Gravity is solved  on a two-level mesh with sub-grid precision due to the particle-particle (pp)
+%interactions inside and across neighbouring cells. 
+%Among important improvements,  {\small CUBEP3M} has a volumetric decomposition,
+%allowing for a massive parallelization over more than 20,000 cores, and has achieved close to ideal weak scaling
+%even at this scale.  In addition, force kernels have been improved for enhanced matching of the two mesh contributions near the cutoff length, and the code is now equipped with a unique particle identification tag system that allows reconstruction of individual particle trajectories between time steps.
 We discuss the structure, the accuracy, any known systematic effects, and the scaling performance
 of the code and its utilities, when applicable.
 \end{abstract}
@@ -108,7 +120,8 @@ in fairly large volumes, which demands simulations with a very large dynamic ran
 %accurate predictions/forecasts, etc.)}
 
 The basic problem that is addressed with N-body codes is the time evolution of an ensemble of $N$ particles
-that is subject to gravitational attraction. The brute force calculation requires $O(N^{2})$ operations, a cost that 
+that is subject to gravitational attraction. 
+The brute force calculation requires $O(N^{2})$ operations, a cost that 
 exceeds the memory and speed of current machines for large problems.
 Solving the problem  on a mesh \citep{1981csup.book.....H} reduces to $O(N\mbox{log}N)$ the number of operations,
 as it is possible to solve for the particle-mesh (PM) interaction with fast Fourier transforms techniques with high performance libraries such as {\small FFTW} \citep{FFTW3}.
@@ -122,22 +135,19 @@ The drawback is a significant loss in speed, which can be only partly recovered 
 The same reasoning applies to mesh-refined codes  \citep{1991ApJ...368L..23C}, 
 which in the end are not designed to perform fast PM calculations on large scales. 
 
-%{\bf ( PM code by japanese? Others codes I should mention?)}
-
-
-{\small PMFAST} (\cite{2005NewA...10..393M}, MPT hereafter) is one of the first code designed specifically to optimize the PM algorithm,
-both in terms of speed and memory usage. It uses a two-level mesh algorithm based on the gravity solver of \cite{2003AAS...203.9703T},
-The long range gravitational force is computed on a  grid four times coarser, such as to minimize the {\small MPI} communication time
+Although such codes are needed to study systems that are spatially heterogeneous like individual clusters or haloes, AGNs or other compact objects,
+many applications are interested in studying large cosmological volumes in which the matter distribution is rather homogeneous.
+In such environments, the load balancing algorithm can be removed, and the effort
+can thereby be put towards speed, memory compactness and scalability.  
+{\small PMFAST} (\cite{2005NewA...10..393M}, MPT hereafter) was one of the first code designed specifically to optimize the PM algorithm,
+both in terms of speed and memory usage, and uses a two-level mesh algorithm based on the gravity solver of \cite{2003AAS...203.9703T}.
+The long range gravitational force is computed on a  grid $4^{3}$ times coarser, such as to minimize the {\small MPI} communication time
 and to fit in system's memory. The short range is computed locally on a finer mesh, and only the local sub-volume needs 
 to be stored at a given time, allowing for {\small OPENMP} parallel computation.
-This this setup enable the code to evolve large cosmological systems both rapidly and accurately, on relatively modest clusters.
-One of the main advantage of {\small PMFAST} over other PM codes is that the number of large arrays is minimized,
-and the global {\small MPI} communications are cut down to the minimum: for passing particle at the beginning of each time step,
+This setup enables the code to evolve large cosmological systems both rapidly and accurately, even on relatively modest clusters.
+One of the main advantages of {\small PMFAST} over other PM codes is that the number of large arrays is minimized,
+and the global {\small MPI} communications are cut down to the minimum: for passing particles at the beginning of each time step,
 and  for computing the long range FFTs.
-As described in MPT, access to particles is accelerated with the use of linked lists, deletion of `ghost' particles
-in buffer zones is done at the same time as particles are passed to adjacent nodes,
-and the global FFTs are performed with a slab decomposition of the volumes via a special file transfer interface, 
-designed specifically to preserve a high processor load.
 
 Since its first published version, {\small PMFAST} has evolved in many aspects. 
 The first major improvement was to transform the volume decomposition in multi-node configurations 
@@ -148,16 +158,19 @@ and was finally renamed {\small CUBEP3M}. The public package now includes a sign
 can be extended to an arbitrary range, the size of the redshift jumps can be constrained for improved accuracy during the first time steps,
 a runtime halo finder has been implemented, the expansion has also been generalized to include a redshift dependent equation of state of dark energy, there is a system of unique particle identification that can be switched on or off, and the initial condition generator has been generalized as to include non-Gaussian features.
  {\small PMFAST} was equipped with a multi-time stepping option that has not been tested on {\small CUBEP3M} yet, but which is, in principle at least, still available. 
- It also contains support for gas cosmological evolution through a TVD MHD module,
- and a coupling interface with the radiative transfer code C2-Ray \citep{2006NewA...11..374M}. 
-
-{\small CUBEP3M} is one of the most competitive public N-body code and
-has been involved in a number of scientific applications over the last few years,
+ 
+ The standard package also contains support for gas cosmological evolution through a portable TVD-MHD module \citep{2003ApJS..149..447P} that scales up to thousands of cores as well (see \citet{2010arXiv1004.1680P} and footnote 4 in section \ref{sec:scaling}), and a coupling interface with the radiative transfer code C2-Ray \citep{2006NewA...11..374M}.
+ {\small CUBEP3M} is therefore one of the most competitive and versatile public N-body code, 
+ and has been involved in a number of scientific applications over the last few years,
 spanning the field of weak lensing \citep{Vafaei10, 2008MNRAS.388.1819L,  2009arXiv0905.0501D, 2010PhRvD..81l3015L, 2010arXiv1012.0444Y, 2012arXiv1202.2332H},  BAO
  \citep{2010arXiv1008.3506Z,  2012MNRAS.419.2949N, 2012MNRAS.423.2288H, 2012arXiv1205.4989H}, 
 formation of early cosmic structures \citep{2008arXiv0806.2887I,2010arXiv1005.2502I},
 observations of dark stars \citep{2010MNRAS.407L..74Z,2012MNRAS.tmp.2794I} and
 reionization \citep{2011arXiv1107.4772I,Fernandez:2011ab,2011MNRAS.413.1353F,2012MNRAS.422..926M,Datta:2011hv,2012arXiv1203.0517F}. 
+Continuous efforts are being made to develop, extend and improve the code and each of its utilities, 
+and we expect that this will pave the way to an increasing number of science projects. 
+Notably, the fact that the force calculation is multi-layered makes the code extendible, 
+and opens the possibility to run {\small CUBEP3M} on hybrid CPU-GPU clusters.
 It is thus important for the community to have access to a paper that describes the methodology, the accuracy and the performance of this public code. 
 
 %\subsection{Simulation suites}
@@ -167,7 +180,7 @@ Since {\small CUBEP3M} is not new, the existing  accuracy and systematic tests w
 and with different geometric and parallelization configurations. It is not an ideal situation in which to quantify the performance, and each test must be viewed as a
 separate measurement that quantifies a specific aspect of the code. 
 We have tried to keep to a minimum the number of such different runs, and although the detailed numbers vary 
-with the problem size and the machines, the general trends are are rather universal.
+with the problem size and the machines, the general trends are rather universal.
 
 Tests on constraints of the redshift step size and on improvements of the force calculations were performed 
 on the Sunnyvale beowulf cluster at the Canadian Institute for Theoretical Astrophysics (CITA).
@@ -251,8 +264,14 @@ the local fine grid density  in real and Fourier space respectively}
 \end{enumerate}
 The particle ID is a feature that can be switched off by removing a compilation flag, 
 and allows to optimize the code for higher resolution configurations.
-In terms of memory, {\small CUBEP3M} uses about $130 - 150$ bytes per particles, and is in that sense more heavy than other codes like {\small GADGET}, which 
-lies around $90$ per particles.
+In terms of memory, {\small CUBEP3M} can be configured such as the main footprint is dominated exclusively by the 
+particle phase space array, in which case it uses about $60$ bytes per particles. 
+For a fixed problem size, this can be achieved by increasing the number of tiles, thereby reducing the size of the local fine mesh arrays.
+There is a limit at which we can do such a volume breakdown, though, since the physical 
+volume on each tile must be much larger than the connection length between the two meshes (see section \ref{sec:Poisson}).
+%
+%uses about $130 - 150$ bytes per particles, and is in that sense more heavy than other codes like the 
+For comparison, (Lean) {\small GADGET-2} code uses around $90$ per particles.
 %\subsection{Code overview}
 %\label{subsec:overview}
 
@@ -261,9 +280,15 @@ Before entering the main loop, the code starts with an initialization stage,
 in which many declared variables are assigned default values,
 the redshift checkpoints are read, the {\small FFTW} plans are created, and the {\small MPI} communicators are defined.
 The phase-space array  is obtained from the output of the initial conditions generator,
-and the force kernels on both grids are constructed from the specific geometry of the simulation.
+and the force kernels on both grids are constructed by reading precomputed kernels which are then adjusted to the specific simulation size.
 For clarity, all these operations are collected under the subroutine call {\tt initialize} in Fig. \ref{fig:structure}, 
 although they are actually distinct calls in the code.
+
+As described in MPT, access to particles is accelerated with the use of linked lists, deletion of `ghost' particles
+in buffer zones is done at the same time as particles are passed to adjacent nodes,
+and the global FFTs are performed with a slab decomposition of the volumes via a special file transfer interface, 
+designed specifically to preserve a high processor load.
+
 
 Each iteration of the main loop starts with the {\tt timestep} subroutine, 
 which proceeds to a determination of the redshift jump by comparing the step size constraints from each
@@ -281,6 +306,7 @@ do not allow multi-threading. There is thus an inevitable loss of efficiency dur
 only the single core {\small MPI} process is active\footnote{Other libraries such as {\small P3DFFT} ({\tt http://code.google.com/p/p3dfft/}) currently permit
  an extra level of parallelization, and it is our plan to migrate to one of these in the near future.}.
  As in {\small PMFAST}, the particle position and velocity updates are performed in a leap frog scheme \citep{1981csup.book.....H}.
+
 
 \begin{figure}
 \begin{verbatim}
@@ -335,13 +361,21 @@ subroutine particle_mesh
    delete_buffers
 end subroutine particle_mesh
 \end{verbatim}
-\caption{Overall structure of the two-level mesh algorithm. We have included the section that concerns the standard pp and the extended pp force calculation, to illustrate that they follows similar linked-list logic. }
+\caption{Overall structure of the two-level mesh algorithm. We have included the section that concerns the standard pp and the extended pp force calculation, to illustrate that they follow similar linked-list logic. }
 \label{fig:particle_mesh}
 \end{figure}
 
 
 If the current redshift corresponds to one of the checkpoints, the code advances all particles to their final location
-and writes them to file. Similarly, the code can compute two-dimensional projections of the density field, halo catalogues (see section \ref{sec:halo} for details), and can compute the power spectrum on the coarse grid at run time. 
+and writes them to file. 
+These restart files start with a small header that 
+contains the local  number of particles, the current redshift and time step, and the constraints on the time step jump
+from the previous iteration; the header is followed by the phase space of each particles. The particle identification tags are written 
+with a similar fashion in distinct files to simplify the post-processing coding. 
+This general I/O strategy allows for highly efficient {\small MPI} parallel read and write,
+by default in binary format for compactness, and has been shown to scale well to large data sets.
+
+Similarly, the code can compute two-dimensional projections of the density field, halo catalogues (see section \ref{sec:halo} for details), and can compute the power spectrum on the coarse grid at run time. 
 The code exits the loop when it has reached the final redshift, it then wraps up the {\small FFTW} plans 
 and clears the {\small MPI} communicators. We have collected those operations under the subroutine {\tt finalize} for concision.
 
@@ -349,9 +383,11 @@ Other constraints that need to be considered is that any decomposition geometry 
 limits permissible grid sizes, and that volume evenly decomposed into cubic sub-sections 
 --  such as {\small CUBEP3M} -- requires the number of {\small MPI} processes to be a perfect cube.
 Also,  since the decomposition is volumetric, as opposed to density dependent -- 
-it suffers from load imbalance when probing deep into the non-linear regime.
-This latter effect can be overcome by allocating extra memory per node, either for the full run,
-or for the first part of it, follow by a restart configuration with more memory.
+it suffers from load imbalance whenever the particles are not evenly distributed.
+However, large scale cosmology problems are very weakly affected by this effect, which
+can generally  be overcome by allocating a mild amount of extra memory per node.
+As mentioned in section \ref{sec:scaling}, large runs can even be optimized by  allocating only a small amount for the first part of it,
+follow by a restart with a configuration that allows more memory per node.
 
 %%%%%%%%%%%%%%%%%%%
 %\input{../cubep3m_paper/PoissonSolver}
@@ -424,7 +460,7 @@ In this case, we must solve the convolution in three dimensions and define the f
  {\bf F}({\bf x}) =  \int \rho({\bf x'}) \mbox{\boldmath $\omega$}_{F}({\bf x'} - {\bf x}) d{\bf x'}                                      
 \label{eq:poisson_solution_force}
 \end{eqnarray}
-Because the gradient acting on \ref{eq:poisson_solution_pot} affects only un-prime variables, we can express the force kernel as a gradient of the potential kernel. Namely:  
+Because the gradient acting on \ref{eq:poisson_solution_pot} affects only unprime variables, we can express the force kernel as a gradient of the potential kernel. Namely:  
 \begin{eqnarray}
 \mbox{\boldmath $\omega$}_{F}({\bf x}) \equiv - {\bf \nabla}\omega_{\phi}({\bf x}) = - \frac{mG \hat{\bf r}}{r^{2}}
 \end{eqnarray}
@@ -455,30 +491,29 @@ both with the density and the kernel (see [Eq. 7-8] of MPT).
 When matching the two force kernels, the long range force is always on the low side close to the cutoff region, whereas the short range force is uniformly scattered across the theoretical $1/r^2$ value -- intrinsic features of the CIC and NGP interpolation schemes respectively.  By performing force measurements on two particles randomly placed in the volume, we identified a small region surrounding the cutoff length in which we empirically adjust both kernels such as to improve the match. Namely, for $14 \le r \le 16$, $\mbox{\boldmath $\omega$}_{s}({r}) \rightarrow 0.985\mbox{\boldmath $\omega$}_{s}({ r})$,
 and for  $12 \le r \le 16$, $\mbox{\boldmath $\omega$}_{l}({r}) \rightarrow 1.2\mbox{\boldmath $\omega$}_{l}({ r})$.
 
-As mentioned in section \ref{sec:structure} and summarized in FIg. \ref{fig:particle_mesh},
+As mentioned in section \ref{sec:structure} and summarized in Fig. \ref{fig:particle_mesh},
 the force kernels are first  in the code initialization stage.
-Eq. \ref{eq:poisson_solution_force} is then solved with fast Fourier transform along each directions, 
+Eq. \ref{eq:poisson_solution_force} is then solved with fast Fourier transforms along each direction, 
  and is applied onto particles in the {\tt update\_velocity} subroutine.
 
 The pp force is calculated during the fine mesh velocity update, which avoids loading the particle list twice and allows the operation to be threaded without significant additional work. During this process, the particles within a given fine mesh tile are first read in via the linked list, 
 then their velocity is updated with the fine mesh force component, according to their location within the tile. 
 In order to organize the particle-particle interactions, we proceed in constructing a set of threaded fine-cell linked list chains for each coarse cell. 
-We then calculate the pairwise force between all particles that lie within the same fine mesh cell, exluding pairs whose separation is smaller than a softening length of 
-one tenth of a grid cell; particles seperated by less than this distance have their 
-particle-particle force set to zero.  As this proceeds, we accumulate the  pp force applied on each particle and then determine the maximum force element of the pp contribution, which is also taken into account when constraining the length of the global timestep. 
+We then calculate the pairwise force between all particles that lie within the same fine mesh cell, excluding pairs whose separation is smaller than a softening length $r_{soft}$; particles separated by less than this distance have their 
+particle-particle force set to zero.  As this proceeds, we accumulate the  pp force applied on each particle and then determine the maximum force element of the pp contribution, which is also taken into account when constraining the length of the global time step. 
 
 Force softening is generally required by any code to prevent
 large scattering as $r \rightarrow 0$ that can otherwise slow the calculation down, 
 and to reduce the two-body relaxation, which can affect the numerical convergence. 
-Many force softening scheme can be found in the litterature, including Plummer force, uniform or linear density profiles or the spline-softened model 
+Many force softening schemes can be found in the literature, including Plummer force, uniform or linear density profiles or the spline-softened model 
 (see \citet{1993ApJ...409...60D} for a review). In the current case, a sharp force cutoff corresponds to a particle interacting with a hollow shell.
 In comparison with other techniques, this  force softening is the easiest to code and the fastest to execute. 
 Generally, it is desirable to match the smoothness of the force to the order of the time integration. 
-A Plummer force is infinitely differentiable, which is a sufficient but not necessary condition for our 2nd order time integration.  
-Also, one of the drawback of Plummer's softening is that the resolution degrades smoothly: the effects of the smoothing are present at all radii. 
+A Plummer force is infinitely differentiable, which is a sufficient but not necessary condition for our $2^{nd}$ order time integration.  
+Also, one of the drawbacks of Plummer's softening is that the resolution degrades smoothly: the effects of the smoothing are present at all radii. 
 In comparison, the uniform density and hollow shell alternatives both have the advantage that the deviations from $1/r^2$ are minimized. 
 Although all the results presented in this paper were obtained with the sharp cutoff softening, other schemes can easily be adopted as these 
-are typically a single line changes to the code. \citep{1993ApJ...409...60D} argues in favor on the uniform density profile scheme -- which is more physical --
+are typically single line changes to the code. \citet{1993ApJ...409...60D} argues in favour on the uniform density profile scheme -- which is more physical --
 and future developments of {\small CUBEP3M} will incorporate this option.
 
 The choice of softening length is motivated by a trade off between accuracy and run time.
@@ -486,11 +521,11 @@ The choice of softening length is motivated by a trade off between accuracy and 
  We show in Fig. \ref{fig:rsoft} the impact of changing this parameters on the power spectrum.
  For this test, we produced SciNet256 simulations, starting at $z=100$ and evolving to $z=0.5$, with a box size of $100 h^{-1}\mbox{Mpc}$.
  We also record in Table \ref{table:rsoft} the real run time for each trials, from where 
-we see the strong effect of computation time the softening lenght has.
+we see the strong effect of computation time the softening length has.
 In this test, which is purposefully probing rather deep in the non-linear regime, reducing the softening length
 to half it value ($1/20^{th}$ of a grid cell) double the run time. The gain in power spectrum is less than two per cent.
 Similarly, increasing to $0.2$ the softening length reduces almost by a half the run time, but suffers from a five per cent loss in power at the resolution turn-around.
-One tenth of grid cells seems to be the optimal choice in this trade off, however it should really be considered a free parameter.
+One tenth of grid cell seems to be the optimal choice in this trade off, and is therefor the default value, however it should really be considered a free parameter.
 
 
 \begin{figure}%[ht]
@@ -522,9 +557,9 @@ $r_{soft}$         & time (h)   \\
 \end{center}
 \end{table}
 
-In addition, {\small PMFAST} could run with a different set of force kernels, described in MPT as the `least square matching' , 
+In addition, {\small PMFAST} could run with a different set of force kernels, described in MPT as  `least square matching' , 
 which basically adjust the kernels on cell-by-cell basis based on minimization of the deviation with respect
-to the Newtonian predictions. This was originally computed such as to optimize the force calculation for
+to Newtonian predictions. This was originally computed such as to optimize the force calculation for
 the case where both grids are obtained from CIC interpolation. Moving to a mix CIC/NGP scheme
 requires solving the system of equations with the new configuration, a straightforward operation.
  With the inclusion of the random shifting, it is not clear how much improvement 
@@ -535,7 +570,7 @@ we will investigate and document in the near future.
 Finally, a choice must be done concerning the longest range of the coarse mesh force. Gravity can be either a) an accurate $1/r^2$ force, as far as the volume allows, 
 or b) modified to correctly match the periodicity of the boundary conditions. By default, the code is configured along to the second choice,
 which accurately models the growth of structures at very large scales. However, detailed studies of gravitational collapse of a single large object would benefit 
-from the first settings, even though the code is not optimal for such settings.
+from the first setting, even though the code is not meant to evolve such systems that generally require load balance control.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%
@@ -619,7 +654,7 @@ large and computationally-intensive) and our goals, which are to
 address such large problems in the most efficient way, rather than 
 for the least wall-clock time. Furthermore, we recall that there is no explicit 
 load balancing feature, thus the code is maximally efficient when the sub-domains
-contain roughly an  number of particles. This is true for most
+contain roughly an equal number of particles. This is true for most
 cosmological-size volumes that do not resolve too deep in the non-linear regime, 
 but not for e.g. simulations of a single highly-resolved galaxy. 
 
@@ -627,14 +662,17 @@ Because of the volumetric decomposition, the total number of {\small MPI} proces
 to be a perfect cube. Also, for maximal resource usage, the number of tiles per node 
 should be a multiple of the number of available {\small CPU}s per {\small MPI} process,
 such that no core sits idle in the threaded block.
-Given the available freedom in the parallel configuration, as long as the load is balanced, it is generally good practice to maximize the number of {\small OPENMP} threads and minimize the number of {\small MPI} processes:
+Given the available freedom in the parallel configuration, as long as the load is balanced, 
+it is generally good practice to maximize the number of {\small OPENMP} threads and minimize the number of {\small MPI} processes:
 the information exchange between cores that are part of the same motherboard is generally much faster.
 In addition, having fewer {\small MPI} processes reduces the total amount of buffer zones, 
 freeing memory that can be used to increase the mesh resolution. 
+However, it has been observed that for the case of non-uniform memory access (NUMA) systems, 
+the code is optimize when only the cores that share the same socket should be  {\small OPENMP} threaded.
 As one probes deeper into the non-linear regime however, 
 the formation of dense objects can cause memory problems in such configurations, and increasing 
 the number of {\small MPI} processes helps to ensure memory locality,
-especially in non-uniform memory access (NUMA) environments.
+especially in NUMA environments.
 
 
 %Since the current Curie is using Intel Nehalem architecture, while 
@@ -702,7 +740,7 @@ local memory affinity,  a second special NUMA control script, {\it tacc\_affinit
 was developed for us by the TACC technical staff and allowed to run more efficiently 
 in this mode.}. Because each processor accesses memory that is not fully local, this configuration does affect the 
 performance somewhat, as does the imperfect load balancing that arises in such situations.
-This can be seen in the rightmost point of FIg. \ref{scaling} (right panel), where the scaling 42 per cent below the ideal.
+This can be seen in the rightmost point of Fig. \ref{scaling} (right panel), where the scaling is $42$ per cent below the ideal.
 We note that we still get $\sim1.5$ speedup
 from doubling the core count, even given these issues. Overall the
 code scaling performance is thus satisfactory even at extremely large number of cores.
@@ -725,7 +763,7 @@ unprecedented size.
  We start with a demonstration of the accuracy with a power spectrum measurement of a RANGER4000 simulation. 
  The halo mass function also assess the code capacity to model gravitational collapse, 
  but depends on the particular halo finder used.
- We thus post-pone the discussion on this aspect until in section \ref{sec:halo},
+ We thus post-pone the discussion on this aspect until section \ref{sec:halo},
 and focus for the moment on the particles only. In addition to the power spectrum, we further quantify the accuracy of the force calculation
  with comparisons to Newton's law of gravitation.
  
@@ -733,7 +771,7 @@ and focus for the moment on the particles only. In addition to the power spectru
  \subsection{Density and Power Spectrum}
  \label{subsec:powerspectrum}
  
-One of the most reliable way to assess the simulation's accuracy at evolving particles
+One of the most reliable ways to assess the simulation's accuracy at evolving particles
 is to measure the density power spectrum at late time, and compare to non-linear prediction. 
 For an over-density field $\delta({\bf \it x})$, the power spectrum is extracted from the two point function in Fourier space as:
 \begin{eqnarray}
@@ -743,7 +781,10 @@ For an over-density field $\delta({\bf \it x})$, the power spectrum is extracted
 where the angle bracket corresponds to an ensemble (or volume) average.
 Fig. \ref{fig:density} presents  a 2-dimensional density projection of a RANGER4000 simulation, which evolved 4000$^3$ particles until redshift zero.
 We then plot in Fig. \ref{fig:power_highres}  its dimensionless power spectrum  and
-observe that the agreement with the non-linear prediction of \cite{Lewis:1999bs} is within five per cent up to $k = 1.0 h \mbox{Mpc}^{-1}$.
+observe that the agreement with the non-linear prediction of \citet{2003MNRAS.341.1311S} is within five per cent up to $k = 1.0 h \mbox{Mpc}^{-1}$.
+The code exhibits  a $\sim 5$ per cent over estimate compared 
+  to the theory for $ 0.2 < k < 0.6 h\mbox{Mpc}^{-1}$, an effect generally caused by inaccuracies at the early time steps. It can be removed by starting the code at a later redshift,
+  but then the code has less time to relax, and other quantities like the halo mass functions or the four point functions become less accurate.
 The drop of power at higher $k$ is partly caused by the finite mesh resolution, partly from expected deviations about the predictions.
 The fluctuations at low-$k$ come from the white noise imposed in the initial conditions, and it was show in \citet{2012MNRAS.419.2949N} and 
 \citet{2012MNRAS.423.2288H} that
@@ -754,7 +795,7 @@ samples of a few hundreds of realizations average to the correct value.
 %    \includegraphics[width=5.2in]{graphs/0.000xz_w_halos_pink_blue_enh-1.eps}
 \includegraphics[width=5.2in]{graphs/0.000proj_1000x1000.eps}
   \caption{Detail of a dark matter density projection, measured at $z=0$ in a RANGER4000 simulation.
-  Particles are shown in pink, halos in blue in the online version. The full projection is 64 times larger,
+  Particles are shown in pink, haloes in blue in the online version. The full projection is 64 times larger,
   but does not provide much details on the structure on a paper format.
     \label{fig:density}}
 \end{center}
@@ -765,8 +806,9 @@ samples of a few hundreds of realizations average to the correct value.
   \begin{center}
     \includegraphics[width=5.2in]{graphs/power_highres.eps}
   \caption{Dark matter power spectrum, measured at $z=0$ in a RANGER4000 simulation,
-  compared to the non-linear predictions of {\small CAMB}. 
+  compared to the non-linear predictions of {\small HALOFIT}. 
   The vertical line corresponds to the scale of the coarse mesh, while the dotted line represents the Poisson noise.
+  The particle masses are of $5.68 \times 10^{10} M_{\odot}$. 
     \label{fig:power_highres}}
 \end{center}
 \end{figure*}
@@ -774,7 +816,7 @@ samples of a few hundreds of realizations average to the correct value.
 \subsection{Mesh force at grid distances}
 \label{subsec:force}
 
-The force test presented in MPT was carried by placing two particles at random locations on the grid, calculate the force between them, then iterate
+The force test presented in MPT was carried by placing two particles at random locations on the grid, calculating the force between them, then iterating
 over different locations. This pairwise force test is useful to quantify the accuracy on a cell-by-cell basis, but lacks the statistics that occur in an actual time step calculation.  
 The actual force of gravity in the P$^3$M algorithm,
 as felt by a single particle during a single step, is presented in the top left panel of Fig. \ref{fig:den_force_fracErr}.
@@ -792,34 +834,41 @@ As the separation approaches a tenth of the full box size or so, the force on th
 scatters significantly about Newton's law due to periodic boundary conditions. 
 As mentioned at the end of section \ref{sec:Poisson}, the longest range of force kernel can either model accurately Newtonian gravity,
 or the structure growth of the largest modes, but not both. For the sake of demonstrating the accuracy of the force calculation,
-we chose the first option in this section.
+we chose the first option in this section, but this is not how the code would normally be used.
 
-It is not clear from these scatter plots whether the mean force felt  is below or under the predictions, hence we rebin the results
+The top right panel of Fig. \ref{fig:den_force_fracErr} shows the fractional error on the force along the radial direction (top) and the fractional 
+tangential contribution (bottom), also calculated from a single time step.
+The fractional error of the radial component is up to 60 per cent at sub-grid distances, but remains under ten per cent for  distances larger than a few cells. 
+The transverse fractional error peaks exactly at the grid distance,  and is about two time smaller than the radial counterpart.
+
+Although these scatter plots show the contributions from individual particles and cells, it is not clear
+whether the mean radial force felt is higher or lower the predictions, hence we rebin the results
 in 50 logarithmically spaced bins and compute the mean and standard deviation. 
 We show this plot in the middle left panel of Fig. \ref{fig:den_force_fracErr}, where we observe that on average,
-there is a loss of force of the order of unity in the range $ 0.4 < r < 1$ (in units of fine grid), but the force force is otherwise
+there is a loss of force of the order of unity in the range $ 0.4 < r < 1$ (in units of fine grid), but the numerical calculations are otherwise
 in excellent agreement with Newton's law.
+The transverse force is somehow ill-defined, since it is by definition a positive number.
+Since we know that it averages out to zero over many time steps, we plot only the scatter about the mean, represented in the figure by the solid line.
 
 
-The top right and middle right panels of Fig. \ref{fig:den_force_fracErr} show the fractional error on the force along the radial and tangential directions, also calculated from a single time step.
-The mean of the radial component is up to 80 per cent away from the exact law at sub-grid distances, but quickly drops under ten per cent for larger distances. 
-The transverse fractional error peaks exactly at the gris distance,  and is about two time smaller than the radial counterpart.
 
 \begin{figure*}%[ht]
   \begin{center}
     \includegraphics[width=3.0in]{graphs/densityForce_ppext=0_new-1.eps}
-    \includegraphics[width=3.0in]{graphs/densityForce_fracErr_ppext=0_new-1.eps}
+    \includegraphics[width=3.0in]{graphs/densityForce_fracErr_ppext=0_new.eps}
     \includegraphics[width=3.0in]{graphs/densityForce_ppext=0_rebin_new-1.eps}
-    \includegraphics[width=3.0in]{graphs/densityForce_fracErr_ppext=0_rebin_new-1.eps}
+%    \includegraphics[width=3.0in]{graphs/densityForce_ppext=0_rebin_new-1.eps}
+    \includegraphics[width=3.0in]{graphs/DeltaF_pp0.eps}
     \includegraphics[width=3.0in]{graphs/densityForce_ppext=0_rebin_N10_new-1.eps}
-    \includegraphics[width=3.0in]{graphs/densityForce_fracErr_ppext=0_rebin_N10_new-1.eps}
-  \caption{({\it top left}:) Gravity force in of the P$^3$M algorithm, versus distance in fine mesh cell units, compared with the exact $1/r^{2}$ law.
+    \includegraphics[width=3.0in]{graphs/DeltaF_pp0_N10.eps}
+%    \includegraphics[width=3.0in]{graphs/densityForce_fracErr_ppext=0_rebin_N10_new-1.eps}
+  \caption{({\it top left}:) Gravity force in the P$^3$M algorithm, versus distance in fine mesh cell units, compared with the exact $1/r^{2}$ law.
     This particular calculation was obtained in a CITA128 realization with  a box size of $100 h^{-1}\mbox{Mpc}$,
     in a single time step. 
-    ({\it top right}:) Fractional error on the force in of the P$^3$M algorithm, in the radial (top) and tangential (bottom) directions.
+    ({\it top right}:) Fractional error on the force in the P$^3$M algorithm in the radial direction (top) and fractional tangential contribution (bottom).
   In a full simulation run, the scatter averages over many time steps, 
     thanks to the inclusion of a random offset that is imposed on each particle, as discussed in the main text.
-    ({\it middle row}:) Top row organized in 50 logarithmic bins.  
+    ({\it middle row}:) Top row organized in 50 logarithmic bins; we plot only the scatter about the mean for the tangential contribution.  
     ({\it bottom row}:) Same as middle row, but averaged over ten time steps.
     \label{fig:den_force_fracErr}}
 \end{center}
@@ -839,13 +888,13 @@ This effect is especially pronounced at the early stages of the simulation where
 the density is more homogeneous, and leads to mesh artefacts appearing
 in the density field.
 
-In order to minimize these two systematic effect -- the large scatter and the anisotropy -- 
+In order to minimize these two systematic effects -- the large scatter and the anisotropy -- 
 we randomly shift the particle distribution relative to the mesh by a small
 amount -- up to 2 fine grid cells in magnitude -- in each
 dimension and at each time step.  This adds negligible computational
 overhead as it is applied during the particle position update,
 and suppresses the mesh behaviour that otherwise grows over multiple time steps.
-It is possible to shift back the particles at the end of each time steps,
+It is possible to shift back the particles at the end of each time step,
 which prevents a random drift of the whole population, a necessary step 
 if one needs to correlate the initial and final positions of the particles for instance,
 or for hybrid dark matter -- MHD simulations.
@@ -857,10 +906,10 @@ These adjustments are performed from the pairwise force test mentioned above (an
 The bottom panels of Fig. \ref{fig:den_force_fracErr} show the effect of averaging over ten time steps, 
 where the random offset is applied on the particles (and on the hole) at the end of each force calculation. 
 We observe that the agreement extends at the per cent level down to $r \sim 1.5$, beyond which point
-the discretize effect of the NGP causes an underestimate of the force of up to 60 per cent.
+the discretization effect of the NGP causes a cumulative underestimate of the force, which reaches up 60 per cent.
 %{\bf (Can't we beat this by tempering with the fine force kernel? Will the least square fit enhance this?)}
 
-We note that this inevitable loss of force in the NGP scheme is one of the driving argument to extend the pp force outside the fine mesh cell,
+We note that this inevitable loss of force in the NGP scheme is one of the driving arguments to extend the pp force outside the fine mesh cell,
 since the scattering about the actual $1/r^{2}$ law drops rapidly as the distance increases.
 As discussed in section \ref{subsec:extendedpp}, this gain in accuracy comes at a computational price,
 but at least we have the option to run the code with high precision.
@@ -872,7 +921,7 @@ about 60 time steps), such that the power spectrum should agree with linear theo
 Instead, we observe that the power spectrum grows completely wrong, due to the large scatter in the force from the fine mesh,
 and to the anisotropic nature of the P$^3$M calculations mentioned above.
 When these effects are not averaged over, the errors directly add up at each time step,
-which explains why later time are worst.
+which explains why later times are worst.
 We recall that {\small PMFAST} did not have this problem since it used CIC interpolation on both meshes.  
 %{\bf (Anything else to add here?)}
 
@@ -907,12 +956,34 @@ We recall that {\small PMFAST} did not have this problem since it used CIC inter
    % \label{fig:F_rebin}}
 %\end{center}
 %\end{figure}
+Although most of the code tests presented in this paper were obtained with the configuration described above, 
+we present here a recent improvement in the fine force kernel that compensates for the systematic underestimate
+at grid distances. Basically, the idea is to boost the small distance elements of the kernel by a small amount,
+which somehow corrects for the loss observed in the bottom panels of Fig. \ref{fig:den_force_fracErr}.
+We show here the impact of three different trials: a) the force from the first layer of neighbours is boosted by $90$ per cent, b)
+the force from the first two layers of neighbours is boosted by $60$ per cent, and c) by $80$ per cent.
+We observe that we are able to improve the power at turn around by almost a factor of two, which doubles the resolution.  
+This test was performed in a series of SciNet256 simulations with a volume of $150 h^{-1} \mbox{Mpc}$ and at $z=0$.
+We see from the figure that in the original configuration, the departure from the non-linear predictions occur at $k\sim 3.0 h\mbox{Mpc}^{-1}$,
+whereas the third trial allows for a resolution down to $k\sim 6.0 h\mbox{Mpc}^{-1}$. 
+%We note that these trials have not yet been 
+%tried on very large runs, and we recommend that some more testing should be done to assess the robustness of this correction. 
+
+\begin{figure}%[ht]
+  \begin{center}
+    \includegraphics[width=3.2in]{graphs/power_fudge.eps}
+  \caption{Dark matter power spectrum, measured at $z=0$, in a SciNet256 realization that is 150 Mpc/$h$ per side. 
+  The thick solid line represents predictions from {\small CAMB}, the thin solid line is the default configuration of the code, and the three other lines represent
+  three different corrections that are applied at grid distances to compensate for the systematic force underestimation seen in the bottom panels of Fig. \ref{fig:den_force_fracErr}. }
+\end{center}
+\end{figure}
+
 
 \subsection{Constraining redshift jumps}
 \label{subsec:z_jumps}
 
 
-At early stages of the simulation, the density fields is rather homogenous, causing the force of gravity to be
+At early stages of the simulation, the density field is homogenous, causing the force of gravity to be
 rather weak everywhere. In that case, the size of the redshift jumps is controlled by a limit in the cosmological expansion.
 If the expansion jump is too large, the size of the residual errors can become significant, and one can observe, for instance,
 a growth of structure that does not match the predictions of  linear theory even at the largest scales.
@@ -927,14 +998,15 @@ It is possible to reduce this effect, and thereby improve significantly
 the accuracy of the code, by modifying the value of $r_{max}$, at the cost of increasing the total number of time steps.
 Fig. \ref{fig:ra_max} shows a comparison of late time power spectra of a series of CITA256 realizations that originate from the same initial conditions, 
 and used the same random seeds to control the fine mesh shifts (mentioned above): only the value of $r_{max}$ was modified between each run. 
-We observe that the impact is mostly located in the non-linear regime, where decreasing the time step to 0.006 
-allows the simulation to recover about 30 per cent of dimensionless power at the turn over scale, in this simulation configuration.
+We observe that the impact is mostly located in the non-linear regime, where decreasing the time step to $0.006$ 
+allows the simulation to recover about $30$ per cent of dimensionless power at the turn over scale, in this simulation configuration.
 This gain is greatly affected by the choice of initial redshift, the resolution, and the box size, and ideally one would make
 test runs in order to optimize a given configuration.  
 As expected, the {\small CPU} resources required to run these simulations increase rapidly as $r_{max}$ decreases, as seen in Table \ref{table:ra_max}. 
-In this test case, reducing further at 0.001 shows only a mild improvement in accuracy, but the increase in time is more than a factor of four.
-We should mention that with a proper use of the non-Gaussian initial conditions, it is possible to start the simulations at much later redshifts, where the time step sizes are dominated by a stronger mesh force.
- 
+In this test case, reducing further at $0.001$ shows only a mild improvement in accuracy, but the increase in time is more than a factor of four.
+The default configuration of the code is set to $r_{max}=0.05$, but at the light of this recent test, we recommend reducing to the value $0.01$ or even $0.005$.
+We also mention here that with a proper use of second order initial conditions (also see section \ref{subsec:init}), it is possible to start the simulations at much later redshifts
+without loosing much accuracy.
 
 \begin{figure}%[ht]
   \begin{center}
@@ -948,7 +1020,8 @@ We should mention that with a proper use of the non-Gaussian initial conditions,
 \begin{table}
 \begin{center}
 \caption{Scaling in {\small CPU} resources as a function of the value of $r_{max}$. The tests were performed 
-on the CITA Sunnyvale cluster, and general trends could vary slightly on other machines.}
+on the CITA Sunnyvale cluster, and general trends could vary slightly on other machines. The time tabulated on the right column
+corresponds to the full run time of the CITA256 simulations, which evolved $128^{3}$ particles from $z = 200$ to $z = 0$.}
 \begin{tabular}{|l|c|c|}
 \hline 
 $r_{max}$         & time (h)   \\                 
@@ -993,7 +1066,7 @@ position and value. %The halo centre determined this way agrees closely with
 %the centre-of-mass of the halo particles discussed below.  
 
 Once the list of peak positions is generated, they are sorted from the highest 
-to the lowest density value. Then each of the halo candidates is inspected 
+to the lowest density. Then each of the halo candidates is inspected 
 independently, starting with the highest peak. The grid mass is accumulated 
 in spherical shells of fine grid cells surrounding the maximum, until the 
 mean density within the halo drops below a pre-defined overdensity cutoff 
@@ -1003,16 +1076,16 @@ mass element is double-counted. This method is thus inappropriate for finding
 sub-haloes since within this framework, those are naturally incorporated in their 
 host haloes. Because the haloes are found on a discrete grid, it is 
 possible, especially for those with lower mass, to overshoot the target overdensity.
-To minimize this efect, we correct the halo mass and radius with an analytical density profile. 
+To minimize this effect, we correct the halo mass and radius with an analytical density profile. 
 We use the Truncated Isothermal Sphere (TIS) 
 profile \citep{1999MNRAS.307..203S,2001MNRAS.325..468I} for overdensities below 
-$\sim130$, and a simple $1/r^2$ law for lower overdensities {\bf (lower or higher?)}. 
+$\sim130$, and a simple $1/r^2$ law for lower overdensities lower. 
 These yield a similar outer slope to the Navarro, Frenk and White 
 \citep[NFW][]{1997ApJ...490..493N} profile, but extends to lower overdensities
-and matches well the virialization shock position given by the Bertschinger 
-self-similar collapse solution \citep{1985ApJS...58...39B}.
+and matches well the virialization shock position given by the
+self-similar collapse solution of \citet{1985ApJS...58...39B}.
 
-Once the correct halo mass, radius and position are determined, we find all 
+After the correct halo mass, radius and position are determined, we find all 
 particles that are within the halo radius. Their positions and velocities are
 used to calculate the halo centre-of-mass, bulk velocity, internal velocity 
 dispersion and the three angular momentum components, all of which are then 
@@ -1037,6 +1110,7 @@ that found from the peak location, which is based on the gridded mass distributi
     RANGER4000 simulation with $3.2\,h^{-1} \mbox{Gpc}$ box and $4000^3$ 
     particles (solid, red in the online version). For reference we also show a widely-used 
     precise fit by \citet{2008ApJ...688..709T} (blue, dashed). 
+    The particle masses are of $5.68 \times 10^{10} M_{\odot}$.
     \label{mf}}
 \end{figure}
 
@@ -1050,10 +1124,10 @@ making this fit a better base for comparison here. Results show excellent
 agreement, within $\sim10$ per cent for all haloes with masses corresponding to
 1000 particles or more. Lower-mass haloes are somewhat under-counted compared
 to the \citet{2008ApJ...688..709T} fit, by $\sim20$ per cent for 400 particles and 
-by $\sim40$ per cent for 50 particles. This is due to the grid-based nature of our
-SO halo finder, which misses some of the low-mass haloes. It was shown, however, that using more sophisticated
+by $\sim40$ per cent for 50 particles. This is largely due to the grid-based nature of our
+SO halo finder, which misses some of the low-mass haloes. It was shown that using more sophisticated
 halo finders (available only through post-processing calculations due to their heavier memory
-footprint) it is possible to recover the expected mass function.
+footprint) it is possible to recover most of the expected number count.
 
 %A second test of the accuracy of the halo finder algorithm is to extract the halo power spectrum $P_{h}(k)$ and compare the halo bias
 %with theoretical predictions. The halo bias is defined as $b(k) = \sqrt{P(k)/P_{h}(k)}$ and is shown in Fig. \ref{fig:halo}.
@@ -1085,21 +1159,21 @@ footprint) it is possible to recover the expected mass function.
 The preceding descriptions and discussions apply to the standard configuration of the code, 
 as described at the beginning of section \ref{sec:structure}. A few extensions have been recently developed
 in order to enlarge the range of applications of {\small CUBEP3M}, and this section briefly 
-describe the most important improvements.
+describes the most important improvements.
 
 \subsection{Initial conditions}
 \label{subsec:init}
 
 As mention in section \ref{sec:structure}, the code starts off by reading a set of initial conditions.
 These are organized as a set of $6 \times N$ phase-space arrays -- one per {\small MPI} process -- where $N$ is the number of particles in the
-local volume. Although many applications are typically based on initial conditions that follow Gaussian statistics,
+local volume. \footnote{We remind that for Zel'dovich approximation to hold in such cases, the simulations need to be started at very early redshifts.
+Consequently, the size of the first few redshift jumps in such simulations can become rather large, and therefore less accurate, 
+which is why we must carefully constrain the size of the jumps, as discussed in section \ref{subsec:z_jumps}.
+Another solution to this issue is to use second order perturbation theory to generate the initial conditions,
+which is not implemented yet in the public package.}
+Although many applications are typically based on initial conditions that follow Gaussian statistics,
 we have developed a non-Gaussian initial conditions generator that we briefly describe in this section. 
 This becomes important especially for simulations in which the sensitivity to very small scales becomes more important.
-For the Zel'dovich approximation to hold in such cases, the simulations need to be started at very early redshift.
-Consequently, the size of the first few redshift jumps in such simulations are rather large, and therefore less accurate. 
-One way to fix this is to constrain the size of the jumps, as discussed in section \ref{subsec:z_jumps}.
-However,  the simulations take much more time to run, and this solution is therfore not adequate for 
-very large configurations.
 
 The original code that provides Gaussian initial conditions for {\small CUBEP3M} 
 is extended to include non-Gaussian features of the `local' form,
@@ -1125,15 +1199,15 @@ conditions on the halo power spectrum \citep{2009MNRAS.396...85D,
  as well as the matter bispectrum \citep{2011arXiv1111.6966S}.
 Fig. \ref{fig:init} shows the late time power spectrum of two RANGER4000 realizations that started off the same initial power spectrum, 
 but one of which had non-Gaussian initial conditions.
-We see that the difference between the two power spectra is at the sub-per cent level, but that the non-Gaussian realization
-agrees much better with one loop perturbation theory \citep{2004PhRvD..69j3513S,2008PhRvD..78l3534T}.
+We see that the difference between the two power spectra is at the sub-per cent level, and that the ratio of the two power spectra
+are well described with one loop perturbation theory \citep{2004PhRvD..69j3513S,2008PhRvD..78l3534T}.
 
 \begin{figure}%[ht]
   \begin{center}
-    \includegraphics[width=3.2in]{graphs/dm_power_z0_fNL0_50_w_1loop_PT.eps}
+    \includegraphics[width=3.2in]{graphs/dm_power_ngp_z0_fNL0_50_w_1loop_PT.eps}
   \caption{ Dark matter power spectrum, measured at $z=0$ in a volume $3.2 h^{-1}\mbox{Gpc}$ per side,
   from $4000^3$ particles. The two curves represent two RANGER4000 realizations of the same initial power spectrum, one of which used Gaussian statistics (blue) and the other the non-Gaussian initial condition generator. The two curves differ at the sub-per cent level, as seen in the top panel,
-  and the non-Gaussian realization is in much better agreement with the one-loop perturbation theory calculations.   
+  and the one-loop perturbation theory calculations accurately describes the ratio between the two curves up to $k\sim 0.4h\mbox{Mpc}^{-1}$ in this case.   
     \label{fig:init}}
 \end{center}
 \end{figure}
@@ -1157,12 +1231,12 @@ when memory becomes an issue.
 \subsection{Extended range of the pp force}
 \label{subsec:extendedpp} 
 
-One of the main source of error in the calculation of the force occurs when on the smallest scales of the fine grid.
+One of the main sources of error in the calculation of the force occurs from the PM interaction at the smallest scales of the fine grid.
 The approximation by which particles in a neighbouring mesh grid can be placed at the centre of the cell
-is less accurate, which cause a maximal scatter around the exact $1/r^2$ law.
+is less accurate, which causes a maximal scatter around the exact $1/r^2$ law.
 A solution to minimize this error consists in extending the pp force calculation outside a single cell,
-which inevitably reintroduces a $N^2$ number of operations. Our goal is to add the flexibility to have a code
-that runs slower, but produces results with a higher precision. 
+which inevitably reintroduces a number of operations that scales as $N^2$. 
+Our goal is to add the flexibility to have a code that runs slower, but produces results with a higher precision. 
 
 To allow this feature, we  have to choose how far outside a cell we want the exact pp force.  
 Since the force kernels on both meshes are organized in terms of grids, the simplest way to implement this 
@@ -1171,8 +1245,9 @@ Concretely, these regions are constructed as cubic layers of fine mesh grids aro
 the freedom we have is to choose the number of such layers.
  
  To speed up the access to all particles within the domain of computation, we construct a thread safe linked list
- to be constructed and accessed in parallel by each core of the system, but this time with a head-of-chain that points to the first particle in the current fine mesh cell. We then loop over all fine grids, accessing the particles contained therein and inside each fine grid cells for which we killed the mesh kernels,
- we compute the separation and the force between each pairs and update their velocities simultaneously with Newton's third law. 
+ to be constructed and accessed in parallel by each core of the system, but this time with a head-of-chain that points to the first particle in the current fine mesh cell. 
+ We then loop over all fine grids, accessing the particles contained therein and inside each fine grid cell for which we killed the mesh kernels,
+ we compute the separation and the force between each pair and update their velocities simultaneously with Newton's third law. 
  To avoid double counting, we loop only over the fine mesh neighbours that produce non-redundant contributions. Namely, for a central cell located at 
  $(x_1, y_1, z_1)$, we only consider the neighbours $(x_2, y_2, z_2)$ that satisfy the following conditions:
  \begin{itemize}
@@ -1187,15 +1262,17 @@ the freedom we have is to choose the number of such layers.
  We observe that the scatter about the theoretical curve has reduced significantly, down to the few percent level, 
  and is still well balanced around the theoretical predictions.
  The fractional error on the radial and tangential components of the force, as seen in the right panel,
- are now at least 5 time smaller than in the default P$^{3}$M algorithm.
+ are now at least five times smaller than in the default P$^{3}$M algorithm.
  When averaging over 10 time steps, we observe that improvement is relatively mild, as the calculation is already very accurate. 
  
  \begin{figure*}%[ht]
   \begin{center}
     \includegraphics[width=3.0in]{graphs/densityForce_ppext=2_rebin_new-1.eps}
-    \includegraphics[width=3.0in]{graphs/densityForce_fracErr_ppext=2_rebin_new-1.eps}
+    \includegraphics[width=3.0in]{graphs/DeltaF_pp2.eps}
+%    \includegraphics[width=3.0in]{graphs/densityForce_fracErr_ppext=2_rebin_new-1.eps}
      \includegraphics[width=3.0in]{graphs/densityForce_ppext=2_rebin_N10_new-1.eps}
-    \includegraphics[width=3.0in]{graphs/densityForce_fracErr_ppext=2_rebin_N10_new-1.eps}
+    \includegraphics[width=3.0in]{graphs/DeltaF_pp2_N10.eps}
+%    \includegraphics[width=3.0in]{graphs/densityForce_fracErr_ppext=2_rebin_N10_new-1.eps}
     \caption{({\it top left}:) Gravity force in the P$^3$M algorithm, compared with the exact $1/r^{2}$ law,
   in the same CITA128 realization as that shown in Fig. \ref{fig:den_force_fracErr}, 
   except that the exact pp force has been extended to two fine mesh layers around each particle
@@ -1204,7 +1281,7 @@ the freedom we have is to choose the number of such layers.
   distance of the order of 2 fine grid, compared to Fig. \ref{fig:den_force_fracErr}. 
   The NGP interpolation scheme is again responsible for the scatter, but the effect is suppressed with increasing distances, and further suppressed by averaging over many time steps.
   %\caption{
-  ({\it top right}:) Fractional error on the force in the P$^3$M algorithm, in the radial (top) and tangential (bottom) directions.
+  ({\it top right}:) Fractional error on the force in the P$^3$M algorithm, in the radial direction (top) and fractional tangential contribution (bottom).
   This was also obtained over a single time step.
   ({\it bottom row}:) Same as top row, but averaged over ten time steps.
     \label{fig:den_force_fracErr_ppext6}}
@@ -1215,21 +1292,21 @@ the freedom we have is to choose the number of such layers.
  
  To quantify the accuracy improvement versus computing time requirements, we performed the following test.
  We generate a set of initial conditions at a starting redshift of $z = 50$, with a box size equal to $ 150 h^{-1}\mbox{Mpc}$,
- and with $512^{3}$ particles. We evolve these CITA512 realizations with different ranges for the pp calculation, and compare 
+ and with $512^{3}$ particles. We evolve these SciNet512 realizations with different ranges for the pp calculation, and compare 
  the resulting power spectra. For the results to be meaningful, we also need to use the same random seed for the random number generator,
  such that the only difference between different runs is the range of the pp force.
  Fig. \ref{fig:power} shows the dimensionless power spectrum of the different runs, where we see a significant gains in resolution
  when extending  PM to P$^{3}$M first, and when adding successively one and two layers of fine cell mesh in which the pp force is extended.
 We have not plotted the results for higher numbers of layers, as the improvement becomes milder there: the mesh calculations
-become accurate enough as the distance increases. For this reason, it seems that a range of a two layers, suffices 
+become accurate enough as the distance increases. For this reason, it seems that a range of two layers suffices 
 to reduce most of the undesired NGP scatter.
 
-Extending the pp calculation comes at a price, since the number of operation scales as  $N^{2}$ in the sub-domain. 
-This cost is best capture by the increase of real time required by a fixed number of dedicated  {\small CPU}s 
+Extending the pp calculation comes at a price, since the number of operations scales as  $N^{2}$ in the sub-domain. 
+This cost is best captured by the increase of real time required by a fixed number of dedicated  {\small CPU}s 
 to evolved the particles to the final redshift. For instance, in our SciNet512 simulations, 
-the difference between the default configuration and $N_{layer} = 1$ and $2$ is about a factor of $2.78$ in real time,
+the difference between the default configuration and $N_{layer} = 1$  is about a factor of $2.78$ in real time,
 and about $6.5$ for $N_{layer} = 2$.
-This number will change depending on the problem at hand and on the machine, and we recommand
+This number will change depending on the problem at hand and on the machine, and we recommend
 to perform performance gain vs resource usage tests on smaller runs before performing large scale simulations
 with the extended force.
 
@@ -1274,10 +1351,10 @@ with the extended force.
 %\end{center}
 %\end{table}
 
-The power spectrum does not provide the complete story, and one of the most relevant way to quantify the improvement of the calculation is to measure the impact on the halo mass function from these different SciNet512 runs. Fig. \ref{fig:MassFunction_extpp} presents this comparison at redshift $z = 1.0$. About 76,000 haloes were found in the end, yielding a halo number density of about $0.0225$ per $\mbox{Mpc/$h$}^{3}$. 
+The power spectrum does not provide the complete story, and one of the most relevant ways to quantify the improvement of the calculation is to measure the impact on the halo mass function from these different SciNet512 runs. Fig. \ref{fig:MassFunction_extpp} presents this comparison at redshift $z = 1.0$. About 76,000 haloes were found in the end, yielding a halo number density of about $0.0225$ per $\mbox{Mpc/$h$}^{3}$. 
 We observe that the simulation undershoot the Sheth-Tormen predictions, which is caused by the relatively low resolution of the configuration
-comparered to the RANGER4000 run. 
-We also observe that the pure PM code yields up 10 per cent less haloes than the P$^{3}$M version, over most of the mass range,
+compared to the RANGER4000 run. 
+We also observe that the pure PM code yields up to 10 per cent less haloes than the P$^{3}$M version, over most of the mass range,
 whereas the extended pp algorithm generally recovers  up to 10 per cent more haloes in the range $10^{11} - 10^{13}$.
 The difference in performance between an extended pp  range of two vs four cells is rather mild, from where
 we conclude that $N_{layers} = 2$ is the most optimal choice.
@@ -1307,7 +1384,7 @@ including a run time halo finder, an extended pp force calculation and a non-Gau
 it has already been used  for a large number of scientific applications, and it is our hope that the current documentation will 
 help the community in interpreting its outcome.
 The code is publicly available on github.com under {\tt cubep3m}, and extra documentation about the structure, 
-compiling and running strategy is can be found on the CITA wiki page\footnote{\tt www.wiki.cita.utoronto.ca/mediawiki/index.php/CubePM}.
+compiling and running strategy is can be found on the CITA wiki page\footnote{\tt wiki.cita.utoronto.ca/mediawiki/index.php/CubePM}.
 
 \section*{Acknowledgements}
 
@@ -1323,7 +1400,8 @@ providing HPC and visualization resources that have contributed to the
 research results reported within this paper. ITI also acknowledges the Partnership for Advanced
 Computing in Europe (PRACE) grant 2010PA0442 which supported the code
 scaling studies. UEP and JDE are supported by the NSERC of Canada.
-%{\bf ( Hugh, Vincent, any financial acknowledgements to add here?)}
+VD acknowledges support by the Swiss National Science Foundation.
+%{\bf ( Hugh, any financial acknowledgements to add here?)}
 
 
 
