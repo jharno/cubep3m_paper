@@ -20,8 +20,8 @@
 \usepackage{amsfonts}
 \usepackage{txfonts}
 
-\title[{\small}  High Performance P$^{3}$M N-body code: CUBEP3M]{{\small} High Performance P$^{3}$M N-body code: CUBEP3M}
-\author[Joachim Harnois-D\'{e}raps, Ue-Li Pen, Ilian T. Iliev, Hugh Merz, JD Emberson, Vincent Desjacques]{Joachim Harnois-D\'{e}raps$^{1,2}$ 
+\title[{\small}  High Performance P$^{3}$M N-body code: CUBEP$^3$M]{{\small} High Performance P$^{3}$M N-body code: CUBEP$^3$M}
+\author[Joachim Harnois-D\'{e}raps, Ue-Li Pen, Ilian T. Iliev, Hugh Merz, J.D. Emberson, Vincent Desjacques]{Joachim Harnois-D\'{e}raps$^{1,2}$ 
 \thanks{E-mail: jharno@cita.utoronto.ca},  Ue-Li Pen$^{1}$, 
 Ilian T. Iliev$^{3}$, Hugh Merz$^{4}$, \newauthor
 J.D. Emberson$^{1,5}$ and Vincent Desjacques$^{6}$\\
@@ -49,10 +49,10 @@ $^{6}$Universit\'{e} de Gen\`{e}ve and Center for Astroparticle Physics, 24 Quai
 \label{firstpage}
 
 \begin{abstract}
-This paper presents {\small CUBEP3M}, a high performance cosmological N-body code
+This paper presents {\small CUBEP$^3$M}, a high performance cosmological N-body code
 and describes many utilities and extensions that have been added to the standard package, including a runtime halo finder,
 a non-Gaussian initial conditions generator, a tuneable accuracy, and a system of unique particle identification.
-{\small CUBEP3M} is fast, has a low memory imprint, and 
+{\small CUBEP$^3$M} is fast, has a low memory imprint, and 
 has been run on up to $20,000$ cores, achieving close to ideal weak scaling
 even at this scale.
 It is well suited for a vast number of science applications that 
@@ -60,17 +60,6 @@ require either large samples of non-linear realizations or
 very large dark matter N-body simulations,
 including  cosmological reionization, baryonic acoustic oscillations, weak lensing or
 non-Gaussian statistics.
-%Since there is no explicit load balancing algorithm, the code runs optimally 
-%for homogeneous systems such as those which prevail in large scale structures studies. 
-%It has an interface with a MHD-TVD module and a radiative transfer code, 
-%which opens the door to a vast number of science applications.
-%or a large number of realizations for statistical studies.
-%one of the fastest highest performance public N-body code. 
-%Gravity is solved  on a two-level mesh with sub-grid precision due to the particle-particle (pp)
-%interactions inside and across neighbouring cells. 
-%Among important improvements,  {\small CUBEP3M} has a volumetric decomposition,
-%allowing for a massive parallelization over more than 20,000 cores, and has achieved close to ideal weak scaling
-%even at this scale.  In addition, force kernels have been improved for enhanced matching of the two mesh contributions near the cutoff length, and the code is now equipped with a unique particle identification tag system that allows reconstruction of individual particle trajectories between time steps.
 We discuss the structure, the accuracy, any known systematic effects, and the scaling performance
 of the code and its utilities, when applicable.
 \end{abstract}
@@ -154,13 +143,13 @@ The first major improvement was to transform the volume decomposition in multi-n
 from slabs to cubes. The problem with slabs is that they do not scale well to large runs: 
 as the number of cells per dimension increases, the thickness of each slab shrinks rapidly,
 until it reaches the hard limit of a single cell layer.  With this enhancement, the code name was changed to {\small CUBEPM}. Soon after, it incorporated particle-particle (pp) interactions at the sub-grid level, 
-and was finally renamed {\small CUBEP3M}. The public package now includes a significant number of new features: the pp force
+and was finally renamed {\small CUBEP$^3$M}. The public package now includes a significant number of new features: the pp force
 can be extended to an arbitrary range, the size of the redshift jumps can be constrained for improved accuracy during the first time steps,
 a runtime halo finder has been implemented, the expansion has also been generalized to include a redshift dependent equation of state of dark energy, there is a system of unique particle identification that can be switched on or off, and the initial condition generator has been generalized as to include non-Gaussian features.
- {\small PMFAST} was equipped with a multi-time stepping option that has not been tested on {\small CUBEP3M} yet, but which is, in principle at least, still available. 
+ {\small PMFAST} was equipped with a multi-time stepping option that has not been tested on {\small CUBEP$^3$M} yet, but which is, in principle at least, still available. 
  
  The standard package also contains support for gas cosmological evolution through a portable TVD-MHD module \citep{2003ApJS..149..447P} that scales up to thousands of cores as well (see \citet{2010arXiv1004.1680P} and footnote 4 in section \ref{sec:scaling}), and a coupling interface with the radiative transfer code C2-Ray \citep{2006NewA...11..374M}.
- {\small CUBEP3M} is therefore one of the most competitive and versatile public N-body code, 
+ {\small CUBEP$^3$M} is therefore one of the most competitive and versatile public N-body code, 
  and has been involved in a number of scientific applications over the last few years,
 spanning the field of weak lensing \citep{Vafaei10, 2008MNRAS.388.1819L,  2009arXiv0905.0501D, 2010PhRvD..81l3015L, 2010arXiv1012.0444Y, 2012arXiv1202.2332H},  BAO
  \citep{2010arXiv1008.3506Z,  2012MNRAS.419.2949N, 2012MNRAS.423.2288H, 2012arXiv1205.4989H}, 
@@ -170,13 +159,13 @@ reionization \citep{2011arXiv1107.4772I,Fernandez:2011ab,2011MNRAS.413.1353F,201
 Continuous efforts are being made to develop, extend and improve the code and each of its utilities, 
 and we expect that this will pave the way to an increasing number of science projects. 
 Notably, the fact that the force calculation is multi-layered makes the code extendible, 
-and opens the possibility to run {\small CUBEP3M} on hybrid CPU-GPU clusters.
+and opens the possibility to run {\small CUBEP$^3$M} on hybrid CPU-GPU clusters.
 It is thus important for the community to have access to a paper that describes the methodology, the accuracy and the performance of this public code. 
 
 %\subsection{Simulation suites}
 %\label{subsec:suites}
 
-Since {\small CUBEP3M} is not new, the existing  accuracy and systematic tests were performed by different groups, on different machines,
+Since {\small CUBEP$^3$M} is not new, the existing  accuracy and systematic tests were performed by different groups, on different machines,
 and with different geometric and parallelization configurations. It is not an ideal situation in which to quantify the performance, and each test must be viewed as a
 separate measurement that quantifies a specific aspect of the code. 
 We have tried to keep to a minimum the number of such different runs, and although the detailed numbers vary 
@@ -217,13 +206,13 @@ minimize the passing of information across computing nodes, reduce and accelerat
 make efficient use of high performance libraries to speed up standard calculations like Fourier transforms, just to name a few.
 In the realm of parallel programming, high efficiency  can be assessed when a high load is balanced across all processors
 most of the time. In this section, we present the general strategies adopted to address these challenges\footnote{ 
-Many originate directly from MPT and were preserved in {\small CUBEP3M};
+Many originate directly from MPT and were preserved in {\small CUBEP$^3$M};
 those will be briefly mentioned, and we shall refer the reader to the original {\small PMFAST} paper for greater details.}.
 We start with a walkthrough the code flow, and briefly discuss some specific sections that depart from standard N-body codes,
 while referring the reader to future sections for detailed discussions on selected topics.
 
 
-As mentioned in the Introduction section, {\small CUBEP3M} is a {\small FORTRAN90} 
+As mentioned in the Introduction section, {\small CUBEP$^3$M} is a {\small FORTRAN90} 
 N-body code that solves Poisson's equation on a two-level mesh, 
 with sub-cell accuracy thanks to particle-particle interactions. 
 The code has extensions that departs from this basic scheme, and
@@ -264,7 +253,7 @@ the local fine grid density  in real and Fourier space respectively}
 \end{enumerate}
 The particle ID is a feature that can be switched off by removing a compilation flag, 
 and allows to optimize the code for higher resolution configurations.
-In terms of memory, {\small CUBEP3M} can be configured such as the main footprint is dominated exclusively by the 
+In terms of memory, {\small CUBEP$^3$M} can be configured such as the main footprint is dominated exclusively by the 
 particle phase space array, in which case it uses about $60$ bytes per particles. 
 For a fixed problem size, this can be achieved by increasing the number of tiles, thereby reducing the size of the local fine mesh arrays.
 There is a limit at which we can do such a volume breakdown, though, since the physical 
@@ -298,7 +287,7 @@ and can accommodate constant or running equation of state of dark energy.
 The force of gravity is then solved  in the {\tt particle\_mesh} subroutine,
 which first updates the positions and velocities of the dark matter particles, exchange with neighbouring nodes those that have exited to volume,
 creates a new linked list, then solve Poisson's equation.  This subroutine is conceptually identical to that of {\small PMFAST}, 
-with the exception  that {\small CUBEP3M} decomposes the volume into cubes (as opposed to slabs). 
+with the exception  that {\small CUBEP$^3$M} decomposes the volume into cubes (as opposed to slabs). 
 The loop over tiles and the particle exchange are thus performed in three dimensions.
 When the short range and pp forces have been calculated on all tiles, the code exits the parallel {\small OPENMP} loop
 and proceeds to the long range. This section of the code is also parallelized on many occasions, but, unfortunately, the current {\small MPI-FFTW}
@@ -381,7 +370,7 @@ and clears the {\small MPI} communicators. We have collected those operations un
 
 Other constraints that need to be considered is that any decomposition geometry somehow 
 limits permissible grid sizes, and that volume evenly decomposed into cubic sub-sections 
---  such as {\small CUBEP3M} -- requires the number of {\small MPI} processes to be a perfect cube.
+--  such as {\small CUBEP$^3$M} -- requires the number of {\small MPI} processes to be a perfect cube.
 Also,  since the decomposition is volumetric, as opposed to density dependent -- 
 it suffers from load imbalance whenever the particles are not evenly distributed.
 However, large scale cosmology problems are very weakly affected by this effect, which
@@ -398,7 +387,7 @@ follow by a restart with a configuration that allows more memory per node.
 
 This section reviews how Poisson's equation is solved on a double-mesh configuration. 
 Many parts of the algorithm are identical to {\small PMFAST}, hence we refer the reader 
-to section 2 of MPT for more details. In {\small CUBEP3M}, the mass default assignment scheme are
+to section 2 of MPT for more details. In {\small CUBEP$^3$M}, the mass default assignment scheme are
 a `cloud-in-cell' (CIC) interpolation for the coarse grid,  and a `nearest-grid-point' (NGP) interpolation 
 for the fine grid \citep{1981csup.book.....H}. This choice is motivated by the fact that the most straightforward 
 way to implement a P$^3$M algorithm on a mesh is to have exactly zero mesh force inside a grid, 
@@ -514,7 +503,7 @@ Also, one of the drawbacks of Plummer's softening is that the resolution degrade
 In comparison, the uniform density and hollow shell alternatives both have the advantage that the deviations from $1/r^2$ are minimized. 
 Although all the results presented in this paper were obtained with the sharp cutoff softening, other schemes can easily be adopted as these 
 are typically single line changes to the code. \citet{1993ApJ...409...60D} argues in favour on the uniform density profile scheme -- which is more physical --
-and future developments of {\small CUBEP3M} will incorporate this option.
+and future developments of {\small CUBEP$^3$M} will incorporate this option.
 
 The choice of softening length is motivated by a trade off between accuracy and run time.
  Larger values reduce the structure formation but run quicker. 
@@ -586,7 +575,7 @@ from the first setting, even though the code is not meant to evolve such systems
     \includegraphics[width=3.0in]{graphs/scaling_cubep3m_new.eps}
 %  \vskip -1.2cm 
 %  \vskip -0.5cm 
-  \caption{Scaling of {\small CUBEP3M} on Curie fat nodes (left) and 
+  \caption{Scaling of {\small CUBEP$^3$M} on Curie fat nodes (left) and 
     on Ranger TACC facility for very large number of cores (right). Plotted is the code speedup 
     ($N_{\rm particles}^3/t_{\rm wallclock}$) against core count, normalized by the smallest run 
     in each case. Dashed line indicates the ideal weak 
@@ -600,7 +589,7 @@ from the first setting, even though the code is not meant to evolve such systems
 \begin{table*}%[ht]
   \vskip -0.5cm 
   \begin{center}
-\caption{Scaling of {\small CUBEP3M} on Curie. Speedup is 
+\caption{Scaling of {\small CUBEP$^3$M} on Curie. Speedup is 
 scaled to the smallest run.}
 \label{summary_scaling_table}
 \begin{tabular}{@{}|llllll|}
@@ -615,7 +604,7 @@ $N_{\rm particles}$& box size ($h^{-1}$Mpc)
 2048  & 61.87 & 64 &26.48 & $2048^3$ & 2048 \\
 \hline
 \end{tabular}
-\caption{Scaling of  {\small CUBEP3M} on Ranger. Speedup is scaled to the smallest run.}
+\caption{Scaling of  {\small CUBEP$^3$M} on Ranger. Speedup is scaled to the smallest run.}
 \label{summary_scaling_table2}
 \begin{tabular}{@{}|llllll|}
 \hline
@@ -643,7 +632,7 @@ $N_{\rm particles}$& box size ($h^{-1}$Mpc)
 %typically use smaller MPI 'nodes' consisting of one Quad Core 
 %processor and 8 GB of RAM. 
 
-The parallel algorithm of {\small CUBEP3M} is designed for `weak' 
+The parallel algorithm of {\small CUBEP$^3$M} is designed for `weak' 
 scaling, i.e. if the number of cores and the problem size 
 increase in proportion to each other, then for ideal scaling the 
 wall-clock time should remain the same. This is to be in contrasted with `strong' 
@@ -692,7 +681,7 @@ Slab decomposition would have required a volume too large to fit in system
 memory given the constraints in the simulation geometry. 
 
  
-The scaling of {\small CUBEP3M}  was first  tested with a dedicated series 
+The scaling of {\small CUBEP$^3$M}  was first  tested with a dedicated series 
 of simulations -- the CURIE simulation suite-- by increasing the size and number of cores on the `fat' 
 (i.e. large-memory) nodes of the  Curie supercomputer at the Tr\`{e}s Grand Centre de Calcul (TGCC) in France. 
  For appropriate direct comparison,
@@ -706,7 +695,7 @@ $\sim3$ per cent of ideal, at least for up to 2048 cores.
 
 
 
-We have also ran {\small CUBEP3M} on a much larger number of cores, 
+We have also ran {\small CUBEP$^3$M} on a much larger number of cores, 
 from 8000 to up to 21,976, with $5488^3$-$6000^3$ (165 to 216 billion) 
 particles on Ranger and on JUROPA at the J\"ulich Supercomputing Centre in Germany, 
 which is an Intel Xeon X5570 
@@ -1000,7 +989,7 @@ At early stages of the simulation, the density field is homogenous, causing the 
 rather weak everywhere. In that case, the size of the redshift jumps is controlled by a limit in the cosmological expansion.
 If the expansion jump is too large, the size of the residual errors can become significant, and one can observe, for instance,
 a growth of structure that does not match the predictions of  linear theory even at the largest scales.
-One therefore needs to choose a maximum step size. In {\small CUBEP3M}, this is controlled by $r_{max}$, which is the fractional step size,
+One therefore needs to choose a maximum step size. In {\small CUBEP$^3$M}, this is controlled by $r_{max}$, which is the fractional step size,
 $\mbox{d}a/(a + \mbox{d}a)$ and is set to $0.05$ by default.  Generally, a simulation should start at a redshift high enough that
 the initial dimensionless power spectrum is well under unity at all scales. This ensures that the Zel'dovich approximation
  holds at the per cent level at least. A drop of accuracy can occur if one starts the simulation too early, where
@@ -1068,7 +1057,7 @@ We have implemented a halo finding procedure, which we have developed
 based on the spherical overdensity (SO) approach \citep{1994MNRAS.271..676L}.
 In the interest of speed and efficiency the halo catalogues are constructed 
 on-the-fly at a pre-determined list of redshifts. The halo finding is 
-massively-parallel and threaded based on the main {\small CUBEP3M} data structures 
+massively-parallel and threaded based on the main {\small CUBEP$^3$M} data structures 
 discussed in section \ref{sec:structure}. The code first builds the 
 fine-mesh density for each sub-domain using CIC or NGP interpolation. It then 
 proceeds to search for all local density maxima above a certain
@@ -1171,7 +1160,7 @@ footprint) it is possible to recover most of the expected number count.
 
 The preceding descriptions and discussions apply to the standard configuration of the code, 
 as described at the beginning of section \ref{sec:structure}. A few extensions have been recently developed
-in order to enlarge the range of applications of {\small CUBEP3M}, and this section briefly 
+in order to enlarge the range of applications of {\small CUBEP$^3$M}, and this section briefly 
 describes the most important improvements.
 
 \subsection{Initial conditions}
@@ -1188,7 +1177,7 @@ Although many applications are typically based on initial conditions that follow
 we have developed a non-Gaussian initial conditions generator that we briefly describe in this section. 
 This becomes important especially for simulations in which the sensitivity to very small scales becomes more important.
 
-The original code that provides Gaussian initial conditions for {\small CUBEP3M} 
+The original code that provides Gaussian initial conditions for {\small CUBEP$^3$M} 
 is extended to include non-Gaussian features of the `local' form,
 $\Phi({\bf x})=\phi({\bf x})+f_{\rm NL} \phi({\bf x})^2 + g_{\rm NL} 
 \phi({\bf x})^3$, where $\phi({\bf x})$ is the Gaussian contribution
@@ -1377,7 +1366,7 @@ we conclude that $N_{layers} = 2$ is the most optimal choice.
   \begin{center}
   \epsfig{file=graphs/MassFunction_pp_ranges_new_z1.eps,width=0.49\textwidth}
   \caption{ ({\it top}:) Halo mass function for different ranges of the pp force calculation, compared to the predictions of Sheth-Tormen, at $z = 1.0$. 
-  The smallest haloes shown here have a mass equivalent to 100 particles, and fall in the lowest mass bin.
+  The smallest haloes shown here have a mass equivalent to 20 particles, each of $2.79 \times 10^{9} M{\odot}$, and fall in the lowest mass bin.
   ({\it bottom}:) Ratio between the different curves and that of the default P$^3$M configuration.}
     \label{fig:MassFunction_extpp}
   \end{center}
@@ -1388,12 +1377,12 @@ we conclude that $N_{layers} = 2$ is the most optimal choice.
 
 \section{Conclusion}
 
-This paper describes {\small CUBEP3M}, a public and  massively parallel P$^3$M N-body code that inherits from {\small PMFAST} 
+This paper describes {\small CUBEP$^3$M}, a public and  massively parallel P$^3$M N-body code that inherits from {\small PMFAST} 
  and that now scales well to 20,000 cores, pushing the limits of the cosmological problem size one can handle.
 We summarize the code structure, review the double-mesh Poisson solver algorithm, and present scaling and systematic tests
 that have been performed. We also describe various utilities and extensions that come with the public release, 
 including a run time halo finder, an extended pp force calculation and a non-Gaussian initial condition generator.
-{\small CUBEP3M} is one of the most competitive N-body code that is publicly available for cosmologists and astrophysicists,
+{\small CUBEP$^3$M} is one of the most competitive N-body code that is publicly available for cosmologists and astrophysicists,
 it has already been used  for a large number of scientific applications, and it is our hope that the current documentation will 
 help the community in interpreting its outcome.
 The code is publicly available on github.com under {\tt cubep3m}, and extra documentation about the structure, 
