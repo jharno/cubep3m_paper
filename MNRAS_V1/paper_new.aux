@@ -1,0 +1,201 @@
+\relax 
+\citation{2009ApJS..180..330K,2011ApJS..192...18K}
+\citation{2000AJ....120.1579Y,2003astro.ph..6581C,2009arXiv0902.4680S,2010MNRAS.401.1429D}
+\citation{2012AAS...21913001H,2009ApJ...703.2232S}
+\citation{Eisenstein:2005su,2006PhRvD..74l3507T,2007MNRAS.381.1053P,2009arXiv0902.4680S}
+\citation{2005MNRAS.360L..82R,2009ApJ...700..479T,2011ApJ...726....7T}
+\citation{2003ApJ...592..699V,2009ApJ...701..945S,2009A&A...499...31H}
+\citation{2006MNRAS.369.1625I,2007ApJ...654...12Z,2007ApJ...671....1T,2012MNRAS.423.2222I}
+\citation{1981csup.book.....H}
+\citation{FFTW3}
+\citation{2001NewA....6...79S,2005MNRAS.364.1105S}
+\citation{1995ApJS...98..355X}
+\citation{2004NewA....9..111D}
+\citation{1995ApJ...452..797C}
+\citation{1991ApJ...368L..23C}
+\newlabel{firstpage}{{}{1}}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}}
+\citation{2005NewA...10..393M}
+\citation{2003AAS...203.9703T}
+\citation{2003ApJS..149..447P}
+\citation{2010arXiv1004.1680P}
+\citation{2006NewA...11..374M}
+\citation{Vafaei10,2008MNRAS.388.1819L,2009arXiv0905.0501D,2010PhRvD..81l3015L,2012MNRAS.421..832Y,2012arXiv1202.2332H}
+\citation{2011ApJ...728...35Z,2012MNRAS.419.2949N,2012MNRAS.423.2288H,2012arXiv1205.4989H}
+\citation{2008arXiv0806.2887I,2010arXiv1005.2502I}
+\citation{2010MNRAS.407L..74Z,2012MNRAS.422.2164I}
+\citation{2012MNRAS.423.2222I,2012ApJ...750...20F,2011MNRAS.413.1353F,2012MNRAS.422..926M,2012MNRAS.424.1877D,2012arXiv1203.0517F}
+\citation{Scinet}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Review of the Code Structure}{2}}
+\newlabel{sec:structure}{{2}{2}}
+\citation{Gadget2Lean}
+\citation{1981csup.book.....H}
+\citation{1981csup.book.....H}
+\citation{2004NewA....9..443T}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Overall structure of the code simplified for readability.}}{4}}
+\newlabel{fig:structure}{{1}{4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Overall structure of the two-level mesh algorithm. We have included the section that concerns the standard pp and the extended pp force calculation, to illustrate that they follow similar linked-list logic. }}{4}}
+\newlabel{fig:particle_mesh}{{2}{4}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Poisson Solver}{4}}
+\newlabel{sec:Poisson}{{3}{4}}
+\citation{1993ApJ...409...60D}
+\citation{1993ApJ...409...60D}
+\newlabel{eq:poisson}{{4}{5}}
+\newlabel{eq:poissonFourier}{{5}{5}}
+\newlabel{eq:poisson_solution_pot}{{6}{5}}
+\newlabel{eq:Force_sol}{{7}{5}}
+\newlabel{eq:poisson_solution_force}{{8}{5}}
+\citation{3DFFT}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Dark matter power spectrum, measured at $z=0.5$ in a series of SciNet256 simulations in which the softening length is varied. The simulations started off at $z= 100$, and have a box size of $100 h^{-1}\unhbox \voidb@x \hbox {Mpc}$. }}{6}}
+\newlabel{fig:rsoft}{{3}{6}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Scaling in {\relax \fontsize  {8}{10}\selectfont  \abovedisplayskip 4pt plus 1pt minus 1pt \belowdisplayskip \abovedisplayskip \abovedisplayshortskip 4pt plus 1pt \belowdisplayshortskip \abovedisplayshortskip \def \leftmargin \leftmargini \topsep 2pt plus 1pt minus 1pt \parsep \z@ \itemsep 2pt{\leftmargin \leftmargini \topsep 2pt plus 1pt minus 1pt \parsep \z@ \itemsep 2pt}CPU} resources as a function of the softening length, in units of fine grid cells.}}{6}}
+\newlabel{table:rsoft}{{1}{6}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Scaling Performances}{6}}
+\newlabel{sec:scaling}{{4}{6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Scaling of {\relax \fontsize  {8}{10}\selectfont  \abovedisplayskip 4pt plus 1pt minus 1pt \belowdisplayskip \abovedisplayskip \abovedisplayshortskip 4pt plus 1pt \belowdisplayshortskip \abovedisplayshortskip \def \leftmargin \leftmargini \topsep 2pt plus 1pt minus 1pt \parsep \z@ \itemsep 2pt{\leftmargin \leftmargini \topsep 2pt plus 1pt minus 1pt \parsep \z@ \itemsep 2pt}CUBEP$^3$M} on Curie fat nodes (left) and on Ranger TACC facility for very large number of cores (right). Plotted is the code speedup ($N_{\rm  particles}^3/t_{\rm  wallclock}$) against core count, normalized by the smallest run in each case. Dashed line indicates the ideal weak scaling. The data are listed in Table 2\hbox {}.  }}{7}}
+\newlabel{scaling}{{4}{7}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Scaling of {\relax \fontsize  {8}{10}\selectfont  \abovedisplayskip 4pt plus 1pt minus 1pt \belowdisplayskip \abovedisplayskip \abovedisplayshortskip 4pt plus 1pt \belowdisplayshortskip \abovedisplayshortskip \def \leftmargin \leftmargini \topsep 2pt plus 1pt minus 1pt \parsep \z@ \itemsep 2pt{\leftmargin \leftmargini \topsep 2pt plus 1pt minus 1pt \parsep \z@ \itemsep 2pt}CUBEP$^3$M} on Curie. Speedup is scaled to the smallest run.}}{7}}
+\newlabel{summary_scaling_table}{{2}{7}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Scaling of {\relax \fontsize  {8}{10}\selectfont  \abovedisplayskip 4pt plus 1pt minus 1pt \belowdisplayskip \abovedisplayskip \abovedisplayshortskip 4pt plus 1pt \belowdisplayshortskip \abovedisplayshortskip \def \leftmargin \leftmargini \topsep 2pt plus 1pt minus 1pt \parsep \z@ \itemsep 2pt{\leftmargin \leftmargini \topsep 2pt plus 1pt minus 1pt \parsep \z@ \itemsep 2pt}CUBEP$^3$M} on Ranger. Speedup is scaled to the smallest run.}}{7}}
+\newlabel{summary_scaling_table2}{{3}{7}}
+\citation{2003MNRAS.341.1311S}
+\citation{2012MNRAS.419.2949N}
+\citation{2012MNRAS.423.2288H}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Accuracy and Systematics}{8}}
+\newlabel{sec:accuracy}{{5}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Density and Power Spectrum}{8}}
+\newlabel{subsec:powerspectrum}{{5.1}{8}}
+\newlabel{eq:power}{{13}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Mesh force at grid distances}{8}}
+\newlabel{subsec:force}{{5.2}{8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Detail of a dark matter density $3.2 h^{-1}\unhbox \voidb@x \hbox {Gpc}$Ê per side, projected over $15 h^{-1}\unhbox \voidb@x \hbox {Mpc}$ and measured at $z=0$ in a RANGER4000 simulation. Particles are shown in pink, haloes in blue in the online version, and the colour scale is linear. The full projection is 64 times larger, but we show here only a sub-volume, which provides more details on the structure. }}{9}}
+\newlabel{fig:density}{{5}{9}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Dark matter power spectrum, measured at $z=0$ in a RANGER4000 simulation, compared to the non-linear predictions of {\relax \fontsize  {8}{10}\selectfont  \abovedisplayskip 4pt plus 1pt minus 1pt \belowdisplayskip \abovedisplayskip \abovedisplayshortskip 4pt plus 1pt \belowdisplayshortskip \abovedisplayshortskip \def \leftmargin \leftmargini \topsep 2pt plus 1pt minus 1pt \parsep \z@ \itemsep 2pt{\leftmargin \leftmargini \topsep 2pt plus 1pt minus 1pt \parsep \z@ \itemsep 2pt}HALOFIT}. The vertical line corresponds to the scale of the coarse mesh, while the dotted line represents the Poisson noise. The particle masses are of $5.68 \times 10^{10} M_{\odot }$. }}{10}}
+\newlabel{fig:power_highres}{{6}{10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Dark matter power spectrum, measured at $z=180$, $100$, $20$ and $10$, in a CITA256 realization that is $1000 h^{-1}$ Mpc per side. The dashed line represent the initial condition power spectrum, the dotted lines are the linear predictions, and the open circles the standard P$^3$M configuration. The dots were obtained by simply removing the random offset that is normally applied at each time step. }}{10}}
+\newlabel{fig:disp_mesh}{{8}{10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces ({\it  top left}:) Gravity force in the P$^3$M algorithm, versus distance, compared with the exact $1/r^{2}$ law. Distance is in fine mesh cell units, and force in simulation units. This particular calculation was obtained in a CITA128 realization with a box size of $100 h^{-1}\unhbox \voidb@x \hbox {Mpc}$, in a single time step. ({\it  top right}:) Fractional error on the force in the P$^3$M algorithm in the radial direction (top) and fractional tangential contribution (bottom). In a full simulation run, the scatter averages over many time steps, thanks to the inclusion of a random offset that is imposed on each particle, as discussed in the main text. ({\it  middle row}:) Top row organized in 50 logarithmic bins; for the tangential contribution, we plot only the scatter about the mean. ({\it  bottom row}:) Same as middle row, but averaged over ten time steps. }}{11}}
+\newlabel{fig:den_force_fracErr}{{7}{11}}
+\citation{1994MNRAS.271..676L}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Fractional error in the gravity force, without the fine force kernel correction at $r=1$. This particular calculation was obtained in a CITA128 realization with a box size of $150 h^{-1}\unhbox \voidb@x \hbox {Mpc}$, averaged over ten time steps. }}{12}}
+\newlabel{fig:den_force_fracErr_kern}{{9}{12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Dark matter power spectrum, measured at $z=0$, in a SciNet256 realization that is $150 h^{-1}$ Mpc per side. The thick solid line represents predictions from {\relax \fontsize  {8}{10}\selectfont  \abovedisplayskip 4pt plus 1pt minus 1pt \belowdisplayskip \abovedisplayskip \abovedisplayshortskip 4pt plus 1pt \belowdisplayshortskip \abovedisplayshortskip \def \leftmargin \leftmargini \topsep 2pt plus 1pt minus 1pt \parsep \z@ \itemsep 2pt{\leftmargin \leftmargini \topsep 2pt plus 1pt minus 1pt \parsep \z@ \itemsep 2pt}CAMB}, the thin solid line is the default (i.e. without correction) configuration of the code, and the three other lines represent three different corrections that are applied at grid distances to compensate for the systematic force underestimation seen in the bottom panels of Fig. 7\hbox {}. }}{12}}
+\newlabel{fig:fudge}{{10}{12}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Scaling in {\relax \fontsize  {8}{10}\selectfont  \abovedisplayskip 4pt plus 1pt minus 1pt \belowdisplayskip \abovedisplayskip \abovedisplayshortskip 4pt plus 1pt \belowdisplayshortskip \abovedisplayshortskip \def \leftmargin \leftmargini \topsep 2pt plus 1pt minus 1pt \parsep \z@ \itemsep 2pt{\leftmargin \leftmargini \topsep 2pt plus 1pt minus 1pt \parsep \z@ \itemsep 2pt}CPU} resources as a function of the value of $r_{max}$. The tests were performed on the CITA Sunnyvale cluster, and general trends could vary slightly on other machines. The time tabulated on the right column corresponds to the full run time of the CITA256 simulations, which evolved $128^{3}$ particles from $z = 200$ to $z = 0$.}}{12}}
+\newlabel{table:ra_max}{{4}{12}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Constraining redshift jumps}{12}}
+\newlabel{subsec:z_jumps}{{5.3}{12}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Runtime Halo Finder}{12}}
+\newlabel{sec:halo}{{6}{12}}
+\citation{1999MNRAS.307..203S,2001MNRAS.325..468I}
+\citation{1997ApJ...490..493N}
+\citation{1985ApJS...58...39B}
+\citation{2008ApJ...688..709T}
+\citation{2008ApJ...688..709T}
+\citation{2008ApJ...688..709T}
+\citation{2002MNRAS.329...61S}
+\citation{2007MNRAS.374....2R,2008ApJ...688..709T}
+\citation{2008ApJ...688..709T}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Dark matter power spectrum, measured at $z=0$ in a series of CITA256 realizations. The starting redshift was raised to $z=200$ to enhance the systematic effect. The different curves show different values of $r_{max}$. The resources required to run these simulations increase rapidly as $r_{max}$ decreases, as seen in Table 4\hbox {}. }}{13}}
+\newlabel{fig:ra_max}{{11}{13}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Simulated halo multiplicity function, $\frac  {M^2}{\mathaccentV {bar}016{\rho }}\frac  {dn}{dM}$, based on a RANGER4000 simulation with $3.2\tmspace  +\thinmuskip {.1667em}h^{-1} \unhbox \voidb@x \hbox {Gpc}$ box and $4000^3$ particles (solid, red in the online version). For reference we also show a widely-used precise fit by \citet  {2008ApJ...688..709T} (blue, dashed). The particle masses are of $5.68 \times 10^{10} M_{\odot }$. }}{13}}
+\newlabel{mf}{{12}{13}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Beyond the standard configuration}{13}}
+\newlabel{sec:extensions}{{7}{13}}
+\citation{2004PhR...402..103B}
+\citation{2009MNRAS.396...85D,2010PhRvD..81b3006D}
+\citation{2010MNRAS.406.1014S}
+\citation{2011arXiv1111.6966S}
+\citation{2004PhRvD..69j3513S,2008PhRvD..78l3534T}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Initial conditions}{14}}
+\newlabel{subsec:init}{{7.1}{14}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Particle identification tags}{14}}
+\newlabel{PID}{{7.2}{14}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces  Dark matter power spectrum, measured at $z=0$ in a volume $3.2 h^{-1}\unhbox \voidb@x \hbox {Gpc}$ per side, from $4000^3$ particles. The two curves represent two RANGER4000 realizations of the same initial power spectrum, one of which used Gaussian statistics (blue) and the other the non-Gaussian initial condition generator. The two curves differ at the sub-per cent level, as seen in the top panel, and the one-loop perturbation theory calculations accurately describes the ratio between the two curves up to $k\sim 0.4h\unhbox \voidb@x \hbox {Mpc}^{-1}$ in this case. }}{14}}
+\newlabel{fig:init}{{13}{14}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Extended range of the pp force}{14}}
+\newlabel{subsec:extendedpp}{{7.3}{14}}
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces  Dimensionless power spectrum for varying range of the exact pp force. These SciNet512 realizations evolved from a unique set of initial conditions at a starting redshift of $z = 100$, with a box size equal to $ 150 h^{-1}\unhbox \voidb@x \hbox {Mpc}$ until $z=1.0$. The only difference between the runs is the ranges of the pp calculation. The inset shows details about the resolution turnaround, and the thick vertical line corresponds to the coarse mesh scale. }}{15}}
+\newlabel{fig:power}{{15}{15}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusion}{15}}
+\bibstyle{mn2e}
+\bibdata{mybib3_new}
+\bibcite{2004PhR...402..103B}{{1}{2004}{{{Bartolo} et~al.}}{{{Bartolo}, {Komatsu}, {Matarrese} \& {Riotto}}}}
+\bibcite{1985ApJS...58...39B}{{2}{1985}{{{Bertschinger}}}{{{Bertschinger}}}}
+\bibcite{2003astro.ph..6581C}{{3}{2003}{{{Colless} et~al.}}{{{Colless} et~al.,}}}
+\bibcite{1991ApJ...368L..23C}{{4}{1991}{{{Couchman}}}{{{Couchman}}}}
+\bibcite{1995ApJ...452..797C}{{5}{1995}{{{Couchman} et~al.}}{{{Couchman}, {Thomas} \& {Pearce}}}}
+\bibcite{2012MNRAS.424.1877D}{{6}{2012}{{{Datta} et~al.}}{{{Datta}, {Mellema}, {Mao}, {Iliev}, {Shapiro} \& {Ahn}}}}
+\bibcite{2010PhRvD..81b3006D}{{7}{2010}{{{Desjacques} \& {Seljak}}}{{{Desjacques} \& {Seljak}}}}
+\bibcite{2009MNRAS.396...85D}{{8}{2009}{{{Desjacques} et~al.}}{{{Desjacques}, {Seljak} \& {Iliev}}}}
+\bibcite{2009arXiv0905.0501D}{{9}{2009}{{{Dor{\'e}} et~al.}}{{{Dor{\'e}}, {Lu} \& {Pen}}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces ({\it  top left}:) Gravity force in the P$^3$M algorithm, compared with the exact $1/r^{2}$ law, in the same CITA128 realization as that shown in Fig. 7\hbox {}, except that the exact pp force has been extended to two fine mesh layers around each particle in the force test code. Particles in the that range follow the exact curve, then we observe a much smaller scatter at distance of the order of 2 fine grid, compared to Fig. 7\hbox {}. The NGP interpolation scheme is again responsible for the scatter, but the effect is suppressed with increasing distances, and further suppressed by averaging over many time steps. ({\it  top right}:) Fractional error on the force in the P$^3$M algorithm, in the radial direction (top) and fractional tangential contribution (bottom). This was also obtained over a single time step. ({\it  bottom row}:) Same as top row, but averaged over ten time steps. }}{16}}
+\newlabel{fig:den_force_fracErr_ppext6}{{14}{16}}
+\bibcite{2010MNRAS.401.1429D}{{10}{2010}{{{Drinkwater} et~al.}}{{{Drinkwater} et~al.,}}}
+\bibcite{2004NewA....9..111D}{{11}{2004}{{{Dubinski} et~al.}}{{{Dubinski}, {Kim}, {Park} \& {Humble}}}}
+\bibcite{1993ApJ...409...60D}{{12}{1993}{{{Dyer} \& {Ip}}}{{{Dyer} \& {Ip}}}}
+\bibcite{Eisenstein:2005su}{{13}{2005}{{Eisenstein et~al.}}{{Eisenstein et~al.,}}}
+\bibcite{3DFFT}{{14}{2005}{{{Eleftheriou} et~al.}}{{{Eleftheriou}, {Fitch}, {Rayshubskiy}, {Ward} \& {Germain}}}}
+\bibcite{2012ApJ...750...20F}{{15}{2012}{{{Fernandez} et~al.}}{{{Fernandez}, {Iliev}, {Komatsu} \& {Shapiro}}}}
+\bibcite{2012arXiv1203.0517F}{{16}{2012}{{{Friedrich} et~al.}}{{{Friedrich}, {Datta}, {Mellema} \& {Iliev}}}}
+\bibcite{2011MNRAS.413.1353F}{{17}{2011}{{{Friedrich} et~al.}}{{{Friedrich}, {Mellema}, {Alvarez}, {Shapiro} \& {Iliev}}}}
+\bibcite{FFTW3}{{18}{2005}{{{Frigo} \& {Johnson}}}{{{Frigo} \& {Johnson}}}}
+\bibcite{2012MNRAS.423.2288H}{{19}{2012}{{{Harnois-D{\'e}raps} \& {Pen}}}{{{Harnois-D{\'e}raps} \& {Pen}}}}
+\bibcite{2012arXiv1202.2332H}{{20}{2012}{{{Harnois-Deraps} et~al.}}{{{Harnois-Deraps}, {Vafaei} \& {Van Waerbeke}}}}
+\bibcite{2012arXiv1205.4989H}{{21}{2012}{{{Harnois-Deraps} et~al.}}{{{Harnois-Deraps}, {Yu}, {Zhang} \& {Pen}}}}
+\bibcite{2012AAS...21913001H}{{22}{2012}{{{Heymans} \& {CFHTLenS Collaboration}}}{{{Heymans} \& {CFHTLenS Collaboration}}}}
+\bibcite{2009A&A...499...31H}{{23}{2009}{{{Hilbert} et~al.}}{{{Hilbert}, {Hartlap}, {White} \& {Schneider}}}}
+\bibcite{1981csup.book.....H}{{24}{1981}{{{Hockney} \& {Eastwood}}}{{{Hockney} \& {Eastwood}}}}
+\bibcite{2012MNRAS.422.2164I}{{25}{2012}{{{Ilie} et~al.}}{{{Ilie}, {Freese}, {Valluri}, {Iliev} \& {Shapiro}}}}
+\bibcite{2010arXiv1005.2502I}{{26}{2010}{{{Iliev} et~al.}}{{{Iliev}, {Ahn}, {Koda}, {Shapiro} \& {Pen}}}}
+\bibcite{2006MNRAS.369.1625I}{{27}{2006}{{{Iliev} et~al.}}{{{Iliev}, {Mellema}, {Pen}, {Merz}, {Shapiro} \& {Alvarez}}}}
+\bibcite{2012MNRAS.423.2222I}{{28}{2012}{{{Iliev} et~al.}}{{{Iliev}, {Mellema}, {Shapiro}, {Pen}, {Mao}, {Koda} \& {Ahn}}}}
+\bibcite{2001MNRAS.325..468I}{{29}{2001}{{{Iliev} \& {Shapiro}}}{{{Iliev} \& {Shapiro}}}}
+\bibcite{2008arXiv0806.2887I}{{30}{2008}{{{Iliev} et~al.}}{{{Iliev}, {Shapiro}, {Mellema}, {Merz} \& {Pen}}}}
+\bibcite{2009ApJS..180..330K}{{31}{2009}{{{Komatsu} et~al.}}{{{Komatsu}, {Dunkley}, {Nolta}, {Bennett}, {Gold}, {Hinshaw}, {Jarosik}, {Larson}, {Limon}, {Page}, {Spergel}, {Halpern}, {Hill}, {Kogut}, {Meyer}, {Tucker}, {Weiland}, {Wollack} \& {Wright}}}}
+\bibcite{2011ApJS..192...18K}{{32}{2011}{{{Komatsu} et~al.}}{{{Komatsu} et~al.,}}}
+\bibcite{1994MNRAS.271..676L}{{33}{1994}{{{Lacey} \& {Cole}}}{{{Lacey} \& {Cole}}}}
+\bibcite{Scinet}{{34}{2010}{{{Loken} et~al.}}{{{Loken} et~al.,}}}
+\bibcite{2008MNRAS.388.1819L}{{35}{2008}{{{Lu} \& {Pen}}}{{{Lu} \& {Pen}}}}
+\bibcite{2010PhRvD..81l3015L}{{36}{2010}{{{Lu} et~al.}}{{{Lu}, {Pen} \& {Dor{\'e}}}}}
+\bibcite{2012MNRAS.422..926M}{{37}{2012}{{{Mao} et~al.}}{{{Mao}, {Shapiro}, {Mellema}, {Iliev}, {Koda} \& {Ahn}}}}
+\bibcite{2006NewA...11..374M}{{38}{2006}{{{Mellema} et~al.}}{{{Mellema}, {Iliev}, {Alvarez} \& {Shapiro}}}}
+\bibcite{2005NewA...10..393M}{{39}{2005}{{{Merz} et~al.}}{{{Merz}, {Pen} \& {Trac}}}}
+\bibcite{1997ApJ...490..493N}{{40}{1997}{{{Navarro} et~al.}}{{{Navarro}, {Frenk} \& {White}}}}
+\bibcite{2012MNRAS.419.2949N}{{41}{2012}{{{Ngan} et~al.}}{{{Ngan}, {Harnois-D{\'e}raps}, {Pen}, {McDonald} \& {MacDonald}}}}
+\bibcite{2010arXiv1004.1680P}{{42}{2010}{{{Pang} et~al.}}{{{Pang}, {Pen} \& {Perrone}}}}
+\bibcite{2003ApJS..149..447P}{{43}{2003}{{{Pen} et~al.}}{{{Pen}, {Arras} \& {Wong}}}}
+\bibcite{2007MNRAS.381.1053P}{{44}{2007}{{{Percival} et~al.}}{{{Percival}, {Cole}, {Eisenstein}, {Nichol}, {Peacock}, {Pope} \& {Szalay}}}}
+\bibcite{2007MNRAS.374....2R}{{45}{2007}{{{Reed} et~al.}}{{{Reed}, {Bower}, {Frenk}, {Jenkins} \& {Theuns}}}}
+\bibcite{2005MNRAS.360L..82R}{{46}{2005}{{{Rimes} \& {Hamilton}}}{{{Rimes} \& {Hamilton}}}}
+\bibcite{2009ApJ...701..945S}{{47}{2009}{{{Sato} et~al.}}{{{Sato}, {Hamana}, {Takahashi}, {Takada}, {Yoshida}, {Matsubara} \& {Sugiyama}}}}
+\bibcite{2009arXiv0902.4680S}{{48}{2009}{{{Schlegel} et~al.}}{{{Schlegel}, {White} \& {Eisenstein}}}}
+\bibcite{2004PhRvD..69j3513S}{{49}{2004}{{{Scoccimarro} et~al.}}{{{Scoccimarro}, {Sefusatti} \& {Zaldarriaga}}}}
+\bibcite{2010MNRAS.406.1014S}{{50}{2010}{{{Sefusatti} et~al.}}{{{Sefusatti}, {Crocce} \& {Desjacques}}}}
+\bibcite{2011arXiv1111.6966S}{{51}{2011}{{{Sefusatti} et~al.}}{{{Sefusatti}, {Crocce} \& {Desjacques}}}}
+\bibcite{1999MNRAS.307..203S}{{52}{1999}{{{Shapiro} et~al.}}{{{Shapiro}, {Iliev} \& {Raga}}}}
+\bibcite{2009ApJ...703.2232S}{{53}{2009}{{{Sheldon} et~al.}}{{{Sheldon}, {Johnston}, {Masjedi}, {McKay}, {Blanton}, {Scranton}, {Wechsler}, {Koester}, {Hansen}, {Frieman} \& {Annis}}}}
+\bibcite{2002MNRAS.329...61S}{{54}{2002}{{{Sheth} \& {Tormen}}}{{{Sheth} \& {Tormen}}}}
+\bibcite{2003MNRAS.341.1311S}{{55}{2003}{{{Smith} et~al.}}{{{Smith}, {Peacock}, {Jenkins}, {White}, {Frenk}, {Pearce}, {Thomas}, {Efstathiou} \& {Couchman}}}}
+\bibcite{2005MNRAS.364.1105S}{{56}{2005}{{{Springel}}}{{{Springel}}}}
+\bibcite{Gadget2Lean}{{57}{2009}{{{Springel}}}{{{Springel}}}}
+\bibcite{2001NewA....6...79S}{{58}{2001}{{{Springel} et~al.}}{{{Springel}, {Yoshida} \& {White}}}}
+\bibcite{2009ApJ...700..479T}{{59}{2009}{{{Takahashi} et~al.}}{{{Takahashi} et~al.,}}}
+\bibcite{2011ApJ...726....7T}{{60}{2011}{{{Takahashi} et~al.}}{{{Takahashi} et~al.,}}}
+\bibcite{2008PhRvD..78l3534T}{{61}{2008}{{{Taruya} et~al.}}{{{Taruya}, {Koyama} \& {Matsubara}}}}
+\bibcite{2006PhRvD..74l3507T}{{62}{2006}{{{Tegmark} et~al.}}{{{Tegmark} et~al.,}}}
+\bibcite{2008ApJ...688..709T}{{63}{2008}{{{Tinker} et~al.}}{{{Tinker}, {Kravtsov}, {Klypin}, {Abazajian}, {Warren}, {Yepes}, {Gottl{\"o}ber} \& {Holz}}}}
+\bibcite{2007ApJ...671....1T}{{64}{2007}{{{Trac} \& {Cen}}}{{{Trac} \& {Cen}}}}
+\bibcite{2003AAS...203.9703T}{{65}{2003}{{{Trac} \& {Pen}}}{{{Trac} \& {Pen}}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces  ({\it  top}:) Halo mass function for different ranges of the pp force calculation, compared to the predictions of Sheth-Tormen, at $z = 1.0$. The smallest haloes shown here have a mass equivalent to 20 particles, each of $2.79 \times 10^{9} M{\odot }$, and fall in the lowest mass bin. ({\it  bottom}:) Ratio between the different curves and that of the default P$^3$M configuration.}}{17}}
+\newlabel{fig:MassFunction_extpp}{{16}{17}}
+\bibcite{2004NewA....9..443T}{{66}{2004}{{{Trac} \& {Pen}}}{{{Trac} \& {Pen}}}}
+\bibcite{Vafaei10}{{67}{2010}{{{Vafaei} et~al.}}{{{Vafaei}, {Lu}, {van Waerbeke}, {Semboloni}, {Heymans} \& {Pen}}}}
+\bibcite{2003ApJ...592..699V}{{68}{2003}{{{Vale} \& {White}}}{{{Vale} \& {White}}}}
+\bibcite{1995ApJS...98..355X}{{69}{1995}{{{Xu}}}{{{Xu}}}}
+\bibcite{2000AJ....120.1579Y}{{70}{2000}{{{York} et~al.}}{{{York} et~al.,}}}
+\bibcite{2012MNRAS.421..832Y}{{71}{2012}{{{Yu} et~al.}}{{{Yu}, {Harnois-D{\'e}raps}, {Zhang} \& {Pen}}}}
+\bibcite{2010MNRAS.407L..74Z}{{72}{2010}{{{Zackrisson} et~al.}}{{{Zackrisson}, {Scott}, {Rydberg}, {Iocco}, {Sivertsson}, {{\"O}stlin}, {Mellema}, {Iliev} \& {Shapiro}}}}
+\bibcite{2007ApJ...654...12Z}{{73}{2007}{{{Zahn} et~al.}}{{{Zahn}, {Lidz}, {McQuinn}, {Dutta}, {Hernquist}, {Zaldarriaga} \& {Furlanetto}}}}
+\bibcite{2011ApJ...728...35Z}{{74}{2011}{{{Zhang} et~al.}}{{{Zhang}, {Yu}, {Harnois-D{\'e}raps}, {MacDonald} \& {Pen}}}}
+\newlabel{lastpage}{{8}{18}}
