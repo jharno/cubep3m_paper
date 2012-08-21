@@ -52,7 +52,7 @@ $^{6}$Universit\'{e} de Gen\`{e}ve and Center for Astroparticle Physics, 24 Quai
 This paper presents {\small CUBEP$^3$M}, a high performance, publicly-available, cosmological N-body code
 and describes many utilities and extensions that have been added to the standard package, including a runtime halo finder,
 a non-Gaussian initial conditions generator, a tuneable accuracy, and a system of unique particle identification.
-{\small CUBEP$^3$M} is fast, has a low memory imprint, and 
+{\small CUBEP$^3$M} is fast, has a memory imprint up to three times lower than other N-body codes, and 
 has been run on up to $20,000$ cores, achieving close to ideal weak scaling
 even at this scale.
 It is well suited and has already been used for a broad number of science applications that 
@@ -159,7 +159,7 @@ reionization \citep{2012MNRAS.423.2222I,2012ApJ...750...20F,2011MNRAS.413.1353F,
 Continuous efforts are being made to develop, extend and improve the code and each of its utilities, 
 and we expect that this will pave the way to an increasing number of science projects. 
 Notably, the fact that the force calculation is multi-layered makes the code extendible, 
-and opens the possibility to run {\small CUBEP$^3$M} on hybrid CP2010arXiv1012.0444YU-GPU clusters.
+and opens the possibility to run {\small CUBEP$^3$M} on hybrid CPU-GPU clusters.
 It is thus important for the community to have access to a paper that describes the methodology, the accuracy and the performance of this public code. 
 
 %\subsection{Simulation suites}
@@ -256,15 +256,17 @@ The particle ID is a feature that can be switched off by removing a compilation 
 and allows to optimize the code for higher resolution configurations.
 
  In terms of memory, {\small CUBEP$^3$M} can be configured such as the main footprint is dominated exclusively by the 
-particle phase space array, the linked list and the buffer exchange arrays, in which case it asymptotes to about $44$ bytes per particles. 
+particle phase space array, and the linked list, in which case it asymptotes to about $28$ bytes per particles. 
 For a fixed problem size, this can be achieved by maximizing the number of tiles, thereby reducing the size of the local fine mesh arrays.
 There is a limit at which we can do such a volume breakdown, though, since the physical 
 volume on each tile must be at least twice as large as the buffer, i.e. $\ge 96^3$ cells (see section \ref{sec:Poisson}).
-In addition, this allows a high rate of particle exchange across nodes;  the memory per particle can be brought down to $32$ bytes 
-if little particle passing is expected. 
-However, minimizing the memory does not optimize the speed, as many {\small CPU}-intensive operations are performed on each tile -- {\small FFTW} for instance.
+This allows a low rate of particle exchange across nodes;  in the default configuration, the {\tt send\_buf} and  {recv\_buf} arrays 
+are much larger, in which case the memory per particle goes up to $44$ bytes. 
+Enabling the particle ID adds at least 8 bytes per particle from the main array, and as the {\small MPI}-communication buffers are allocated larger sizes,
+they contribute at most an additional 16 bytes as well. Hence a `lean' version with the ID enable uses down to $36$ bytes per particles.
+In practice, minimizing the memory does not optimize the speed, as many {\small CPU}-intensive operations are performed on each tile -- the {\small FFTW} for instance.
 A higher number of cells per tile -- typically $176^3$ -- with fewer tiles usually run faster, in which case the other arrays in the above-mentioned list become memory heavy,
-and the memory per particle is closer to 100 - 140 bytes. Also, enabling the particle ID adds about 24 bytes per particle: 8 for the main array, and 8 for the two {\small MPI}-passing buffers as well.
+and the memory per particle is closer to 100 - 140 bytes. 
 %uses about $130 - 150$ bytes per particles, and is in that sense more heavy than other codes like the 
 For comparison, Lean-{\small GADGET-2} code uses  $84$ bytes per particles \citep{Gadget2Lean}.
 
@@ -1438,7 +1440,7 @@ we conclude that $N_{layers} = 2$ is the most optimal choice.
 
 This paper describes {\small CUBEP$^3$M}, a public and  massively parallel P$^3$M N-body code that inherits from {\small PMFAST} 
  and that now scales well to 20,000 cores, pushing the limits of the cosmological problem size one can handle.
- This code is fast and has a memory footprint more than two times smaller than Lean-{\small GADGET-2}. 
+ This code is fast and has a memory footprint up to three times smaller than Lean-{\small GADGET-2}. 
 We summarize the code structure, review the double-mesh Poisson solver algorithm, and present scaling and systematic tests
 that have been performed. We also describe various utilities and extensions that come with the public release, 
 including a run time halo finder, an extended pp force calculation and a non-Gaussian initial condition generator.
@@ -1461,7 +1463,7 @@ University of Texas at Austin (URL: http://www.tacc.utexas.edu) for
 providing HPC and visualization resources that have contributed to the
 research results reported within this paper. ITI also acknowledges the Partnership for Advanced
 Computing in Europe (PRACE) grant 2010PA0442 which supported the code
-scaling studies. UEP and JDE are supported by the NSERC of Canada.
+scaling studies. ULP and JDE are supported by the NSERC of Canada.
 VD acknowledges support by the Swiss National Science Foundation.
 %{\bf ( Hugh, any financial acknowledgements to add here?)}
 
@@ -1469,9 +1471,9 @@ VD acknowledges support by the Swiss National Science Foundation.
 
 
 
-\bibliographystyle{mn2e}
+%\bibliographystyle{mn2e}
+\bibliographystyle{hapj}
 \bibliography{mybib3_new}{}
-%\bibliographystyle{amsplain}
 
 \bsp
 

@@ -1,354 +1,319 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{74}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 
-\bibitem[\protect\citeauthoryear{{Bartolo}, {Komatsu}, {Matarrese} \&
-  {Riotto}}{{Bartolo} et~al.}{2004}]{2004PhR...402..103B}
-{Bartolo} N.,  {Komatsu} E.,  {Matarrese} S.,    {Riotto} A.,  2004, \physrep,
-  402, 103
+\bibitem[{{Bartolo} {et~al.}(2004){Bartolo}, {Komatsu}, {Matarrese}, \&
+  {Riotto}}]{2004PhR...402..103B}
+{Bartolo}, N., {Komatsu}, E., {Matarrese}, S., \& {Riotto}, A. 2004, \physrep,
+  402, 103, arXiv:astro-ph/0406398
 
-\bibitem[\protect\citeauthoryear{{Bertschinger}}{{Bertschinger}}{1985}]{1985ApJS...58...39B}
-{Bertschinger} E.,  1985, \apjs, 58, 39
+\bibitem[{{Bertschinger}(1985)}]{1985ApJS...58...39B}
+{Bertschinger}, E. 1985, \apjs, 58, 39
 
-\bibitem[\protect\citeauthoryear{{Colless} et~al.,}{{Colless}
-  et~al.}{2003}]{2003astro.ph..6581C}
-{Colless} M.,  et~al., 2003, ArXiv e-prints (astro-ph/0306581)
+\bibitem[{{Colless} {et~al.}(2003)}]{2003astro.ph..6581C}
+{Colless}, M., {et~al.} 2003, ArXiv e-prints, arXiv:astro-ph/0306581
 
-\bibitem[\protect\citeauthoryear{{Couchman}}{{Couchman}}{1991}]{1991ApJ...368L..23C}
-{Couchman} H.~M.~P.,  1991, \apjl, 368, L23
+\bibitem[{{Couchman}(1991)}]{1991ApJ...368L..23C}
+{Couchman}, H.~M.~P. 1991, \apjl, 368, L23
 
-\bibitem[\protect\citeauthoryear{{Couchman}, {Thomas} \& {Pearce}}{{Couchman}
-  et~al.}{1995}]{1995ApJ...452..797C}
-{Couchman} H.~M.~P.,  {Thomas} P.~A.,    {Pearce} F.~R.,  1995, \apj, 452, 797
+\bibitem[{{Couchman} {et~al.}(1995){Couchman}, {Thomas}, \&
+  {Pearce}}]{1995ApJ...452..797C}
+{Couchman}, H.~M.~P., {Thomas}, P.~A., \& {Pearce}, F.~R. 1995, \apj, 452, 797,
+  arXiv:astro-ph/9409058
 
-\bibitem[\protect\citeauthoryear{{Datta}, {Mellema}, {Mao}, {Iliev}, {Shapiro}
-  \& {Ahn}}{{Datta} et~al.}{2012}]{2012MNRAS.424.1877D}
-{Datta} K.~K.,  {Mellema} G.,  {Mao} Y.,  {Iliev} I.~T.,  {Shapiro} P.~R.,
-  {Ahn} K.,  2012, \mnras, 424, 1877
+\bibitem[{{Datta} {et~al.}(2012{\natexlab{a}}){Datta}, {Friedrich}, {Mellema},
+  {Iliev}, \& {Shapiro}}]{2012MNRAS.424..762D}
+{Datta}, K.~K., {Friedrich}, M.~M., {Mellema}, G., {Iliev}, I.~T., \&
+  {Shapiro}, P.~R. 2012{\natexlab{a}}, \mnras, 424, 762, 1203.0517
 
-\bibitem[\protect\citeauthoryear{{Desjacques} \& {Seljak}}{{Desjacques} \&
-  {Seljak}}{2010}]{2010PhRvD..81b3006D}
-{Desjacques} V.,  {Seljak} U.,  2010, \prd, 81, 023006
+\bibitem[{{Datta} {et~al.}(2012{\natexlab{b}}){Datta}, {Mellema}, {Mao},
+  {Iliev}, {Shapiro}, \& {Ahn}}]{2012MNRAS.424.1877D}
+{Datta}, K.~K., {Mellema}, G., {Mao}, Y., {Iliev}, I.~T., {Shapiro}, P.~R., \&
+  {Ahn}, K. 2012{\natexlab{b}}, \mnras, 424, 1877, 1109.1284
 
-\bibitem[\protect\citeauthoryear{{Desjacques}, {Seljak} \&
-  {Iliev}}{{Desjacques} et~al.}{2009}]{2009MNRAS.396...85D}
-{Desjacques} V.,  {Seljak} U.,    {Iliev} I.~T.,  2009, \mnras, 396, 85
+\bibitem[{{Desjacques} \& {Seljak}(2010)}]{2010PhRvD..81b3006D}
+{Desjacques}, V., \& {Seljak}, U. 2010, \prd, 81, 023006, 0907.2257
 
-\bibitem[\protect\citeauthoryear{{Dor{\'e}}, {Lu} \& {Pen}}{{Dor{\'e}}
-  et~al.}{2009}]{2009arXiv0905.0501D}
-{Dor{\'e}} O.,  {Lu} T.,    {Pen} U.-L.,  2009, ArXiv e-prints
-  (astro-ph/0905.0501)
+\bibitem[{{Desjacques} {et~al.}(2009){Desjacques}, {Seljak}, \&
+  {Iliev}}]{2009MNRAS.396...85D}
+{Desjacques}, V., {Seljak}, U., \& {Iliev}, I.~T. 2009, \mnras, 396, 85,
+  0811.2748
 
-\bibitem[\protect\citeauthoryear{{Drinkwater} et~al.,}{{Drinkwater}
-  et~al.}{2010}]{2010MNRAS.401.1429D}
-{Drinkwater} M.~J.,  et~al., 2010, \mnras, 401, 1429
+\bibitem[{{Dor{\'e}} {et~al.}(2009){Dor{\'e}}, {Lu}, \&
+  {Pen}}]{2009arXiv0905.0501D}
+{Dor{\'e}}, O., {Lu}, T., \& {Pen}, U.-L. 2009, ArXiv e-prints, 0905.0501
 
-\bibitem[\protect\citeauthoryear{{Dubinski}, {Kim}, {Park} \&
-  {Humble}}{{Dubinski} et~al.}{2004}]{2004NewA....9..111D}
-{Dubinski} J.,  {Kim} J.,  {Park} C.,    {Humble} R.,  2004, NewA, 9, 111
+\bibitem[{{Drinkwater} {et~al.}(2010)}]{2010MNRAS.401.1429D}
+{Drinkwater}, M.~J., {et~al.} 2010, \mnras, 401, 1429, 0911.4246
 
-\bibitem[\protect\citeauthoryear{{Dyer} \& {Ip}}{{Dyer} \&
-  {Ip}}{1993}]{1993ApJ...409...60D}
-{Dyer} C.~C.,  {Ip} P.~S.~S.,  1993, \apj, 409, 60
+\bibitem[{{Dubinski} {et~al.}(2004){Dubinski}, {Kim}, {Park}, \&
+  {Humble}}]{2004NewA....9..111D}
+{Dubinski}, J., {Kim}, J., {Park}, C., \& {Humble}, R. 2004, NewA, 9, 111,
+  arXiv:astro-ph/0304467
 
-\bibitem[\protect\citeauthoryear{Eisenstein et~al.,}{Eisenstein
-  et~al.}{2005}]{Eisenstein:2005su}
-Eisenstein D.~J.,  et~al., 2005, \apj, 633, 560
+\bibitem[{{Dyer} \& {Ip}(1993)}]{1993ApJ...409...60D}
+{Dyer}, C.~C., \& {Ip}, P.~S.~S. 1993, \apj, 409, 60
 
-\bibitem[\protect\citeauthoryear{{Eleftheriou}, {Fitch}, {Rayshubskiy}, {Ward}
-  \& {Germain}}{{Eleftheriou} et~al.}{2005}]{3DFFT}
-{Eleftheriou} M.,  {Fitch} B.~G.,  {Rayshubskiy} A.,  {Ward} T. J.~C.,
-  {Germain} R.~S.,  2005, IBM J. Res. Dev., 49, 457
+\bibitem[{Eisenstein {et~al.}(2005)}]{Eisenstein:2005su}
+Eisenstein, D.~J., {et~al.} 2005, \apj, 633, 560, astro-ph/0501171
 
-\bibitem[\protect\citeauthoryear{{Fernandez}, {Iliev}, {Komatsu} \&
-  {Shapiro}}{{Fernandez} et~al.}{2012}]{2012ApJ...750...20F}
-{Fernandez} E.~R.,  {Iliev} I.~T.,  {Komatsu} E.,    {Shapiro} P.~R.,  2012,
-  \apj, 750, 20
+\bibitem[{{Eleftheriou} {et~al.}(2005){Eleftheriou}, {Fitch}, {Rayshubskiy},
+  {Ward}, \& {Germain}}]{3DFFT}
+{Eleftheriou}, M., {Fitch}, B.~G., {Rayshubskiy}, A., {Ward}, T. J.~C., \&
+  {Germain}, R.~S. 2005, IBM J. Res. Dev., 49, 457
 
-\bibitem[\protect\citeauthoryear{{Friedrich}, {Datta}, {Mellema} \&
-  {Iliev}}{{Friedrich} et~al.}{2012}]{2012arXiv1203.0517F}
-{Friedrich} M.~M.,  {Datta} K.~K.,  {Mellema} G.,    {Iliev} I.~T.,  2012,
-  ArXiv e-prints (astro-ph/1203.0517)
+\bibitem[{{Fernandez} {et~al.}(2012){Fernandez}, {Iliev}, {Komatsu}, \&
+  {Shapiro}}]{2012ApJ...750...20F}
+{Fernandez}, E.~R., {Iliev}, I.~T., {Komatsu}, E., \& {Shapiro}, P.~R. 2012,
+  \apj, 750, 20, 1112.2064
 
-\bibitem[\protect\citeauthoryear{{Friedrich}, {Mellema}, {Alvarez}, {Shapiro}
-  \& {Iliev}}{{Friedrich} et~al.}{2011}]{2011MNRAS.413.1353F}
-{Friedrich} M.~M.,  {Mellema} G.,  {Alvarez} M.~A.,  {Shapiro} P.~R.,
-  {Iliev} I.~T.,  2011, \mnras, 413, 1353
+\bibitem[{{Friedrich} {et~al.}(2011){Friedrich}, {Mellema}, {Alvarez},
+  {Shapiro}, \& {Iliev}}]{2011MNRAS.413.1353F}
+{Friedrich}, M.~M., {Mellema}, G., {Alvarez}, M.~A., {Shapiro}, P.~R., \&
+  {Iliev}, I.~T. 2011, \mnras, 413, 1353, 1006.2016
 
-\bibitem[\protect\citeauthoryear{{Frigo} \& {Johnson}}{{Frigo} \&
-  {Johnson}}{2005}]{FFTW3}
-{Frigo} M.,  {Johnson} S.,  2005, in {Proceedings of the IEEE} Vol.~93, {The
-  Design and Implementation of FFTW3}.
-pp 216--231
+\bibitem[{{Frigo} \& {Johnson}(2005)}]{FFTW3}
+{Frigo}, M., \& {Johnson}, S. 2005, in {Proceedings of the IEEE}, Vol.~93,
+  216--231
 
-\bibitem[\protect\citeauthoryear{{Harnois-D{\'e}raps} \&
-  {Pen}}{{Harnois-D{\'e}raps} \& {Pen}}{2012}]{2012MNRAS.423.2288H}
-{Harnois-D{\'e}raps} J.,  {Pen} U.-L.,  2012, \mnras, 423, 2288
+\bibitem[{{Harnois-D{\'e}raps} \& {Pen}(2012)}]{2012MNRAS.423.2288H}
+{Harnois-D{\'e}raps}, J., \& {Pen}, U.-L. 2012, \mnras, 423, 2288, 1109.5746
 
-\bibitem[\protect\citeauthoryear{{Harnois-Deraps}, {Vafaei} \& {Van
-  Waerbeke}}{{Harnois-Deraps} et~al.}{2012}]{2012arXiv1202.2332H}
-{Harnois-Deraps} J.,  {Vafaei} S.,    {Van Waerbeke} L.,  2012, ArXiv e-prints
-  (astro-ph/1202.2332)
+\bibitem[{{Harnois-Deraps} {et~al.}(2012{\natexlab{a}}){Harnois-Deraps},
+  {Vafaei}, \& {Van Waerbeke}}]{2012arXiv1202.2332H}
+{Harnois-Deraps}, J., {Vafaei}, S., \& {Van Waerbeke}, L. 2012{\natexlab{a}},
+  ArXiv e-prints, 1202.2332
 
-\bibitem[\protect\citeauthoryear{{Harnois-Deraps}, {Yu}, {Zhang} \&
-  {Pen}}{{Harnois-Deraps} et~al.}{2012}]{2012arXiv1205.4989H}
-{Harnois-Deraps} J.,  {Yu} H.-R.,  {Zhang} T.-J.,    {Pen} U.-L.,  2012, ArXiv
-  e-prints
+\bibitem[{{Harnois-Deraps} {et~al.}(2012{\natexlab{b}}){Harnois-Deraps}, {Yu},
+  {Zhang}, \& {Pen}}]{2012arXiv1205.4989H}
+{Harnois-Deraps}, J., {Yu}, H.-R., {Zhang}, T.-J., \& {Pen}, U.-L.
+  2012{\natexlab{b}}, ArXiv e-prints, 1205.4989
 
-\bibitem[\protect\citeauthoryear{{Heymans} \& {CFHTLenS
-  Collaboration}}{{Heymans} \& {CFHTLenS
-  Collaboration}}{2012}]{2012AAS...21913001H}
-{Heymans} C.,  {CFHTLenS Collaboration} 2012, in American Astronomical Society
-  Meeting Abstracts Vol.~219 of American Astronomical Society Meeting
-  Abstracts, {The CFHT Lensing Survey}.
-p. 130.01
+\bibitem[{{Heymans} \& {CFHTLenS Collaboration}(2012)}]{2012AAS...21913001H}
+{Heymans}, C., \& {CFHTLenS Collaboration}. 2012, in American Astronomical
+  Society Meeting Abstracts, Vol. 219, American Astronomical Society Meeting
+  Abstracts, 130.01
 
-\bibitem[\protect\citeauthoryear{{Hilbert}, {Hartlap}, {White} \&
-  {Schneider}}{{Hilbert} et~al.}{2009}]{2009A&A...499...31H}
-{Hilbert} S.,  {Hartlap} J.,  {White} S.~D.~M.,    {Schneider} P.,  2009, \aap,
-  499, 31
+\bibitem[{{Hilbert} {et~al.}(2009){Hilbert}, {Hartlap}, {White}, \&
+  {Schneider}}]{2009A&A...499...31H}
+{Hilbert}, S., {Hartlap}, J., {White}, S.~D.~M., \& {Schneider}, P. 2009, \aap,
+  499, 31, 0809.5035
 
-\bibitem[\protect\citeauthoryear{{Hockney} \& {Eastwood}}{{Hockney} \&
-  {Eastwood}}{1981}]{1981csup.book.....H}
-{Hockney} R.~W.,  {Eastwood} J.~W.,  1981, {Computer Simulation Using
-  Particles}.
-New York: McGraw-Hill
+\bibitem[{{Hockney} \& {Eastwood}(1981)}]{1981csup.book.....H}
+{Hockney}, R.~W., \& {Eastwood}, J.~W. 1981, {Computer Simulation Using
+  Particles} (New York: McGraw-Hill)
 
-\bibitem[\protect\citeauthoryear{{Ilie}, {Freese}, {Valluri}, {Iliev} \&
-  {Shapiro}}{{Ilie} et~al.}{2012}]{2012MNRAS.422.2164I}
-{Ilie} C.,  {Freese} K.,  {Valluri} M.,  {Iliev} I.~T.,    {Shapiro} P.~R.,
+\bibitem[{{Ilie} {et~al.}(2012){Ilie}, {Freese}, {Valluri}, {Iliev}, \&
+  {Shapiro}}]{2012MNRAS.422.2164I}
+{Ilie}, C., {Freese}, K., {Valluri}, M., {Iliev}, I.~T., \& {Shapiro}, P.~R.
   2012, \mnras, 422, 2164
 
-\bibitem[\protect\citeauthoryear{{Iliev}, {Ahn}, {Koda}, {Shapiro} \&
-  {Pen}}{{Iliev} et~al.}{2010}]{2010arXiv1005.2502I}
-{Iliev} I.~T.,  {Ahn} K.,  {Koda} J.,  {Shapiro} P.~R.,    {Pen} U.-L.,  2010,
-  proceedings paper for Moriond 2010 meeting (ArXiv:1005.2502)
+\bibitem[{{Iliev} {et~al.}(2010){Iliev}, {Ahn}, {Koda}, {Shapiro}, \&
+  {Pen}}]{2010arXiv1005.2502I}
+{Iliev}, I.~T., {Ahn}, K., {Koda}, J., {Shapiro}, P.~R., \& {Pen}, U.-L. 2010,
+  proceedings paper for Moriond 2010 meeting (ArXiv:1005.2502), 1005.2502
 
-\bibitem[\protect\citeauthoryear{{Iliev}, {Mellema}, {Pen}, {Merz}, {Shapiro}
-  \& {Alvarez}}{{Iliev} et~al.}{2006}]{2006MNRAS.369.1625I}
-{Iliev} I.~T.,  {Mellema} G.,  {Pen} U.-L.,  {Merz} H.,  {Shapiro} P.~R.,
-  {Alvarez} M.~A.,  2006, \mnras, 369, 1625
+\bibitem[{{Iliev} {et~al.}(2006){Iliev}, {Mellema}, {Pen}, {Merz}, {Shapiro},
+  \& {Alvarez}}]{2006MNRAS.369.1625I}
+{Iliev}, I.~T., {Mellema}, G., {Pen}, U.-L., {Merz}, H., {Shapiro}, P.~R., \&
+  {Alvarez}, M.~A. 2006, \mnras, 369, 1625, astro-ph/0512187
 
-\bibitem[\protect\citeauthoryear{{Iliev}, {Mellema}, {Shapiro}, {Pen}, {Mao},
-  {Koda} \& {Ahn}}{{Iliev} et~al.}{2012}]{2012MNRAS.423.2222I}
-{Iliev} I.~T.,  {Mellema} G.,  {Shapiro} P.~R.,  {Pen} U.-L.,  {Mao} Y.,
-  {Koda} J.,    {Ahn} K.,  2012, \mnras, 423, 2222
+\bibitem[{{Iliev} {et~al.}(2012){Iliev}, {Mellema}, {Shapiro}, {Pen}, {Mao},
+  {Koda}, \& {Ahn}}]{2012MNRAS.423.2222I}
+{Iliev}, I.~T., {Mellema}, G., {Shapiro}, P.~R., {Pen}, U.-L., {Mao}, Y.,
+  {Koda}, J., \& {Ahn}, K. 2012, \mnras, 423, 2222, 1107.4772
 
-\bibitem[\protect\citeauthoryear{{Iliev} \& {Shapiro}}{{Iliev} \&
-  {Shapiro}}{2001}]{2001MNRAS.325..468I}
-{Iliev} I.~T.,  {Shapiro} P.~R.,  2001, \mnras, 325, 468
+\bibitem[{{Iliev} \& {Shapiro}(2001)}]{2001MNRAS.325..468I}
+{Iliev}, I.~T., \& {Shapiro}, P.~R. 2001, \mnras, 325, 468,
+  arXiv:astro-ph/0101067
 
-\bibitem[\protect\citeauthoryear{{Iliev}, {Shapiro}, {Mellema}, {Merz} \&
-  {Pen}}{{Iliev} et~al.}{2008}]{2008arXiv0806.2887I}
-{Iliev} I.~T.,  {Shapiro} P.~R.,  {Mellema} G.,  {Merz} H.,    {Pen} U.-L.,
-  2008, in refereed proceedings of TeraGrid08, ArXiv e-prints (0806.2887)
+\bibitem[{{Iliev} {et~al.}(2008){Iliev}, {Shapiro}, {Mellema}, {Merz}, \&
+  {Pen}}]{2008arXiv0806.2887I}
+{Iliev}, I.~T., {Shapiro}, P.~R., {Mellema}, G., {Merz}, H., \& {Pen}, U.-L.
+  2008, in refereed proceedings of TeraGrid08, ArXiv e-prints, 0806.2887
 
-\bibitem[\protect\citeauthoryear{{Komatsu}, {Dunkley}, {Nolta}, {Bennett},
+\bibitem[{{Komatsu} {et~al.}(2009){Komatsu}, {Dunkley}, {Nolta}, {Bennett},
   {Gold}, {Hinshaw}, {Jarosik}, {Larson}, {Limon}, {Page}, {Spergel},
-  {Halpern}, {Hill}, {Kogut}, {Meyer}, {Tucker}, {Weiland}, {Wollack} \&
-  {Wright}}{{Komatsu} et~al.}{2009}]{2009ApJS..180..330K}
-{Komatsu} E.,  {Dunkley} J.,  {Nolta} M.~R.,  {Bennett} C.~L.,  {Gold} B.,
-  {Hinshaw} G.,  {Jarosik} N.,  {Larson} D.,  {Limon} M.,  {Page} L.,
-  {Spergel} D.~N.,  {Halpern} M.,  {Hill} R.~S.,  {Kogut} A.,  {Meyer} S.~S.,
-  {Tucker} G.~S.,  {Weiland} J.~L.,  {Wollack} E.,    {Wright} E.~L.,  2009,
-  \apjs, 180, 330
+  {Halpern}, {Hill}, {Kogut}, {Meyer}, {Tucker}, {Weiland}, {Wollack}, \&
+  {Wright}}]{2009ApJS..180..330K}
+{Komatsu}, E. {et~al.} 2009, \apjs, 180, 330, 0803.0547
 
-\bibitem[\protect\citeauthoryear{{Komatsu} et~al.,}{{Komatsu}
-  et~al.}{2011}]{2011ApJS..192...18K}
-{Komatsu} E.,  et~al., 2011, \apjs, 192, 18
+\bibitem[{{Komatsu} {et~al.}(2011)}]{2011ApJS..192...18K}
+{Komatsu}, E., {et~al.} 2011, \apjs, 192, 18, 1001.4538
 
-\bibitem[\protect\citeauthoryear{{Lacey} \& {Cole}}{{Lacey} \&
-  {Cole}}{1994}]{1994MNRAS.271..676L}
-{Lacey} C.,  {Cole} S.,  1994, \mnras, 271, 676
+\bibitem[{{Lacey} \& {Cole}(1994)}]{1994MNRAS.271..676L}
+{Lacey}, C., \& {Cole}, S. 1994, \mnras, 271, 676, arXiv:astro-ph/9402069
 
-\bibitem[\protect\citeauthoryear{{Loken} et~al.,}{{Loken}
-  et~al.}{2010}]{Scinet}
-{Loken} C.,  et~al., 2010, Journal of Physics: Conference Series, 256
+\bibitem[{{Loken} {et~al.}(2010)}]{Scinet}
+{Loken}, C., {et~al.} 2010, Journal of Physics: Conference Series, 256
 
-\bibitem[\protect\citeauthoryear{{Lu} \& {Pen}}{{Lu} \&
-  {Pen}}{2008}]{2008MNRAS.388.1819L}
-{Lu} T.,  {Pen} U.-L.,  2008, \mnras, 388, 1819
+\bibitem[{{Lu} \& {Pen}(2008)}]{2008MNRAS.388.1819L}
+{Lu}, T., \& {Pen}, U.-L. 2008, \mnras, 388, 1819, 0710.1108
 
-\bibitem[\protect\citeauthoryear{{Lu}, {Pen} \& {Dor{\'e}}}{{Lu}
-  et~al.}{2010}]{2010PhRvD..81l3015L}
-{Lu} T.,  {Pen} U.-L.,    {Dor{\'e}} O.,  2010, \prd, 81, 123015
+\bibitem[{{Lu} {et~al.}(2010){Lu}, {Pen}, \& {Dor{\'e}}}]{2010PhRvD..81l3015L}
+{Lu}, T., {Pen}, U.-L., \& {Dor{\'e}}, O. 2010, \prd, 81, 123015, 0905.0499
 
-\bibitem[\protect\citeauthoryear{{Mao}, {Shapiro}, {Mellema}, {Iliev}, {Koda}
-  \& {Ahn}}{{Mao} et~al.}{2012}]{2012MNRAS.422..926M}
-{Mao} Y.,  {Shapiro} P.~R.,  {Mellema} G.,  {Iliev} I.~T.,  {Koda} J.,    {Ahn}
-  K.,  2012, \mnras, 422, 926
+\bibitem[{{Mao} {et~al.}(2012){Mao}, {Shapiro}, {Mellema}, {Iliev}, {Koda}, \&
+  {Ahn}}]{2012MNRAS.422..926M}
+{Mao}, Y., {Shapiro}, P.~R., {Mellema}, G., {Iliev}, I.~T., {Koda}, J., \&
+  {Ahn}, K. 2012, \mnras, 422, 926, 1104.2094
 
-\bibitem[\protect\citeauthoryear{{Mellema}, {Iliev}, {Alvarez} \&
-  {Shapiro}}{{Mellema} et~al.}{2006}]{2006NewA...11..374M}
-{Mellema} G.,  {Iliev} I.~T.,  {Alvarez} M.~A.,    {Shapiro} P.~R.,  2006, New
-  Astronomy, 11, 374
+\bibitem[{{Mellema} {et~al.}(2006){Mellema}, {Iliev}, {Alvarez}, \&
+  {Shapiro}}]{2006NewA...11..374M}
+{Mellema}, G., {Iliev}, I.~T., {Alvarez}, M.~A., \& {Shapiro}, P.~R. 2006, New
+  Astronomy, 11, 374, arXiv:astro-ph/0508416
 
-\bibitem[\protect\citeauthoryear{{Merz}, {Pen} \& {Trac}}{{Merz}
-  et~al.}{2005}]{2005NewA...10..393M}
-{Merz} H.,  {Pen} U.-L.,    {Trac} H.,  2005, New Astronomy, 10, 393
+\bibitem[{{Merz} {et~al.}(2005){Merz}, {Pen}, \& {Trac}}]{2005NewA...10..393M}
+{Merz}, H., {Pen}, U.-L., \& {Trac}, H. 2005, New Astronomy, 10, 393,
+  arXiv:astro-ph/0402443
 
-\bibitem[\protect\citeauthoryear{{Navarro}, {Frenk} \& {White}}{{Navarro}
-  et~al.}{1997}]{1997ApJ...490..493N}
-{Navarro} J.~F.,  {Frenk} C.~S.,    {White} S.~D.~M.,  1997, \apj, 490, 493
+\bibitem[{{Navarro} {et~al.}(1997){Navarro}, {Frenk}, \&
+  {White}}]{1997ApJ...490..493N}
+{Navarro}, J.~F., {Frenk}, C.~S., \& {White}, S.~D.~M. 1997, \apj, 490, 493
 
-\bibitem[\protect\citeauthoryear{{Ngan}, {Harnois-D{\'e}raps}, {Pen},
-  {McDonald} \& {MacDonald}}{{Ngan} et~al.}{2012}]{2012MNRAS.419.2949N}
-{Ngan} W.,  {Harnois-D{\'e}raps} J.,  {Pen} U.-L.,  {McDonald} P.,
-  {MacDonald} I.,  2012, \mnras, 419, 2949
+\bibitem[{{Ngan} {et~al.}(2012){Ngan}, {Harnois-D{\'e}raps}, {Pen}, {McDonald},
+  \& {MacDonald}}]{2012MNRAS.419.2949N}
+{Ngan}, W., {Harnois-D{\'e}raps}, J., {Pen}, U.-L., {McDonald}, P., \&
+  {MacDonald}, I. 2012, \mnras, 419, 2949, 1106.5548
 
-\bibitem[\protect\citeauthoryear{{Pang}, {Pen} \& {Perrone}}{{Pang}
-  et~al.}{2010}]{2010arXiv1004.1680P}
-{Pang} B.,  {Pen} U.-l.,    {Perrone} M.,  2010, ArXiv e-prints
-  (astro-ph/1004.1680)
+\bibitem[{{Pang} {et~al.}(2010){Pang}, {Pen}, \&
+  {Perrone}}]{2010arXiv1004.1680P}
+{Pang}, B., {Pen}, U.-l., \& {Perrone}, M. 2010, ArXiv e-prints, 1004.1680
 
-\bibitem[\protect\citeauthoryear{{Pen}, {Arras} \& {Wong}}{{Pen}
-  et~al.}{2003}]{2003ApJS..149..447P}
-{Pen} U.-L.,  {Arras} P.,    {Wong} S.,  2003, \apjs, 149, 447
+\bibitem[{{Pen} {et~al.}(2003){Pen}, {Arras}, \& {Wong}}]{2003ApJS..149..447P}
+{Pen}, U.-L., {Arras}, P., \& {Wong}, S. 2003, \apjs, 149, 447,
+  arXiv:astro-ph/0305088
 
-\bibitem[\protect\citeauthoryear{{Percival}, {Cole}, {Eisenstein}, {Nichol},
-  {Peacock}, {Pope} \& {Szalay}}{{Percival} et~al.}{2007}]{2007MNRAS.381.1053P}
-{Percival} W.~J.,  {Cole} S.,  {Eisenstein} D.~J.,  {Nichol} R.~C.,  {Peacock}
-  J.~A.,  {Pope} A.~C.,    {Szalay} A.~S.,  2007, \mnras, 381, 1053
+\bibitem[{{Percival} {et~al.}(2007){Percival}, {Cole}, {Eisenstein}, {Nichol},
+  {Peacock}, {Pope}, \& {Szalay}}]{2007MNRAS.381.1053P}
+{Percival}, W.~J., {Cole}, S., {Eisenstein}, D.~J., {Nichol}, R.~C., {Peacock},
+  J.~A., {Pope}, A.~C., \& {Szalay}, A.~S. 2007, \mnras, 381, 1053, 0705.3323
 
-\bibitem[\protect\citeauthoryear{{Reed}, {Bower}, {Frenk}, {Jenkins} \&
-  {Theuns}}{{Reed} et~al.}{2007}]{2007MNRAS.374....2R}
-{Reed} D.~S.,  {Bower} R.,  {Frenk} C.~S.,  {Jenkins} A.,    {Theuns} T.,
-  2007, \mnras, 374, 2
+\bibitem[{{Reed} {et~al.}(2007){Reed}, {Bower}, {Frenk}, {Jenkins}, \&
+  {Theuns}}]{2007MNRAS.374....2R}
+{Reed}, D.~S., {Bower}, R., {Frenk}, C.~S., {Jenkins}, A., \& {Theuns}, T.
+  2007, \mnras, 374, 2, arXiv:astro-ph/0607150
 
-\bibitem[\protect\citeauthoryear{{Rimes} \& {Hamilton}}{{Rimes} \&
-  {Hamilton}}{2005}]{2005MNRAS.360L..82R}
-{Rimes} C.~D.,  {Hamilton} A.~J.~S.,  2005, \mnras, 360, L82
+\bibitem[{{Rimes} \& {Hamilton}(2005)}]{2005MNRAS.360L..82R}
+{Rimes}, C.~D., \& {Hamilton}, A.~J.~S. 2005, \mnras, 360, L82,
+  arXiv:astro-ph/0502081
 
-\bibitem[\protect\citeauthoryear{{Sato}, {Hamana}, {Takahashi}, {Takada},
-  {Yoshida}, {Matsubara} \& {Sugiyama}}{{Sato}
-  et~al.}{2009}]{2009ApJ...701..945S}
-{Sato} M.,  {Hamana} T.,  {Takahashi} R.,  {Takada} M.,  {Yoshida} N.,
-  {Matsubara} T.,    {Sugiyama} N.,  2009, \apj, 701, 945
+\bibitem[{{Sato} {et~al.}(2009){Sato}, {Hamana}, {Takahashi}, {Takada},
+  {Yoshida}, {Matsubara}, \& {Sugiyama}}]{2009ApJ...701..945S}
+{Sato}, M., {Hamana}, T., {Takahashi}, R., {Takada}, M., {Yoshida}, N.,
+  {Matsubara}, T., \& {Sugiyama}, N. 2009, \apj, 701, 945, 0906.2237
 
-\bibitem[\protect\citeauthoryear{{Schlegel}, {White} \&
-  {Eisenstein}}{{Schlegel} et~al.}{2009}]{2009arXiv0902.4680S}
-{Schlegel} D.,  {White} M.,    {Eisenstein} D.,  2009, ArXiv e-prints
-  (astro-ph/0902.4680)
+\bibitem[{{Schlegel} {et~al.}(2009){Schlegel}, {White}, \&
+  {Eisenstein}}]{2009arXiv0902.4680S}
+{Schlegel}, D., {White}, M., \& {Eisenstein}, D. 2009, ArXiv e-prints,
+  0902.4680
 
-\bibitem[\protect\citeauthoryear{{Scoccimarro}, {Sefusatti} \&
-  {Zaldarriaga}}{{Scoccimarro} et~al.}{2004}]{2004PhRvD..69j3513S}
-{Scoccimarro} R.,  {Sefusatti} E.,    {Zaldarriaga} M.,  2004, \prd, 69, 103513
+\bibitem[{{Scoccimarro} {et~al.}(2004){Scoccimarro}, {Sefusatti}, \&
+  {Zaldarriaga}}]{2004PhRvD..69j3513S}
+{Scoccimarro}, R., {Sefusatti}, E., \& {Zaldarriaga}, M. 2004, \prd, 69,
+  103513, arXiv:astro-ph/0312286
 
-\bibitem[\protect\citeauthoryear{{Sefusatti}, {Crocce} \&
-  {Desjacques}}{{Sefusatti} et~al.}{2010}]{2010MNRAS.406.1014S}
-{Sefusatti} E.,  {Crocce} M.,    {Desjacques} V.,  2010, \mnras, 406, 1014
+\bibitem[{{Sefusatti} {et~al.}(2010){Sefusatti}, {Crocce}, \&
+  {Desjacques}}]{2010MNRAS.406.1014S}
+{Sefusatti}, E., {Crocce}, M., \& {Desjacques}, V. 2010, \mnras, 406, 1014,
+  1003.0007
 
-\bibitem[\protect\citeauthoryear{{Sefusatti}, {Crocce} \&
-  {Desjacques}}{{Sefusatti} et~al.}{2011}]{2011arXiv1111.6966S}
-{Sefusatti} E.,  {Crocce} M.,    {Desjacques} V.,  2011, ArXiv e-prints
-  (astro-ph/1111.6966)
+\bibitem[{{Sefusatti} {et~al.}(2011){Sefusatti}, {Crocce}, \&
+  {Desjacques}}]{2011arXiv1111.6966S}
+------. 2011, ArXiv e-prints, 1111.6966
 
-\bibitem[\protect\citeauthoryear{{Shapiro}, {Iliev} \& {Raga}}{{Shapiro}
-  et~al.}{1999}]{1999MNRAS.307..203S}
-{Shapiro} P.~R.,  {Iliev} I.~T.,    {Raga} A.~C.,  1999, \mnras, 307, 203
+\bibitem[{{Shapiro} {et~al.}(1999){Shapiro}, {Iliev}, \&
+  {Raga}}]{1999MNRAS.307..203S}
+{Shapiro}, P.~R., {Iliev}, I.~T., \& {Raga}, A.~C. 1999, \mnras, 307, 203
 
-\bibitem[\protect\citeauthoryear{{Sheldon}, {Johnston}, {Masjedi}, {McKay},
-  {Blanton}, {Scranton}, {Wechsler}, {Koester}, {Hansen}, {Frieman} \&
-  {Annis}}{{Sheldon} et~al.}{2009}]{2009ApJ...703.2232S}
-{Sheldon} E.~S.,  {Johnston} D.~E.,  {Masjedi} M.,  {McKay} T.~A.,  {Blanton}
-  M.~R.,  {Scranton} R.,  {Wechsler} R.~H.,  {Koester} B.~P.,  {Hansen} S.~M.,
-  {Frieman} J.~A.,    {Annis} J.,  2009, \apj, 703, 2232
+\bibitem[{{Sheldon} {et~al.}(2009){Sheldon}, {Johnston}, {Masjedi}, {McKay},
+  {Blanton}, {Scranton}, {Wechsler}, {Koester}, {Hansen}, {Frieman}, \&
+  {Annis}}]{2009ApJ...703.2232S}
+{Sheldon}, E.~S. {et~al.} 2009, \apj, 703, 2232, 0709.1162
 
-\bibitem[\protect\citeauthoryear{{Sheth} \& {Tormen}}{{Sheth} \&
-  {Tormen}}{2002}]{2002MNRAS.329...61S}
-{Sheth} R.~K.,  {Tormen} G.,  2002, \mnras, 329, 61
+\bibitem[{{Sheth} \& {Tormen}(2002)}]{2002MNRAS.329...61S}
+{Sheth}, R.~K., \& {Tormen}, G. 2002, \mnras, 329, 61
 
-\bibitem[\protect\citeauthoryear{{Smith}, {Peacock}, {Jenkins}, {White},
-  {Frenk}, {Pearce}, {Thomas}, {Efstathiou} \& {Couchman}}{{Smith}
-  et~al.}{2003}]{2003MNRAS.341.1311S}
-{Smith} R.~E.,  {Peacock} J.~A.,  {Jenkins} A.,  {White} S.~D.~M.,  {Frenk}
-  C.~S.,  {Pearce} F.~R.,  {Thomas} P.~A.,  {Efstathiou} G.,    {Couchman}
-  H.~M.~P.,  2003, \mnras, 341, 1311
+\bibitem[{{Smith} {et~al.}(2003){Smith}, {Peacock}, {Jenkins}, {White},
+  {Frenk}, {Pearce}, {Thomas}, {Efstathiou}, \&
+  {Couchman}}]{2003MNRAS.341.1311S}
+{Smith}, R.~E. {et~al.} 2003, \mnras, 341, 1311, arXiv:astro-ph/0207664
 
-\bibitem[\protect\citeauthoryear{{Springel}}{{Springel}}{2005}]{2005MNRAS.364.1105S}
-{Springel} V.,  2005, \mnras, 364, 1105
+\bibitem[{{Springel}(2005)}]{2005MNRAS.364.1105S}
+{Springel}, V. 2005, \mnras, 364, 1105, arXiv:astro-ph/0505010
 
-\bibitem[\protect\citeauthoryear{{Springel}}{{Springel}}{2009}]{Gadget2Lean}
-{Springel} V., , 2009, PiTP Summer School 2009, {\tt
+\bibitem[{{Springel}(2009)}]{Gadget2Lean}
+------. 2009, PiTP Summer School 2009, {\tt
   http://www.sns.ias.edu/pitp/2009files/Lecture\_Notes/
   Springel\_lecture2\%5B1\%5D.pdf}
 
-\bibitem[\protect\citeauthoryear{{Springel}, {Yoshida} \& {White}}{{Springel}
-  et~al.}{2001}]{2001NewA....6...79S}
-{Springel} V.,  {Yoshida} N.,    {White} S.~D.~M.,  2001, New Astronomy, 6, 79
+\bibitem[{{Springel} {et~al.}(2001){Springel}, {Yoshida}, \&
+  {White}}]{2001NewA....6...79S}
+{Springel}, V., {Yoshida}, N., \& {White}, S.~D.~M. 2001, New Astronomy, 6, 79,
+  arXiv:astro-ph/0003162
 
-\bibitem[\protect\citeauthoryear{{Takahashi} et~al.,}{{Takahashi}
-  et~al.}{2009}]{2009ApJ...700..479T}
-{Takahashi} R.,  et~al., 2009, \apj, 700, 479
+\bibitem[{{Takahashi} {et~al.}(2009)}]{2009ApJ...700..479T}
+{Takahashi}, R., {et~al.} 2009, \apj, 700, 479, 0902.0371
 
-\bibitem[\protect\citeauthoryear{{Takahashi} et~al.,}{{Takahashi}
-  et~al.}{2011}]{2011ApJ...726....7T}
-{Takahashi} R.,  et~al., 2011, \apj, 726, 7
+\bibitem[{{Takahashi} {et~al.}(2011)}]{2011ApJ...726....7T}
+------. 2011, \apj, 726, 7, 0912.1381
 
-\bibitem[\protect\citeauthoryear{{Taruya}, {Koyama} \& {Matsubara}}{{Taruya}
-  et~al.}{2008}]{2008PhRvD..78l3534T}
-{Taruya} A.,  {Koyama} K.,    {Matsubara} T.,  2008, \prd, 78, 123534
+\bibitem[{{Taruya} {et~al.}(2008){Taruya}, {Koyama}, \&
+  {Matsubara}}]{2008PhRvD..78l3534T}
+{Taruya}, A., {Koyama}, K., \& {Matsubara}, T. 2008, \prd, 78, 123534,
+  0808.4085
 
-\bibitem[\protect\citeauthoryear{{Tegmark} et~al.,}{{Tegmark}
-  et~al.}{2006}]{2006PhRvD..74l3507T}
-{Tegmark} M.,  et~al., 2006, \prd, 74, 123507
+\bibitem[{{Tegmark} {et~al.}(2006)}]{2006PhRvD..74l3507T}
+{Tegmark}, M., {et~al.} 2006, \prd, 74, 123507, arXiv:astro-ph/0608632
 
-\bibitem[\protect\citeauthoryear{{Tinker}, {Kravtsov}, {Klypin}, {Abazajian},
-  {Warren}, {Yepes}, {Gottl{\"o}ber} \& {Holz}}{{Tinker}
-  et~al.}{2008}]{2008ApJ...688..709T}
-{Tinker} J.,  {Kravtsov} A.~V.,  {Klypin} A.,  {Abazajian} K.,  {Warren} M.,
-  {Yepes} G.,  {Gottl{\"o}ber} S.,    {Holz} D.~E.,  2008, \apj, 688, 709
+\bibitem[{{Tinker} {et~al.}(2008){Tinker}, {Kravtsov}, {Klypin}, {Abazajian},
+  {Warren}, {Yepes}, {Gottl{\"o}ber}, \& {Holz}}]{2008ApJ...688..709T}
+{Tinker}, J., {Kravtsov}, A.~V., {Klypin}, A., {Abazajian}, K., {Warren}, M.,
+  {Yepes}, G., {Gottl{\"o}ber}, S., \& {Holz}, D.~E. 2008, \apj, 688, 709,
+  0803.2706
 
-\bibitem[\protect\citeauthoryear{{Trac} \& {Cen}}{{Trac} \&
-  {Cen}}{2007}]{2007ApJ...671....1T}
-{Trac} H.,  {Cen} R.,  2007, \apj, 671, 1
+\bibitem[{{Trac} \& {Cen}(2007)}]{2007ApJ...671....1T}
+{Trac}, H., \& {Cen}, R. 2007, \apj, 671, 1, arXiv:astro-ph/0612406
 
-\bibitem[\protect\citeauthoryear{{Trac} \& {Pen}}{{Trac} \&
-  {Pen}}{2003}]{2003AAS...203.9703T}
-{Trac} H.,  {Pen} U.,  2003, in American Astronomical Society Meeting Abstracts
-  Vol.~35 of Bulletin of the American Astronomical Society, {Out-of-Core
-  Hydrodynamic Simulations of the IGM}.
-p.~1365
+\bibitem[{{Trac} \& {Pen}(2003)}]{2003AAS...203.9703T}
+{Trac}, H., \& {Pen}, U. 2003, in Bulletin of the American Astronomical
+  Society, Vol.~35, American Astronomical Society Meeting Abstracts, 1365
 
-\bibitem[\protect\citeauthoryear{{Trac} \& {Pen}}{{Trac} \&
-  {Pen}}{2004}]{2004NewA....9..443T}
-{Trac} H.,  {Pen} U.-L.,  2004, NewA, 9, 443
+\bibitem[{{Trac} \& {Pen}(2004)}]{2004NewA....9..443T}
+{Trac}, H., \& {Pen}, U.-L. 2004, NewA, 9, 443, arXiv:astro-ph/0309599
 
-\bibitem[\protect\citeauthoryear{{Vafaei}, {Lu}, {van Waerbeke}, {Semboloni},
-  {Heymans} \& {Pen}}{{Vafaei} et~al.}{2010}]{Vafaei10}
-{Vafaei} S.,  {Lu} T.,  {van Waerbeke} L.,  {Semboloni} E.,  {Heymans} C.,
-  {Pen} U.-L.,  2010, Astroparticle Physics, 32, 340
+\bibitem[{{Vafaei} {et~al.}(2010){Vafaei}, {Lu}, {van Waerbeke}, {Semboloni},
+  {Heymans}, \& {Pen}}]{Vafaei10}
+{Vafaei}, S., {Lu}, T., {van Waerbeke}, L., {Semboloni}, E., {Heymans}, C., \&
+  {Pen}, U.-L. 2010, Astroparticle Physics, 32, 340, 0905.3726
 
-\bibitem[\protect\citeauthoryear{{Vale} \& {White}}{{Vale} \&
-  {White}}{2003}]{2003ApJ...592..699V}
-{Vale} C.,  {White} M.,  2003, \apj, 592, 699
+\bibitem[{{Vale} \& {White}(2003)}]{2003ApJ...592..699V}
+{Vale}, C., \& {White}, M. 2003, \apj, 592, 699, arXiv:astro-ph/0303555
 
-\bibitem[\protect\citeauthoryear{{Xu}}{{Xu}}{1995}]{1995ApJS...98..355X}
-{Xu} G.,  1995, \apjs, 98, 355
+\bibitem[{{Xu}(1995)}]{1995ApJS...98..355X}
+{Xu}, G. 1995, \apjs, 98, 355, arXiv:astro-ph/9409021
 
-\bibitem[\protect\citeauthoryear{{York} et~al.,}{{York}
-  et~al.}{2000}]{2000AJ....120.1579Y}
-{York} D.~G.,  et~al., 2000, \aj, 120, 1579
+\bibitem[{{York} {et~al.}(2000)}]{2000AJ....120.1579Y}
+{York}, D.~G., {et~al.} 2000, \aj, 120, 1579, arXiv:astro-ph/0006396
 
-\bibitem[\protect\citeauthoryear{{Yu}, {Harnois-D{\'e}raps}, {Zhang} \&
-  {Pen}}{{Yu} et~al.}{2012}]{2012MNRAS.421..832Y}
-{Yu} H.-R.,  {Harnois-D{\'e}raps} J.,  {Zhang} T.-J.,    {Pen} U.-L.,  2012,
-  \mnras, 421, 832
+\bibitem[{{Yu} {et~al.}(2012){Yu}, {Harnois-D{\'e}raps}, {Zhang}, \&
+  {Pen}}]{2012MNRAS.421..832Y}
+{Yu}, H.-R., {Harnois-D{\'e}raps}, J., {Zhang}, T.-J., \& {Pen}, U.-L. 2012,
+  \mnras, 421, 832, 1012.0444
 
-\bibitem[\protect\citeauthoryear{{Zackrisson}, {Scott}, {Rydberg}, {Iocco},
-  {Sivertsson}, {{\"O}stlin}, {Mellema}, {Iliev} \& {Shapiro}}{{Zackrisson}
-  et~al.}{2010}]{2010MNRAS.407L..74Z}
-{Zackrisson} E.,  {Scott} P.,  {Rydberg} C.-E.,  {Iocco} F.,  {Sivertsson} S.,
-  {{\"O}stlin} G.,  {Mellema} G.,  {Iliev} I.~T.,    {Shapiro} P.~R.,  2010,
-  \mnras, 407, L74
+\bibitem[{{Zackrisson} {et~al.}(2010){Zackrisson}, {Scott}, {Rydberg}, {Iocco},
+  {Sivertsson}, {{\"O}stlin}, {Mellema}, {Iliev}, \&
+  {Shapiro}}]{2010MNRAS.407L..74Z}
+{Zackrisson}, E. {et~al.} 2010, \mnras, 407, L74, 1006.0481
 
-\bibitem[\protect\citeauthoryear{{Zahn}, {Lidz}, {McQuinn}, {Dutta},
-  {Hernquist}, {Zaldarriaga} \& {Furlanetto}}{{Zahn}
-  et~al.}{2007}]{2007ApJ...654...12Z}
-{Zahn} O.,  {Lidz} A.,  {McQuinn} M.,  {Dutta} S.,  {Hernquist} L.,
-  {Zaldarriaga} M.,    {Furlanetto} S.~R.,  2007, \apj, 654, 12
+\bibitem[{{Zahn} {et~al.}(2007){Zahn}, {Lidz}, {McQuinn}, {Dutta}, {Hernquist},
+  {Zaldarriaga}, \& {Furlanetto}}]{2007ApJ...654...12Z}
+{Zahn}, O., {Lidz}, A., {McQuinn}, M., {Dutta}, S., {Hernquist}, L.,
+  {Zaldarriaga}, M., \& {Furlanetto}, S.~R. 2007, \apj, 654, 12,
+  astro-ph/0604177
 
-\bibitem[\protect\citeauthoryear{{Zhang}, {Yu}, {Harnois-D{\'e}raps},
-  {MacDonald} \& {Pen}}{{Zhang} et~al.}{2011}]{2011ApJ...728...35Z}
-{Zhang} T.-J.,  {Yu} H.-R.,  {Harnois-D{\'e}raps} J.,  {MacDonald} I.,    {Pen}
-  U.-L.,  2011, \apj, 728, 35
+\bibitem[{{Zhang} {et~al.}(2011){Zhang}, {Yu}, {Harnois-D{\'e}raps},
+  {MacDonald}, \& {Pen}}]{2011ApJ...728...35Z}
+{Zhang}, T.-J., {Yu}, H.-R., {Harnois-D{\'e}raps}, J., {MacDonald}, I., \&
+  {Pen}, U.-L. 2011, \apj, 728, 35, 1008.3506
 
 \end{thebibliography}

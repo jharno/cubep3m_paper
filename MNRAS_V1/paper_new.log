@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=latex 2011.7.3)  20 AUG 2012 13:07
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=latex 2011.7.3)  21 AUG 2012 15:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -317,14 +317,14 @@ File: utxsyc.fd 2000/12/15 v3.1
 )
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-LaTeX Font Info:    Try loading font information for OMS+txr on input line 126.
+LaTeX Font Info:    Try loading font information for OMS+txr on input line 119.
 
 
 (/usr/local/texlive/2011/texmf-dist/tex/latex/txfonts/omstxr.fd
 File: omstxr.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    Font shape `OMS/txr/m/n' in size <8> not available
-(Font)              Font shape `OMS/txsy/m/n' tried instead on input line 126.
+(Font)              Font shape `OMS/txsy/m/n' tried instead on input line 119.
  [1
 
 
@@ -338,37 +338,33 @@ LaTeX Font Info:    Try loading font information for OT1+txtt on input line 246
 (/usr/local/texlive/2011/texmf-dist/tex/latex/txfonts/ot1txtt.fd
 File: ot1txtt.fd 2000/12/15 v3.1
 )
-Overfull \hbox (8.59546pt too wide) in paragraph at lines 304--304
+Overfull \hbox (8.59546pt too wide) in paragraph at lines 306--306
 $[]$ []\OT1/txr/m/n/8 Other li-braries such as P3DFFT (\OT1/txtt/m/n/8 http://c
 ode.google.com/p/p3dfft/\OT1/txr/m/n/8 )
  []
 
 
-Underfull \vbox (badness 5862) has occurred while \output is active []
+Underfull \vbox (badness 4995) has occurred while \output is active []
 
  [3]
-[4]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [5]
+[4] [5]
 File: graphs/fig3.eps Graphic file (type eps)
-
-<graphs/fig3.eps>
+ <graphs/fig3.eps>
 File: graphs/fig4a.eps Graphic file (type eps)
  <graphs/fig4a.eps>
 File: graphs/fig4b.eps Graphic file (type eps)
  <graphs/fig4b.eps>
-Underfull \hbox (badness 10000) in paragraph at lines 690--690
+Underfull \hbox (badness 10000) in paragraph at lines 692--692
 $[]$ []\OT1/txtt/m/n/8 http://web.archive.org/web/20060925132146/
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 690--690
+Underfull \hbox (badness 10000) in paragraph at lines 692--692
 \OT1/txtt/m/n/8 http://www-03.ibm.com/servers/deepcomputing/pdf/
  []
 
 [6]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 2065) has occurred while \output is active []
 
  [7]
 File: graphs/fig5.eps Graphic file (type eps)
@@ -391,9 +387,7 @@ File: graphs/fig7e.eps Graphic file (type eps)
  <graphs/fig7e.eps>
 File: graphs/fig7f.eps Graphic file (type eps)
  <graphs/fig7f.eps>
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [8]
+[8]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -417,14 +411,12 @@ File: graphs/fig9.eps Graphic file (type eps)
 <graphs/fig9.eps>
 File: graphs/fig10.eps Graphic file (type eps)
  <graphs/fig10.eps>
-Underfull \vbox (badness 2913) has occurred while \output is active []
-
 File: graphs/fig11.eps Graphic file (type eps)
-
-<graphs/fig11.eps> [12]
+ <graphs/fig11.eps> [12]
 File: graphs/fig12.eps Graphic file (type eps)
- <graphs/fig12.eps>
-Underfull \hbox (badness 1019) in paragraph at lines 1168--1168
+
+<graphs/fig12.eps>
+Underfull \hbox (badness 1019) in paragraph at lines 1170--1170
 []\OT1/txr/bx/n/8 Figure 12. \OT1/txr/m/n/8 Sim-u-lated halo mul-ti-plic-ity fu
 nc-tion, $[][]$, based on a
  []
@@ -443,51 +435,86 @@ File: graphs/fig14d.eps Graphic file (type eps)
  <graphs/fig14d.eps>
 File: graphs/fig15.eps Graphic file (type eps)
  <graphs/fig15.eps>
-Overfull \hbox (6.96277pt too wide) in paragraph at lines 1377--1381
+Overfull \hbox (6.96277pt too wide) in paragraph at lines 1379--1383
  [] 
  []
 
 File: graphs/fig16.eps Graphic file (type eps)
 <graphs/fig16.eps>
-Overfull \hbox (6.96277pt too wide) in paragraph at lines 1426--1429
+Overfull \hbox (6.96277pt too wide) in paragraph at lines 1428--1431
  [] 
  []
 
 [15]
-Underfull \hbox (badness 1033) in paragraph at lines 1453--1467
+Underfull \hbox (badness 1033) in paragraph at lines 1455--1469
 \OT1/txr/m/n/9 The CITA sim-u-la-tions were run on the Sun-ny-vale clus-ter at
  []
 
 
-Underfull \hbox (badness 2334) in paragraph at lines 1453--1467
+Underfull \hbox (badness 2334) in paragraph at lines 1455--1469
 \OT1/txr/m/n/9 (SEP-Net) and the Sci-ence and Tech-nol-ogy Fa-cil-i-ties Coun-
  []
 
-(./paper_new.bbl
-Underfull \hbox (badness 2951) in paragraph at lines 37--39
-[]\OT1/txr/m/n/9 Dor[]e O., Lu T., Pen U.-L., 2009, ArXiv e-prints (astro-
- []
-
-[16]
-Underfull \hbox (badness 10000) in paragraph at lines 270--273
-[]\OT1/txr/m/n/9 Springel V., , 2009, PiTP Sum-mer School 2009,
+(./paper_new.bbl [16]
+Underfull \hbox (badness 3713) in paragraph at lines 112--114
+[]\OT1/txr/m/n/9 Iliev, I. T., Ahn, K., Koda, J., Shapiro, P. R., & Pen,
  []
 
 
-Overfull \hbox (13.46448pt too wide) in paragraph at lines 270--273
+Underfull \hbox (badness 1400) in paragraph at lines 112--114
+\OT1/txr/m/n/9 U.-L. 2010, pro-ceed-ings pa-per for Moriond 2010 meet-ing
+ []
+
+
+Underfull \hbox (badness 1466) in paragraph at lines 180--181
+[]\OT1/txr/m/n/9 Pang, B., Pen, U.-l., & Per-rone, M. 2010, ArXiv e-prints,
+ []
+
+
+Underfull \hbox (badness 1502) in paragraph at lines 183--185
+[]\OT1/txr/m/n/9 Pen, U.-L., Ar-ras, P., & Wong, S. 2003, ApJS, 149, 447,
+ []
+
+
+Underfull \hbox (badness 5726) in paragraph at lines 212--214
+[]\OT1/txr/m/n/9 Scoccimarro, R., Se-fusatti, E., & Zal-dar-riaga, M. 2004,
+ []
+
+
+Underfull \hbox (badness 1019) in paragraph at lines 239--240
+[]\OT1/txr/m/n/9 Smith, R. E. et al. 2003, MN-RAS, 341, 1311, arXiv:astro-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 245--248
+[]\OT1/txr/m/n/9 ------. 2009, PiTP Sum-mer School 2009,
+ []
+
+
+Overfull \hbox (13.46448pt too wide) in paragraph at lines 245--248
 \OT1/txtt/m/n/9 http://www.sns.ias.edu/pitp/2009files/Lecture[]Notes/
  []
 
-[17]) [18
+[17]
+Underfull \hbox (badness 1810) in paragraph at lines 282--283
+[]\OT1/txr/m/n/9 Trac, H., & Pen, U.-L. 2004, NewA, 9, 443, arXiv:astro-
+ []
+
+
+Underfull \hbox (badness 2020) in paragraph at lines 290--291
+[]\OT1/txr/m/n/9 Vale, C., & White, M. 2003, ApJ, 592, 699, arXiv:astro-
+ []
+
+) [18
 
 ] (./paper_new.aux) ) 
 Here is how much of TeX's memory you used:
- 3215 strings out of 493634
- 40365 string characters out of 3143401
- 103192 words of memory out of 3000000
- 6447 multiletter control sequences out of 15000+200000
+ 3214 strings out of 493634
+ 40357 string characters out of 3143401
+ 103213 words of memory out of 3000000
+ 6446 multiletter control sequences out of 15000+200000
  53913 words of font info for 164 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
- 31i,15n,34p,1011b,428s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 31i,15n,34p,1011b,416s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on paper_new.dvi (18 pages, 125428 bytes).
+Output written on paper_new.dvi (18 pages, 125968 bytes).

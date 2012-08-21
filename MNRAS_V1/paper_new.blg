@@ -1,46 +1,50 @@
 This is BibTeX, Version 0.99d (TeX Live 2011)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: paper_new.aux
-The style file: mn2e.bst
+The style file: hapj.bst
 Database file #1: mybib3_new.bib
+Warning--string name "march" is undefined
+--line 1639 of file mybib3_new.bib
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 You've used 74 entries,
-            2601 wiz_defined-function locations,
-            1000 strings with 17876 characters,
-and the built_in function-call counts, 32781 in all, are:
-= -- 3175
-> -- 2465
-< -- 35
-+ -- 843
-- -- 843
-* -- 3159
-:= -- 6077
-add.period$ -- 0
+            3002 wiz_defined-function locations,
+            1165 strings with 19543 characters,
+and the built_in function-call counts, 35765 in all, are:
+= -- 3052
+> -- 2468
+< -- 32
++ -- 874
+- -- 798
+* -- 3042
+:= -- 6657
+add.period$ -- 74
 call.type$ -- 74
-change.case$ -- 571
-chr.to.int$ -- 74
+change.case$ -- 569
+chr.to.int$ -- 72
 cite$ -- 74
-duplicate$ -- 845
-empty$ -- 1232
-format.name$ -- 956
-if$ -- 5954
-int.to.chr$ -- 1
-int.to.str$ -- 0
-missing$ -- 74
-newline$ -- 229
+duplicate$ -- 1490
+empty$ -- 2150
+format.name$ -- 1049
+if$ -- 7044
+int.to.chr$ -- 3
+int.to.str$ -- 1
+missing$ -- 70
+newline$ -- 226
 num.names$ -- 296
-pop$ -- 430
+pop$ -- 633
 preamble$ -- 1
-purify$ -- 642
+purify$ -- 569
 quote$ -- 0
-skip$ -- 1101
+skip$ -- 1175
 stack$ -- 0
-substring$ -- 1549
-swap$ -- 108
-text.length$ -- 6
-text.prefix$ -- 281
+substring$ -- 1494
+swap$ -- 37
+text.length$ -- 3
+text.prefix$ -- 0
 top$ -- 0
 type$ -- 663
 warning$ -- 0
-while$ -- 284
+while$ -- 281
 width$ -- 0
-write$ -- 739
+write$ -- 794
+(There was 1 warning)
